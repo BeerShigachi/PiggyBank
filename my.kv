@@ -1,0 +1,27 @@
+<MyGrid>
+
+    # todo define objective and budget
+    objective: objective # code: id
+    budget: budget
+
+    GridLayout:
+        cols:1
+        size: root.width -100, root.height -100
+        pos: 50, 50
+
+        GridLayout:
+            cols:2
+
+            Label:
+                text: "Objective"
+            TextInput:
+                mainline:False
+
+            Label:
+                text: "Budget"
+            TextInput:
+                multiLine:False
+                input_filter: 'int'
+
+        Button:
+            text: "Submit"
