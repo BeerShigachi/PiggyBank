@@ -5,12 +5,18 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
+from kivy.properties import ObjectProperty
 
 
 class MyGrid(Widget):
     """Style in kivy lang."""
-    pass
+    objective = ObjectProperty(None)
+    budget = ObjectProperty(None)
 
+    def btn(self):
+        print(self.objective, self.objective.text, self.budget, self.budget.text)  # todo delete later.
+        self.objective.text = ''
+        self.budget.text = ''
 
 # class MyGrid(GridLayout):
 #     """Style in kivy python."""

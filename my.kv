@@ -15,13 +15,16 @@
             Label:
                 text: "Objective"
             TextInput:
-                mainline:False
+                id: objective
+                multiline: False
 
             Label:
                 text: "Budget"
             TextInput:
-                multiLine:False
+                id: budget
+                multiline: False
                 input_filter: 'int'
 
         Button:
             text: "Submit"
+            on_press: root.btn()
