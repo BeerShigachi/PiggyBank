@@ -1,1 +1,21 @@
+<Button>
+    font_size: 20
+    color: 0, 0, 0, 1
+    size_hint: 0.3, 0.5
 
+<FloatLayout>
+    btn: btn
+    text_input: text_input
+
+    GridLayout:
+        Label:
+            pos_hint: {"x": 0.5, "top": 1}
+            text: "Objective"
+        TextInput:
+            id: text_input
+
+    Button:
+        id: btn
+        pos_hint: {"y": 0.3}
+        text: "Budget" if btn.state == "normal" else "Down"
+        background_color: (0.4, 0.3, 0.1, 1) if btn.state == "normal" else (0.3, 0.3, 0.3, 1)
