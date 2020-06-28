@@ -3,19 +3,40 @@
     color: 0, 0, 0, 1
     size_hint: 0.3, 0.5
 
-<FloatLayout>
-    btn: btn
-    text_input: text_input
+<MainScreen>
+
+    submit: submit
+    objective: objective
+    budget: budget
+    store: store
 
     GridLayout:
+        cols: 3
+        size_hint: 0.4, 0.5
+        pos_hint: {"x": 0.5, "y": 0.5}
         Label:
-            pos_hint: {"x": 0.5, "top": 1}
-            text: "Objective"
+            text: "Your Goal $"
         TextInput:
-            id: text_input
+            id: objective
+            multiline: False
+            on_text: objective.text = self.text
+            input_filter: "int"
+        Label:
+            id: store
+            text: store.text
+
+
+        Label:
+            text: "Budget"
+        TextInput:
+            id: budget
+            multiline: False
+            input_filter: "int"
+
 
     Button:
-        id: btn
+        id: submit
         pos_hint: {"y": 0.3}
-        text: "Budget" if btn.state == "normal" else "Down"
-        background_color: (0.4, 0.3, 0.1, 1) if btn.state == "normal" else (0.3, 0.3, 0.3, 1)
+        text: "Budget" if submit.state == "normal" else "Deposit" + budget.text
+        background_color: (0.4, 0.3, 0.1, 1) if submit.state == "normal" else (0.3, 0.3, 0.3, 1)
+        on_release: root.submit_objective()
