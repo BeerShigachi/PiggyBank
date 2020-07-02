@@ -1,7 +1,10 @@
 <Button>
-    font_size: 20
+    font_size: 14
     color: 0, 0, 0, 1
-    size_hint: 0.3, 0.5
+    size_hint: 0.25, 0.1
+
+#<CheckBox>
+#    group: "money"
 
 WindowManager
     MainScene:
@@ -14,58 +17,66 @@ WindowManager
     total_saving: total_saving
     store: store
 
-    GridLayout:
-        cols: 2
-        size_hint: 0.4, 0.5
-        pos_hint: {"x": 0.5, "y": 0.5}
-        Label:
-            text: "Your Goal $"
-        Label:
-            id: store
-            text: store.text
+    FloatLayout:
+        GridLayout:
+            cols: 2
+            size_hint: 0.5, 0.5
+            pos_hint: {"x": 0.25, "y": 0.25}
+            Label:
+                text: "Your Goal $"
+            Label:
+                id: store
+                text: store.text
 
-        Label:
-            text: "Your save $"
-        Label:
-            id: total_saving
-            text: total_saving.text
+            Label:
+                text: "Your save $"
+            Label:
+                id: total_saving
+                text: total_saving.text
 
-    Button:
-        pos_hint: {"x": 0.8, "y": 0}
-        text: "go history"
-        on_release: app.root.current = 'history'
+        Button:
+            pos_hint: {"x": 0.75, "y": 0.9}
+            text: "go history"
+            on_release:
+                app.root.transition.direction = 'left'
+                app.root.current = 'history'
 
-    Button:
-        text: "go setting"
-        on_release: app.root.current = 'setting'
+        Button:
+            pos_hint: {"x": 0, "y": 0.9}
+            text: "go setting"
+            on_release:
+                app.root.transition.direction = 'right'
+                app.root.current = 'setting'
+
 
 <HistoryScene>
     name: "history"
     deposit: deposit
     button_deposit: button_deposit
 
-    GridLayout:
-        cols: 2
-        size_hint: 0.4, 0.5
-        pos_hint: {"x": 0.5, "y": 0.5}
-        Label:
-            text: "Deposit"
-        TextInput:
-            id: deposit
-            multiline: False
-            input_filter: "int"
+    FloatLayout:
+        GridLayout:
+            cols: 3
+            size_hint: 0.7, 0.2
+            pos_hint: {"x": 0.15, "y": 0.6}
+            Label:
+                text: "Deposit"
+            TextInput:
+                id: deposit
+                multiline: False
+                input_filter: "int"
+            Button:
+                id: button_deposit
+                text: "Deposit" if button_deposit.state == "normal" else "Deposit" + deposit.text
+                background_color: (0.4, 0.3, 0.1, 1) if button_deposit.state == "normal" else (0.3, 0.3, 0.3, 1)
+                on_release: root.update_history()
 
-    Button:
-        id: button_deposit
-        pos_hint: {"x": 0.6, "y": 0}
-        text: "Deposit" if button_deposit.state == "normal" else "Deposit" + deposit.text
-        background_color: (0.4, 0.3, 0.1, 1) if button_deposit.state == "normal" else (0.3, 0.3, 0.3, 1)
-        on_release: root.update_history()
-
-    Button:
-        text: "go main"
-        on_release:
-            app.root.current = "main"
+        Button:
+            pos_hint: {"x": 0, "y": 0.9}
+            text: "go main"
+            on_release:
+                app.root.transition.direction = 'right'
+                app.root.current = "main"
 
 
 <SettingScene>
@@ -75,31 +86,39 @@ WindowManager
     button_objective: button_objective
     button_reset: button_reset
 
-    GridLayout:
-        cols: 2
-        size_hint: 0.4, 0.5
-        pos_hint: {"x": 0.5, "y": 0.5}
-        Label:
-            text: "Your Goal $"
-        TextInput:
-            id: objective
-            multiline: False
-            on_text: objective.text
-            input_filter: "int"
+    FloatLayout:
+        GridLayout:
+            cols: 3
+            size_hint: 0.7, 0.1
+            pos_hint: {"y": 0.5}
+            Label:
+                text: "Your Goal $"
+            TextInput:
+                id: objective
+                size_hint: 0.5, 0.1
+                multiline: False
+                on_text: objective.text
+                input_filter: "int"
+            Button:
+                id: button_objective
+                text: "Register"
+                background_color: (0.4, 0.3, 0.1, 1) if button_objective.state == "normal" else (0.3, 0.3, 0.3, 1)
+                on_release: root.submit_objective()
 
-    Button:
-        id: button_objective
-        pos_hint: {"y": 0.3}
-        text: "Register objective" if button_objective.state == "normal" else "failed" + objective.text
-        background_color: (0.4, 0.3, 0.1, 1) if button_objective.state == "normal" else (0.3, 0.3, 0.3, 1)
-        on_release: root.submit_objective()
+        GridLayout:
+            cols: 2
+            size_hint: 0.7, 0.1
+            pos_hint: {"y": 0.3}
+            Label:
+                text: "RESET all."
+            Button:
+                id: button_reset
+                text: "reset"
+                on_release: root.reset()
 
-    Button:
-        id: button_reset
-        pos_hint: {"x": 0.5, "y": 0}
-        text: "reset"
-        on_release: root.reset()
-
-    Button:
-        text: 'go main'
-        on_release: app.root.current = 'main'
+        Button:
+            pos_hint: {"x": 0.75, "y": 0.9}
+            text: 'go main'
+            on_release:
+                app.root.transition.direction = 'left'
+                app.root.current = 'main'
