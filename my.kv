@@ -6,10 +6,27 @@
 #<CheckBox>
 #    group: "money"
 
-WindowManager
-    MainScene:
-    HistoryScene:
-    SettingScene:
+BoxLayout:
+    orientation: "vertical"
+    MDToolbar:
+        title: "Example Tabs"
+        MDIconButton:
+            icon: "language-python"
+            on_release: screen_manager.current = "history"
+            pos_hint: {"center_x": .5, "center_y": .5}
+        MDIconButton:
+            icon: "menu"
+            on_release: screen_manager.current = "main"
+            pos_hint: {"center_x": .1, "center_y": .5}
+        MDIconButton:
+            icon: "android"
+            on_release: screen_manager.current = "setting"
+            pos_hint: {"center_x": .5, "center_y": .5}
+    ScreenManager
+        id: screen_manager
+        MainScene:
+        HistoryScene:
+        SettingScene:
 
 <MainScene>
     name: "main"
@@ -34,19 +51,6 @@ WindowManager
                 id: total_saving
                 text: total_saving.text
 
-        Button:
-            pos_hint: {"x": 0.75, "y": 0.9}
-            text: "go history"
-            on_release:
-                app.root.transition.direction = 'left'
-                app.root.current = 'history'
-
-        Button:
-            pos_hint: {"x": 0, "y": 0.9}
-            text: "go setting"
-            on_release:
-                app.root.transition.direction = 'right'
-                app.root.current = 'setting'
 
 
 <HistoryScene>
@@ -71,12 +75,6 @@ WindowManager
                 background_color: (0.4, 0.3, 0.1, 1) if button_deposit.state == "normal" else (0.3, 0.3, 0.3, 1)
                 on_release: root.update_history()
 
-        Button:
-            pos_hint: {"x": 0, "y": 0.9}
-            text: "go main"
-            on_release:
-                app.root.transition.direction = 'right'
-                app.root.current = "main"
 
 
 <SettingScene>
@@ -115,10 +113,3 @@ WindowManager
                 id: button_reset
                 text: "reset"
                 on_release: root.reset()
-
-        Button:
-            pos_hint: {"x": 0.75, "y": 0.9}
-            text: 'go main'
-            on_release:
-                app.root.transition.direction = 'left'
-                app.root.current = 'main'

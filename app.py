@@ -9,6 +9,7 @@ from kivy.clock import Clock
 import sqlite3 as sql
 import os.path
 import datetime
+from kivymd.app import MDApp
 
 
 class DataBase:
@@ -127,21 +128,15 @@ class SettingScene(Screen):
         self.manager.screens[0].total_saving.text = '$ 0'
 
 
-class WindowManager(ScreenManager):
-    pass
-
-
 db_file = 'user_data.db'
 db = DataBase(db_file)
 db.create_new_tables()
 
-kv = Builder.load_file("my.kv")
 
 
-class MyMainApp(App):
-    def build(self):
-        return kv
+class MyApp(MDApp):
+    def __init__(self, **kwargs):
+        self.theme_cls.theme_style = "Dark"
+        super().__init__(**kwargs)
 
-
-if __name__ == "__main__":
-    MyMainApp().run()
+MyApp().run()
