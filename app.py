@@ -11,6 +11,9 @@ import sqlite3 as sql
 import os.path
 import datetime
 from kivymd.app import MDApp
+from kivymd.uix.button import MDFlatButton
+from kivymd.uix.dialog import MDDialog
+
 
 
 class DataBase:
@@ -139,11 +142,27 @@ class HistoryScene(Screen):
 
 class SettingScene(Screen):
     objective = ObjectProperty(None)
+    dialog = None
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.dialog = MDDialog(
+            text="Restore all progress?",
+            buttons=[
+                MDFlatButton(
+                    text="CANCEL",
+                    on_release=self.dissmiss_dialog
+                ),
+                MDFlatButton(
+                    text="DISCARD",
+                    on_release=self.reset
+                ),
+            ],
+        )
 
     def submit_objective(self):
         try:
             if len(self.objective.text) > 0:  # todo test this condition.
-
                 db.insert_objective(self.objective.text)
                 self.manager.screens[0].store.text = self.objective.text
                 self.objective.text = ""
@@ -152,12 +171,18 @@ class SettingScene(Screen):
         except ValueError:
             print('set objective plz')
 
-    def reset(self):
+    def reset(self, *args):
         db.reset_tables()
         self.objective.text = ''
         self.manager.screens[0].store.text = '$ 0'
         self.manager.screens[0].total_saving.text = '$ 0'
+        self.dissmiss_dialog()
 
+    def show_alert_dialog(self):
+        self.dialog.open()
+
+    def dissmiss_dialog(self, *args):
+        self.dialog.dismiss()
 
 db_file = 'user_data.db'
 db = DataBase(db_file)
@@ -165,9 +190,21 @@ db.create_new_tables()
 
 
 class MyApp(MDApp):
+    dialog = None
+
     def __init__(self, **kwargs):
         self.theme_cls.theme_style = "Light"
         super().__init__(**kwargs)
+
+    def toggle_theme(self, switch, value):
+        if value:
+            self.theme_cls.theme_style = "Dark"
+            print('The checkbox', switch, 'is active', 'and', switch.state, 'state')
+        else:
+            self.theme_cls.theme_style = "Light"
+            print('The checkbox', switch, 'is inactive', 'and', switch.state, 'state')
+
+
 
 if __name__ == '__main__':
     MyApp().run()

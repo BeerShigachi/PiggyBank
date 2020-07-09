@@ -1,9 +1,16 @@
 
+<MDFlatButton>
+    text: "RESTORE"
+    on_release:
+
 Root:
-    screen_manager: screen_manager
     orientation: 'vertical'
+
+    screen_manager: screen_manager
+
     MDToolbar:
         title: screen_manager.current
+
         MDIconButton:
             icon: 'coins'
             theme_text_color: 'Primary' if screen_manager.current == 'deposit' else 'Hint'
@@ -11,6 +18,7 @@ Root:
                 screen_manager.transition.direction = 'right'
                 screen_manager.current = 'deposit'
             pos_hint: {"center_y": .5}
+
         MDIconButton:
             icon: 'coin'
             theme_text_color: 'Primary' if screen_manager.current == 'main' else 'Hint'
@@ -18,6 +26,7 @@ Root:
                 screen_manager.transition.direction = 'right' if screen_manager.current == 'setting' else 'left'
                 screen_manager.current = 'main'
             pos_hint: {"center_y": .5}
+
         MDIconButton:
             icon: 'cogs'
             theme_text_color: 'Primary' if screen_manager.current == 'setting' else 'Hint'
@@ -32,6 +41,7 @@ Root:
         HistoryScene:
         SettingScene:
 
+
 <MainScene>
     name: "main"
 
@@ -43,6 +53,7 @@ Root:
             cols: 2
             size_hint: 0.5, 0.5
             pos_hint: {"x": 0.25, "y": 0.25}
+
             Label:
                 text: "Your Goal $"
             Label:
@@ -59,14 +70,15 @@ Root:
 
 <HistoryScene>
     name: "deposit"
+
     deposit: deposit
     button_deposit: button_deposit
 
     FloatLayout:
+
         BoxLayout:
             size_hint: 0.8, 0.2
             pos_hint: {"center_x": .5, "center_y": .8}
-#            BoxLayout:
 
             MDTextField:
                 id: deposit
@@ -75,19 +87,12 @@ Root:
                 helper_text: "Only accept positive amount."
                 helper_text_mode: "on_error"
                 pos_hint: {"center_x": .5, "center_y": .5}
-#            BoxLayout:
 
             MDRoundFlatButton:
                 id: button_deposit
                 text: "Deposit"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.update_history()
-#            Button:
-#
-#                text: "Deposit" if button_deposit.state == "normal" else "Deposit" + deposit.text
-#                background_color: (0.4, 0.3, 0.1, 1) if button_deposit.state == "normal" else (0.3, 0.3, 0.3, 1)
-#
-
 
 
 <SettingScene>
@@ -98,14 +103,16 @@ Root:
     button_reset: button_reset
 
     FloatLayout:
+
         BoxLayout:
             size_hint: 0.8, 0.2
             pos_hint: {"center_x": .5, "center_y": .8}
-#            BoxLayout:
+
             MDLabel:
                 text: 'Your Goal'
                 halign: "left"
                 theme_text_color: 'Primary'
+
             MDTextField:
                 id: objective
                 input_filter: "float"
@@ -119,7 +126,6 @@ Root:
                 text: "Submit"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.submit_objective()
-
 
         BoxLayout:
             size_hint: 0.8, 0.2
@@ -136,4 +142,17 @@ Root:
                 id: button_reset
                 text: "Submit"
                 pos_hint: {"center_x": .5, "center_y": .5}
-                on_release: root.reset()
+                on_release: root.show_alert_dialog()
+
+
+
+        BoxLayout:
+            size_hint: 0.4, 0.2
+            pos_hint: {"center_x": .5, "center_y": .1}
+            MDIcon:
+                icon: 'theme-light-dark'
+                theme_text_color: 'Primary'
+                pos_hint: {"center_y": .5}
+            MDSwitch:
+                pos_hint: {"center_y": .5}
+                on_active: app.toggle_theme(*args)

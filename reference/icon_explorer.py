@@ -83,7 +83,7 @@ class PreviousMDIcons(Screen):
 class MainApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.theme_cls.theme_style = "Light"  # change theme as you wish!!
+        self.theme_cls.theme_style = "Dark"  # change theme as you wish!!
         self.screen = PreviousMDIcons()
 
     def build(self):
