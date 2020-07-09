@@ -25,6 +25,7 @@ Root:
                 screen_manager.transition.direction = 'left'
                 screen_manager.current = 'setting'
             pos_hint: {"center_y": .5}
+
     ScreenManager
         id: screen_manager
         MainScene:
@@ -63,22 +64,24 @@ Root:
 
     FloatLayout:
         BoxLayout:
-            BoxLayout:
+            size_hint: 0.8, 0.2
+            pos_hint: {"center_x": .5, "center_y": .8}
+#            BoxLayout:
 
-                MDTextField:
-                    id: deposit
-                    input_filter: "float"
-                    hint_text: "Enter amount"
-                    helper_text: "Only accept positive amount."
-                    helper_text_mode: "on_error"
-                    pos_hint: {"center_x": .5, "center_y": .5}
-            BoxLayout:
+            MDTextField:
+                id: deposit
+                input_filter: "float"
+                hint_text: "Enter amount"
+                helper_text: "Only accept positive amount."
+                helper_text_mode: "on_error"
+                pos_hint: {"center_x": .5, "center_y": .5}
+#            BoxLayout:
 
-                MDRoundFlatButton:
-                    id: button_deposit
-                    text: "Deposit"
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                    on_release: root.update_history()
+            MDRoundFlatButton:
+                id: button_deposit
+                text: "Deposit"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: root.update_history()
 #            Button:
 #
 #                text: "Deposit" if button_deposit.state == "normal" else "Deposit" + deposit.text
@@ -95,31 +98,42 @@ Root:
     button_reset: button_reset
 
     FloatLayout:
-        GridLayout:
-            cols: 3
-            size_hint: 0.7, 0.1
-            pos_hint: {"y": 0.5}
-            Label:
-                text: "Your Goal $"
-            TextInput:
+        BoxLayout:
+            size_hint: 0.8, 0.2
+            pos_hint: {"center_x": .5, "center_y": .8}
+#            BoxLayout:
+            MDLabel:
+                text: 'Your Goal'
+                halign: "left"
+                theme_text_color: 'Primary'
+            MDTextField:
                 id: objective
-                size_hint: 0.5, 0.1
-                multiline: False
-                on_text: objective.text
-                input_filter: "int"
-            Button:
+                input_filter: "float"
+                hint_text: "Enter amount"
+                helper_text: "Only accept positive amount."
+                helper_text_mode: "on_focus"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDRoundFlatButton:
                 id: button_objective
-                text: "Register"
-                background_color: (0.4, 0.3, 0.1, 1) if button_objective.state == "normal" else (0.3, 0.3, 0.3, 1)
+                text: "Submit"
+                pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.submit_objective()
 
-        GridLayout:
-            cols: 2
-            size_hint: 0.7, 0.1
-            pos_hint: {"y": 0.3}
-            Label:
-                text: "RESET all."
-            Button:
+
+        BoxLayout:
+            size_hint: 0.8, 0.2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            MDLabel:
+                text: 'Reset'
+                halign: "left"
+                theme_text_color: 'Primary'
+            MDLabel:
+                text: 'reset all history and your goal.'
+                halign: "left"
+                theme_text_color: 'Primary'
+            MDRoundFlatButton:
                 id: button_reset
-                text: "reset"
+                text: "Submit"
+                pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.reset()

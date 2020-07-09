@@ -13,7 +13,6 @@ import datetime
 from kivymd.app import MDApp
 
 
-
 class DataBase:
     def __init__(self, db_name):
         self.conn = sql.connect(db_name)
@@ -57,7 +56,6 @@ class DataBase:
 
 
 class Root(BoxLayout):
-
     pass
 
 
@@ -156,7 +154,7 @@ class SettingScene(Screen):
 
     def reset(self):
         db.reset_tables()
-        self.objective.text = 'set objective'
+        self.objective.text = ''
         self.manager.screens[0].store.text = '$ 0'
         self.manager.screens[0].total_saving.text = '$ 0'
 
@@ -166,10 +164,10 @@ db = DataBase(db_file)
 db.create_new_tables()
 
 
-
 class MyApp(MDApp):
     def __init__(self, **kwargs):
-        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.theme_style = "Light"
         super().__init__(**kwargs)
 
-MyApp().run()
+if __name__ == '__main__':
+    MyApp().run()
