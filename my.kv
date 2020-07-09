@@ -1,27 +1,30 @@
-<Button>
-    font_size: 14
-    color: 0, 0, 0, 1
-    size_hint: 0.25, 0.1
 
-#<CheckBox>
-#    group: "money"
-
-BoxLayout:
-    orientation: "vertical"
+Root:
+    screen_manager: screen_manager
+    orientation: 'vertical'
     MDToolbar:
-        title: "Example Tabs"
+        title: screen_manager.current
         MDIconButton:
-            icon: "language-python"
-            on_release: screen_manager.current = "history"
-            pos_hint: {"center_x": .5, "center_y": .5}
+            icon: 'coins'
+            theme_text_color: 'Primary' if screen_manager.current == 'deposit' else 'Hint'
+            on_release:
+                screen_manager.transition.direction = 'right'
+                screen_manager.current = 'deposit'
+            pos_hint: {"center_y": .5}
         MDIconButton:
-            icon: "menu"
-            on_release: screen_manager.current = "main"
-            pos_hint: {"center_x": .1, "center_y": .5}
+            icon: 'coin'
+            theme_text_color: 'Primary' if screen_manager.current == 'main' else 'Hint'
+            on_release:
+                screen_manager.transition.direction = 'right' if screen_manager.current == 'setting' else 'left'
+                screen_manager.current = 'main'
+            pos_hint: {"center_y": .5}
         MDIconButton:
-            icon: "android"
-            on_release: screen_manager.current = "setting"
-            pos_hint: {"center_x": .5, "center_y": .5}
+            icon: 'cogs'
+            theme_text_color: 'Primary' if screen_manager.current == 'setting' else 'Hint'
+            on_release:
+                screen_manager.transition.direction = 'left'
+                screen_manager.current = 'setting'
+            pos_hint: {"center_y": .5}
     ScreenManager
         id: screen_manager
         MainScene:
@@ -54,26 +57,33 @@ BoxLayout:
 
 
 <HistoryScene>
-    name: "history"
+    name: "deposit"
     deposit: deposit
     button_deposit: button_deposit
 
     FloatLayout:
-        GridLayout:
-            cols: 3
-            size_hint: 0.7, 0.2
-            pos_hint: {"x": 0.15, "y": 0.6}
-            Label:
-                text: "Deposit"
-            TextInput:
-                id: deposit
-                multiline: False
-                input_filter: "int"
-            Button:
-                id: button_deposit
-                text: "Deposit" if button_deposit.state == "normal" else "Deposit" + deposit.text
-                background_color: (0.4, 0.3, 0.1, 1) if button_deposit.state == "normal" else (0.3, 0.3, 0.3, 1)
-                on_release: root.update_history()
+        BoxLayout:
+            BoxLayout:
+
+                MDTextField:
+                    id: deposit
+                    input_filter: "float"
+                    hint_text: "Enter amount"
+                    helper_text: "Only accept positive amount."
+                    helper_text_mode: "on_error"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+            BoxLayout:
+
+                MDRoundFlatButton:
+                    id: button_deposit
+                    text: "Deposit"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.update_history()
+#            Button:
+#
+#                text: "Deposit" if button_deposit.state == "normal" else "Deposit" + deposit.text
+#                background_color: (0.4, 0.3, 0.1, 1) if button_deposit.state == "normal" else (0.3, 0.3, 0.3, 1)
+#
 
 
 

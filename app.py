@@ -1,6 +1,7 @@
 import kivy
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty, StringProperty
 from kivy.lang import Builder
@@ -10,6 +11,7 @@ import sqlite3 as sql
 import os.path
 import datetime
 from kivymd.app import MDApp
+
 
 
 class DataBase:
@@ -34,7 +36,7 @@ class DataBase:
 
     def insert_objective(self, obj):
         with self.conn:
-            self.cur.execute(""" INSERT OR REPLACE INTO objective(id, objective) VALUES (?, ?)""", (1, int(obj)))
+            self.cur.execute(""" INSERT OR REPLACE INTO objective(id, objective) VALUES (?, ?)""", (1, float(obj)))
 
     def get_objective(self):
         self.cur.execute("""SELECT * FROM objective WHERE objective""")
@@ -42,7 +44,7 @@ class DataBase:
 
     def insert_history(self, deposit, date):
         with self.conn:
-            self.cur.execute(""" INSERT OR REPLACE INTO history(deposit, date) VALUES (?, ?)""", (int(deposit), date))
+            self.cur.execute(""" INSERT OR REPLACE INTO history(deposit, date) VALUES (?, ?)""", (float(deposit), date))
 
     def get_history(self):
         self.cur.execute("""SELECT * FROM history""")
@@ -52,6 +54,11 @@ class DataBase:
         with self.conn:
             self.cur.execute("""DELETE FROM objective""")
             self.cur.execute("""DELETE FROM history""")
+
+
+class Root(BoxLayout):
+
+    pass
 
 
 class MainScene(Screen):
@@ -94,14 +101,40 @@ def sum_total_saving():  # todo refactor
 class HistoryScene(Screen):
     deposit = ObjectProperty(None)
 
+    def __init__(self, **kw):
+        super(HistoryScene, self).__init__(**kw)
+        Clock.schedule_once(self.bind_d, 0)
+
+    def validation(self):
+        validation = False
+        if len(self.deposit.text) > 1 and self.deposit.text[:2] == '00':
+            validation = True
+        elif self.deposit.text != '' and float(self.deposit.text) < 0:
+            validation = True
+        return validation
+
+    def bind_d(self, dt):  # todo rename
+        self.deposit.bind(
+            on_text_validate=self.set_error_message,
+            on_focus=self.set_error_message,
+        )
+
+    def set_error_message(self, instance_textfield):  # todo refactor
+        if self.validation():
+            self.deposit.error = True
+        else:
+            self.deposit.error = False
+
     def update_history(self):
         try:
-            if int(self.deposit.text) > 0:
+            if not self.validation() and self.deposit.text != '':  # todo refactor
                 db.insert_history(self.deposit.text, datetime.date.today())
                 self.deposit.text = ''
                 self.manager.screens[0].total_saving.text = str(sum_total_saving())
+                print('saved successfully')
             else:
-                self.deposit.text = 'no negative num'
+                self.deposit.text = ''
+                self.deposit.error = True
         except ValueError:
             print('no empty')
 
