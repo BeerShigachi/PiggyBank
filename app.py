@@ -1,19 +1,19 @@
-import kivy
-from kivy.app import App
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.properties import ObjectProperty, StringProperty
-from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.clock import Clock
-import sqlite3 as sql
-import os.path
 import datetime
+import sqlite3 as sql
+
+from kivy.clock import Clock
+from kivy.properties import ObjectProperty
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 
+from src.config import msg_balance, msg_objective
+
+message_balance = msg_balance
+message_objective = msg_objective
 
 
 class DataBase:
@@ -65,6 +65,7 @@ class Root(BoxLayout):
 class MainScene(Screen):
     total_saving = ObjectProperty(None)
     store = ObjectProperty(None)
+    balance = ObjectProperty(None)
 
     def __init__(self, **kw):
         super(MainScene, self).__init__(**kw)
@@ -79,17 +80,20 @@ class MainScene(Screen):
         try:
             store_objective = db.get_objective()[1]
             print(store_objective)
-            self.store.text = str(store_objective)
+            self.store.text = message_objective + str(store_objective)
+            self.total_saving.max = store_objective
 
         except TypeError:
-            self.store.text = '$ 0'
+            self.store.text = message_objective + '0'
             print("no data")
 
     def show_total_saving(self):  # todo refactor
         if sum_total_saving() > 0:
-            self.total_saving.text = str(sum_total_saving())
+            self.balance.text = message_balance + str(sum_total_saving())
+            self.total_saving.value = sum_total_saving()
         else:
-            self.total_saving.text = '$ 0'
+            self.balance.text = message_balance + str(sum_total_saving())
+            self.total_saving.value = 0
 
 
 def sum_total_saving():  # todo refactor
@@ -131,7 +135,8 @@ class HistoryScene(Screen):
             if not self.validation() and self.deposit.text != '':  # todo refactor
                 db.insert_history(self.deposit.text, datetime.date.today())
                 self.deposit.text = ''
-                self.manager.screens[0].total_saving.text = str(sum_total_saving())
+                self.manager.screens[0].total_saving.value = sum_total_saving()
+                self.manager.screens[0].balance.text = message_balance + str(sum_total_saving())
                 print('saved successfully')
             else:
                 self.deposit.text = ''
@@ -151,7 +156,7 @@ class SettingScene(Screen):
             buttons=[
                 MDFlatButton(
                     text="CANCEL",
-                    on_release=self.dissmiss_dialog
+                    on_release=self.dismiss_dialog
                 ),
                 MDFlatButton(
                     text="DISCARD",
@@ -164,7 +169,8 @@ class SettingScene(Screen):
         try:
             if len(self.objective.text) > 0:  # todo test this condition.
                 db.insert_objective(self.objective.text)
-                self.manager.screens[0].store.text = self.objective.text
+                self.manager.screens[0].store.text = message_objective + self.objective.text
+                self.manager.screens[0].total_saving.max = float(self.objective.text)
                 self.objective.text = ""
             else:
                 print("something went wrong.")
@@ -174,15 +180,17 @@ class SettingScene(Screen):
     def reset(self, *args):
         db.reset_tables()
         self.objective.text = ''
-        self.manager.screens[0].store.text = '$ 0'
-        self.manager.screens[0].total_saving.text = '$ 0'
-        self.dissmiss_dialog()
+        self.manager.screens[0].store.text = message_objective + '0'
+        self.manager.screens[0].balance.text = message_balance + '0'
+        self.manager.screens[0].total_saving.value = 0
+        self.dismiss_dialog()
 
     def show_alert_dialog(self):
         self.dialog.open()
 
-    def dissmiss_dialog(self, *args):
+    def dismiss_dialog(self, *args):
         self.dialog.dismiss()
+
 
 db_file = 'user_data.db'
 db = DataBase(db_file)
@@ -199,11 +207,8 @@ class MyApp(MDApp):
     def toggle_theme(self, switch, value):
         if value:
             self.theme_cls.theme_style = "Dark"
-            print('The checkbox', switch, 'is active', 'and', switch.state, 'state')
         else:
             self.theme_cls.theme_style = "Light"
-            print('The checkbox', switch, 'is inactive', 'and', switch.state, 'state')
-
 
 
 if __name__ == '__main__':

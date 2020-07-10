@@ -47,25 +47,32 @@ Root:
 
     total_saving: total_saving
     store: store
+    balance: balance
 
     FloatLayout:
-        GridLayout:
-            cols: 2
+        BoxLayout:
+            orientation: 'vertical'
             size_hint: 0.5, 0.5
-            pos_hint: {"x": 0.25, "y": 0.25}
+            pos_hint: {"center_x": .5, "center_y": .5}
 
-            Label:
-                text: "Your Goal $"
-            Label:
+            MDLabel:
                 id: store
                 text: store.text
 
-            Label:
-                text: "Your save $"
-            Label:
-                id: total_saving
-                text: total_saving.text
+            MDLabel:
+                id: balance
+                text: balance.text
 
+        BoxLayout:
+            size_hint: 0.5, 0.5
+            pos_hint: {"center_x": .75, "center_y": .5}
+
+            MDProgressBar:
+                orientation: 'vertical'
+                id: total_saving
+                max: total_saving.max
+                value: total_saving.value
+                color: app.theme_cls.accent_color
 
 
 <HistoryScene>
