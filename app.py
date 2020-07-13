@@ -58,6 +58,24 @@ class DataBase:
             self.cur.execute("""DELETE FROM history""")
 
 
+def sum_total_saving():  # todo refactor
+    total_money = 0
+    for i in db.get_history():
+        total_money += i[1]
+    return total_money
+
+
+def valid_user_input(user_input):
+    validation_bool = True
+    if user_input == '' or float(user_input) < 0:
+        validation_bool = False
+    elif float(user_input) >= 1 and user_input[0] == '0':
+        validation_bool = False
+    elif 0 < float(user_input) < 1 and user_input[:2] == '00':
+        validation_bool = False
+    return validation_bool
+
+
 class Root(BoxLayout):
     pass
 
@@ -96,43 +114,28 @@ class MainScene(Screen):
             self.total_saving.value = 0
 
 
-def sum_total_saving():  # todo refactor
-    total_money = 0
-    for i in db.get_history():
-        total_money += i[1]
-    return total_money
-
-
 class HistoryScene(Screen):
     deposit = ObjectProperty(None)
 
     def __init__(self, **kw):
         super(HistoryScene, self).__init__(**kw)
-        Clock.schedule_once(self.bind_d, 0)
+        Clock.schedule_once(self.binder, 0)
 
-    def validation(self):
-        validation = False
-        if len(self.deposit.text) > 1 and self.deposit.text[:2] == '00':
-            validation = True
-        elif self.deposit.text != '' and float(self.deposit.text) < 0:
-            validation = True
-        return validation
-
-    def bind_d(self, dt):  # todo rename
+    def binder(self, dt):  # todo rename
         self.deposit.bind(
             on_text_validate=self.set_error_message,
             on_focus=self.set_error_message,
         )
 
     def set_error_message(self, instance_textfield):  # todo refactor
-        if self.validation():
-            self.deposit.error = True
-        else:
+        if valid_user_input(self.deposit.text):
             self.deposit.error = False
+        else:
+            self.deposit.error = True
 
     def update_history(self):
         try:
-            if not self.validation() and self.deposit.text != '':  # todo refactor
+            if valid_user_input(self.deposit.text):  # todo refactor
                 db.insert_history(self.deposit.text, datetime.date.today())
                 self.deposit.text = ''
                 self.manager.screens[0].total_saving.value = sum_total_saving()
@@ -164,10 +167,23 @@ class SettingScene(Screen):
                 ),
             ],
         )
+        Clock.schedule_once(self.binder, 0)
+
+    def binder(self, dt):  # todo rename
+        self.objective.bind(
+            on_text_validate=self.set_error_message,
+            on_focus=self.set_error_message,
+        )
+
+    def set_error_message(self, instance_textfield):  # todo refactor
+        if valid_user_input(self.objective.text):
+            self.objective.error = False
+        else:
+            self.objective.error = True
 
     def submit_objective(self):
         try:
-            if len(self.objective.text) > 0:  # todo test this condition.
+            if valid_user_input(self.objective.text):  # todo test this condition.
                 db.insert_objective(self.objective.text)
                 self.manager.screens[0].store.text = message_objective + self.objective.text
                 self.manager.screens[0].total_saving.max = float(self.objective.text)

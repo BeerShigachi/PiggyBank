@@ -71,7 +71,7 @@ Root:
                 orientation: 'vertical'
                 id: total_saving
                 max: total_saving.max
-                value: total_saving.value
+                value: total_saving.value if total_saving.value < total_saving.max else total_saving.max
                 color: app.theme_cls.accent_color
 
 
@@ -125,7 +125,7 @@ Root:
                 input_filter: "float"
                 hint_text: "Enter amount"
                 helper_text: "Only accept positive amount."
-                helper_text_mode: "on_focus"
+                helper_text_mode: "on_error"
                 pos_hint: {"center_x": .5, "center_y": .5}
 
             MDRoundFlatButton:
