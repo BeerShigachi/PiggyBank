@@ -1,14 +1,15 @@
-from kivy.uix.boxlayout import BoxLayout
 import datetime
 import sqlite3 as sql
 
 from kivy.clock import Clock
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
+from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem, ILeftBodyTouch
+from kivymd.uix.selectioncontrol import MDCheckbox
 
 from src.config import msg_balance, msg_objective
 
@@ -114,14 +115,23 @@ class MainScene(Screen):
             self.total_saving.value = 0
 
 
+some = None
+
+
 class HistoryScene(Screen):
     deposit = ObjectProperty(None)
+    scroll = ObjectProperty(None)
 
-    def __init__(self, **kw):
-        super(HistoryScene, self).__init__(**kw)
-        Clock.schedule_once(self.binder, 0)
+    def on_pre_enter(self, *args):  # todo consider using on_enter instead.
+        global some
+        some = self.scroll
+        self.binder()
+        self.show_lists()
 
-    def binder(self, dt):  # todo rename
+    def on_pre_leave(self, *args):  # todo consider using on_leave instead.
+        self.clean_lists()
+
+    def binder(self):  # todo rename
         self.deposit.bind(
             on_text_validate=self.set_error_message,
             on_focus=self.set_error_message,
@@ -145,7 +155,43 @@ class HistoryScene(Screen):
                 self.deposit.text = ''
                 self.deposit.error = True
         except ValueError:
-            print('no empty')
+            print('ValueError')  # todo delete later
+
+    def show_lists(self):  # todo rename
+        for i in range(10):
+            self.scroll.add_widget(
+                ListItemWithCheckbox(text=f"Single-line item {i}")
+            )
+
+    def clean_lists(self):  # todo rename
+        self.scroll.clear_widgets(self.children[:])
+
+
+def clear_lists():
+    global some
+    some.clear_widgets(some.children[:])
+
+
+def register_lists():
+    for i in range(3):
+        global some
+        some.add_widget(
+            ListItemWithCheckbox(text=f"Single-line item {i}")
+        )
+
+
+class ListItemWithCheckbox(OneLineAvatarIconListItem):
+    """Custom list item."""
+    disabled = True
+    icon = StringProperty('delete')
+
+    def delete_lists(self):
+        clear_lists()
+        register_lists()
+
+
+class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
+    """Custom right container."""
 
 
 class SettingScene(Screen):

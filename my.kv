@@ -9,7 +9,7 @@ Root:
     screen_manager: screen_manager
 
     MDToolbar:
-        title: screen_manager.current
+        title: screen_manager.current # todo adapt color dynamically.
 
         MDIconButton:
             icon: 'coins'
@@ -58,10 +58,12 @@ Root:
             MDLabel:
                 id: store
                 text: store.text
+                theme_text_color: 'Primary'
 
             MDLabel:
                 id: balance
                 text: balance.text
+                theme_text_color: 'Primary'
 
         BoxLayout:
             size_hint: 0.5, 0.5
@@ -80,11 +82,11 @@ Root:
 
     deposit: deposit
     button_deposit: button_deposit
-
+    scroll: scroll
     FloatLayout:
 
         BoxLayout:
-            size_hint: 0.8, 0.2
+            size_hint: 0.4, 0.2
             pos_hint: {"center_x": .5, "center_y": .8}
 
             MDTextField:
@@ -100,7 +102,35 @@ Root:
                 text: "Deposit"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.update_history()
+        BoxLayout:
+            size_hint: 0.4, 0.2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            ScrollView:
 
+                MDList:
+                    id: scroll
+#                    OneLineAvatarListItem:
+#                        text: "single line"
+#                        on_release: print("Click!")
+#
+#                        IconLeftWidget:
+#                            icon: "delete-forever"
+#
+#
+#                    OneLineAvatarListItem:
+#                        text: "single line"
+#                        on_release: print("Click 2!")
+#
+#                        IconLeftWidget:
+#                            icon: "gitlab"
+
+<ListItemWithCheckbox>:
+
+    IconRightWidget:
+        on_release: root.delete_lists() if checkbox.active else print('perhaps just pass')
+        icon: root.icon
+    LeftCheckbox:
+        id: checkbox
 
 <SettingScene>
     name: "setting"
