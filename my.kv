@@ -109,26 +109,14 @@ Root:
 
                 MDList:
                     id: scroll
-#                    OneLineAvatarListItem:
-#                        text: "single line"
-#                        on_release: print("Click!")
-#
-#                        IconLeftWidget:
-#                            icon: "delete-forever"
-#
-#
-#                    OneLineAvatarListItem:
-#                        text: "single line"
-#                        on_release: print("Click 2!")
-#
-#                        IconLeftWidget:
-#                            icon: "gitlab"
+
 
 <ListItemWithCheckbox>:
 
     IconRightWidget:
-        on_release: root.delete_lists() if checkbox.active else print('perhaps just pass')
+        on_release: app.root.screen_manager.screens[1].update_lists() if checkbox.active else print('refer methods from HistoryScene.')
         icon: root.icon
+
     LeftCheckbox:
         id: checkbox
 

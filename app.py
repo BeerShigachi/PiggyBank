@@ -115,21 +115,13 @@ class MainScene(Screen):
             self.total_saving.value = 0
 
 
-some = None
-
-
 class HistoryScene(Screen):
     deposit = ObjectProperty(None)
     scroll = ObjectProperty(None)
 
-    def on_pre_enter(self, *args):  # todo consider using on_enter instead.
-        global some
-        some = self.scroll
+    def on_pre_enter(self, *args):  # todo consider using on_enter instead
         self.binder()
         self.show_lists()
-
-    def on_pre_leave(self, *args):  # todo consider using on_leave instead.
-        self.clean_lists()
 
     def binder(self):  # todo rename
         self.deposit.bind(
@@ -157,37 +149,25 @@ class HistoryScene(Screen):
         except ValueError:
             print('ValueError')  # todo delete later
 
+    def update_lists(self):
+        self.clear_lists()
+
     def show_lists(self):  # todo rename
+        # todo get data from db
+
         for i in range(10):
             self.scroll.add_widget(
                 ListItemWithCheckbox(text=f"Single-line item {i}")
             )
 
-    def clean_lists(self):  # todo rename
-        self.scroll.clear_widgets(self.children[:])
-
-
-def clear_lists():
-    global some
-    some.clear_widgets(some.children[:])
-
-
-def register_lists():
-    for i in range(3):
-        global some
-        some.add_widget(
-            ListItemWithCheckbox(text=f"Single-line item {i}")
-        )
+    def clear_lists(self):
+        self.scroll.clear_widgets(self.scroll.children[:])
 
 
 class ListItemWithCheckbox(OneLineAvatarIconListItem):
     """Custom list item."""
     disabled = True
     icon = StringProperty('delete')
-
-    def delete_lists(self):
-        clear_lists()
-        register_lists()
 
 
 class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
