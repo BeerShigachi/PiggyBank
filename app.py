@@ -119,7 +119,7 @@ class HistoryScene(Screen):
     deposit = ObjectProperty(None)
     scroll = ObjectProperty(None)
 
-    def on_pre_enter(self, *args):  # todo consider using on_enter instead
+    def on_pre_enter(self, *args):
         self.binder()
         self.show_lists()
 
@@ -153,15 +153,17 @@ class HistoryScene(Screen):
         self.clear_lists()
 
     def show_lists(self):  # todo rename
-        # todo get data from db
-
-        for i in range(10):
+        for i in db.get_history():
             self.scroll.add_widget(
-                ListItemWithCheckbox(text=f"Single-line item {i}")
+                ListItemWithCheckbox(text=f"${i[1]}, date {i[2]}")
             )
 
     def clear_lists(self):
         self.scroll.clear_widgets(self.scroll.children[:])
+
+    def delete_list(self):
+        """Delete each history"""
+        pass
 
 
 class ListItemWithCheckbox(OneLineAvatarIconListItem):
