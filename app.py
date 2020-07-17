@@ -1,6 +1,4 @@
 import datetime
-import sqlite3 as sql
-
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.boxlayout import BoxLayout
@@ -8,64 +6,23 @@ from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem, ILeftBodyTouch
+from kivymd.uix.list import OneLineAvatarIconListItem, ILeftBodyTouch
 from kivymd.uix.selectioncontrol import MDCheckbox
 
+from src.data_base import DataBase
 from src.config import msg_balance, msg_objective
 
 message_balance = msg_balance
 message_objective = msg_objective
 
-
-class DataBase:
-    def __init__(self, db_name):
-        self.conn = sql.connect(db_name)
-        self.cur = self.conn.cursor()
-
-    def create_new_tables(self):
-        with self.conn:
-            self.cur.execute(""" CREATE TABLE  IF NOT EXISTS history (
-                                id INTEGER PRIMARY KEY NOT NULL,
-                                deposit INTEGER NOT NULL,
-                                date timestamp
-                                )
-                                """)
-
-        with self.conn:
-            self.cur.execute("""CREATE TABLE IF NOT EXISTS objective(
-                                id INTEGER PRIMARY KEY NOT NULL,
-                                objective INTEGER NOT NULL
-                                )""")
-
-    def insert_objective(self, obj):
-        with self.conn:
-            self.cur.execute(""" INSERT OR REPLACE INTO objective(id, objective) VALUES (?, ?)""", (1, float(obj)))
-
-    def get_objective(self):
-        self.cur.execute("""SELECT * FROM objective WHERE objective""")
-        return self.cur.fetchone()
-
-    def insert_history(self, deposit, date):
-        with self.conn:
-            self.cur.execute(""" INSERT OR REPLACE INTO history(deposit, date) VALUES (?, ?)""", (float(deposit), date))
-
-    def get_history(self):
-        self.cur.execute("""SELECT * FROM history""")
-        return self.cur.fetchall()
-
-    def delete_each_history(self, id_num):
-        with self.conn:
-            self.cur.execute("""DELETE FROM history WHERE id=?""", (id_num,))
-
-    def reset_tables(self):
-        with self.conn:
-            self.cur.execute("""DELETE FROM objective""")
-            self.cur.execute("""DELETE FROM history""")
+db_file = 'user_data.db'
+db = DataBase(db_file)
+db.create_new_tables()
 
 
-def sum_total_saving():  # todo refactor
+def sum_total_saving():
     total_money = 0
-    for i in db.get_history():
+    for i in db.get_all_history_logs():
         total_money += i[1]
     return total_money
 
@@ -99,18 +56,18 @@ class MainScene(Screen):
         self.show_objective()
         self.show_total_saving()
 
-    def show_objective(self):  # todo refactor
+    def show_objective(self):
         try:
             store_objective = db.get_objective()[1]
-            print(store_objective)
             self.store.text = message_objective + str(store_objective)
             self.total_saving.max = store_objective
+            self.total_saving.value = sum_total_saving()
 
         except TypeError:
             self.store.text = message_objective + '0'
             print("no data")
 
-    def show_total_saving(self):  # todo refactor
+    def show_total_saving(self):
         if sum_total_saving() > 0:
             self.balance.text = message_balance + str(sum_total_saving())
             self.total_saving.value = sum_total_saving()
@@ -125,7 +82,7 @@ class HistoryScene(Screen):
 
     def on_pre_enter(self, *args):
         self.binder()
-        self.show_lists()
+        self.show_history()
 
     def binder(self):  # todo rename
         self.deposit.bind(
@@ -133,37 +90,33 @@ class HistoryScene(Screen):
             on_focus=self.set_error_message,
         )
 
-    def set_error_message(self, instance_textfield):  # todo refactor
+    def set_error_message(self, instance_textfield):
         if valid_user_input(self.deposit.text):
             self.deposit.error = False
         else:
             self.deposit.error = True
 
     def update_history(self):
-        try:
-            if valid_user_input(self.deposit.text):  # todo refactor
-                db.insert_history(self.deposit.text, datetime.date.today())
-                self.deposit.text = ''
-                self.manager.screens[0].show_total_saving()
-                self.show_lists()
-                print('saved successfully')
-            else:
-                self.deposit.text = ''
-                self.deposit.error = True
-        except ValueError:
-            print('ValueError')  # todo delete later
+        if valid_user_input(self.deposit.text):
+            db.insert_history_log(self.deposit.text, datetime.date.today())
+            self.deposit.text = ''
+            self.manager.screens[0].show_total_saving()
+            self.show_history()
+        else:
+            self.deposit.text = ''
+            self.deposit.error = True
 
-    def show_lists(self):  # todo rename
+    def show_history(self):  # todo rename
         self.scroll.clear_widgets(self.scroll.children[:])
-        for i in db.get_history():
+        for i in db.get_all_history_logs():
             self.scroll.add_widget(
                 ListItemWithCheckbox(text=f"${i[1]}, date {i[2]}", id=i[0])
             )
 
-    def delete_list(self, widget):
+    def delete_history_log(self, widget):
         """Delete each history"""
-        db.delete_each_history(widget.id)
-        self.show_lists()
+        db.erase_history_log(widget.id)
+        self.show_history()
         self.manager.screens[0].show_total_saving()
 
 
@@ -213,22 +166,20 @@ class SettingScene(Screen):
             self.objective.error = True
 
     def submit_objective(self):
-        try:
-            if valid_user_input(self.objective.text):  # todo test this condition.
-                db.insert_objective(self.objective.text)
-                self.manager.screens[0].show_objective()
-                self.objective.text = ""
-            else:
-                print("something went wrong.")
-        except ValueError:
-            print('set objective plz')
+        if valid_user_input(self.objective.text):  # todo test this condition.
+            db.insert_objective(self.objective.text)
+            self.manager.screens[0].show_objective()
+            self.objective.text = ""
+        else:
+            print("something went wrong.")
 
     def reset(self, *args):
-        db.reset_tables()
+        db.erase_all_tables()
         self.objective.text = ''
         self.manager.screens[0].store.text = message_objective + '0'
         self.manager.screens[0].balance.text = message_balance + '0'
         self.manager.screens[0].total_saving.value = 0
+        self.manager.screens[0].total_saving.max = 0
         self.dismiss_dialog()
 
     def show_alert_dialog(self):
@@ -236,11 +187,6 @@ class SettingScene(Screen):
 
     def dismiss_dialog(self, *args):
         self.dialog.dismiss()
-
-
-db_file = 'user_data.db'
-db = DataBase(db_file)
-db.create_new_tables()
 
 
 class MyApp(MDApp):

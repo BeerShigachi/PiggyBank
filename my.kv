@@ -46,6 +46,7 @@ Root:
     balance: balance
 
     FloatLayout:
+
         BoxLayout:
             orientation: 'vertical'
             size_hint: 0.5, 0.5
@@ -79,6 +80,7 @@ Root:
     deposit: deposit
     button_deposit: button_deposit
     scroll: scroll
+
     FloatLayout:
 
         BoxLayout:
@@ -98,6 +100,7 @@ Root:
                 text: "Deposit"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.update_history()
+
         BoxLayout:
             size_hint: 0.8, 0.5
             pos_hint: {"center_x": .5, "y": .1}
@@ -113,7 +116,7 @@ Root:
     IconRightWidget:
         on_release:
             if checkbox.active:\
-            app.root.screen_manager.screens[1].delete_list(id_widget)
+            app.root.screen_manager.screens[1].delete_history_log(id_widget)
         icon: root.icon
 
     LeftCheckbox:
@@ -180,4 +183,3 @@ Root:
             MDSwitch:
                 pos_hint: {"center_y": .5}
                 on_active: app.toggle_theme(*args)
-
