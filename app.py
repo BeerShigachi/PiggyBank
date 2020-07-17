@@ -2,7 +2,7 @@ import datetime
 import sqlite3 as sql
 
 from kivy.clock import Clock
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
@@ -52,6 +52,10 @@ class DataBase:
     def get_history(self):
         self.cur.execute("""SELECT * FROM history""")
         return self.cur.fetchall()
+
+    def delete_each_history(self, id_num):
+        with self.conn:
+            self.cur.execute("""DELETE FROM history WHERE id=?""", (id_num,))
 
     def reset_tables(self):
         with self.conn:
@@ -140,8 +144,8 @@ class HistoryScene(Screen):
             if valid_user_input(self.deposit.text):  # todo refactor
                 db.insert_history(self.deposit.text, datetime.date.today())
                 self.deposit.text = ''
-                self.manager.screens[0].total_saving.value = sum_total_saving()
-                self.manager.screens[0].balance.text = message_balance + str(sum_total_saving())
+                self.manager.screens[0].show_total_saving()
+                self.show_lists()
                 print('saved successfully')
             else:
                 self.deposit.text = ''
@@ -149,27 +153,25 @@ class HistoryScene(Screen):
         except ValueError:
             print('ValueError')  # todo delete later
 
-    def update_lists(self):
-        self.clear_lists()
-
     def show_lists(self):  # todo rename
+        self.scroll.clear_widgets(self.scroll.children[:])
         for i in db.get_history():
             self.scroll.add_widget(
-                ListItemWithCheckbox(text=f"${i[1]}, date {i[2]}")
+                ListItemWithCheckbox(text=f"${i[1]}, date {i[2]}", id=i[0])
             )
 
-    def clear_lists(self):
-        self.scroll.clear_widgets(self.scroll.children[:])
-
-    def delete_list(self):
+    def delete_list(self, widget):
         """Delete each history"""
-        pass
+        db.delete_each_history(widget.id)
+        self.show_lists()
+        self.manager.screens[0].show_total_saving()
 
 
 class ListItemWithCheckbox(OneLineAvatarIconListItem):
     """Custom list item."""
     disabled = True
     icon = StringProperty('delete')
+    id = NumericProperty(None)
 
 
 class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
@@ -183,6 +185,7 @@ class SettingScene(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.dialog = MDDialog(
+            size_hint=(.5, None),
             text="Restore all progress?",
             buttons=[
                 MDFlatButton(
@@ -213,8 +216,7 @@ class SettingScene(Screen):
         try:
             if valid_user_input(self.objective.text):  # todo test this condition.
                 db.insert_objective(self.objective.text)
-                self.manager.screens[0].store.text = message_objective + self.objective.text
-                self.manager.screens[0].total_saving.max = float(self.objective.text)
+                self.manager.screens[0].show_objective()
                 self.objective.text = ""
             else:
                 print("something went wrong.")

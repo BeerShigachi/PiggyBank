@@ -1,8 +1,4 @@
 
-<MDFlatButton>
-    text: "RESTORE"
-    on_release:
-
 Root:
     orientation: 'vertical'
 
@@ -87,7 +83,7 @@ Root:
 
         BoxLayout:
             size_hint: 0.4, 0.2
-            pos_hint: {"center_x": .5, "center_y": .8}
+            pos_hint: {"center_x": .5, "y": .7}
 
             MDTextField:
                 id: deposit
@@ -103,18 +99,21 @@ Root:
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.update_history()
         BoxLayout:
-            size_hint: 0.4, 0.2
-            pos_hint: {"center_x": .5, "center_y": .5}
+            size_hint: 0.8, 0.5
+            pos_hint: {"center_x": .5, "y": .1}
             ScrollView:
-
+                do_scroll_x: False
+                do_scroll_y: True
                 MDList:
                     id: scroll
 
 
 <ListItemWithCheckbox>:
-
+    id: id_widget
     IconRightWidget:
-        on_release: app.root.screen_manager.screens[1].update_lists() if checkbox.active else print('refer methods from HistoryScene.')
+        on_release:
+            if checkbox.active:\
+            app.root.screen_manager.screens[1].delete_list(id_widget)
         icon: root.icon
 
     LeftCheckbox:
@@ -163,7 +162,7 @@ Root:
                 text: 'reset all history and your goal.'
                 halign: "left"
                 theme_text_color: 'Primary'
-            MDRoundFlatButton:
+            MDFlatButton:
                 id: button_reset
                 text: "Submit"
                 pos_hint: {"center_x": .5, "center_y": .5}
