@@ -1,0 +1,62 @@
+
+<SettingScene>
+    name: "setting"
+
+    objective: objective
+    button_objective: button_objective
+    button_reset: button_reset
+
+    FloatLayout:
+
+        BoxLayout:
+            size_hint: 0.8, 0.2
+            pos_hint: {"center_x": .5, "center_y": .8}
+
+            MDLabel:
+                text: 'Your Goal'
+                halign: "left"
+                theme_text_color: 'Primary'
+
+            MDTextField:
+                id: objective
+                input_filter: "float"
+                hint_text: "Enter amount"
+                helper_text: "Only accept positive amount."
+                helper_text_mode: "on_error"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDRoundFlatButton:
+                id: button_objective
+                text: "Submit"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: root.submit_objective()
+
+        BoxLayout:
+            size_hint: 0.8, 0.2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            MDLabel:
+                text: 'Reset'
+                halign: "left"
+                theme_text_color: 'Primary'
+            MDLabel:
+                text: 'reset all history and your goal.'
+                halign: "left"
+                theme_text_color: 'Primary'
+            MDFlatButton:
+                id: button_reset
+                text: "Submit"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: root.show_alert_dialog()
+
+
+
+        BoxLayout:
+            size_hint: 0.4, 0.2
+            pos_hint: {"center_x": .5, "center_y": .1}
+            MDIcon:
+                icon: 'theme-light-dark'
+                theme_text_color: 'Primary'
+                pos_hint: {"center_y": .5}
+            MDSwitch:
+                pos_hint: {"center_y": .5}
+                on_active: app.toggle_theme(*args)

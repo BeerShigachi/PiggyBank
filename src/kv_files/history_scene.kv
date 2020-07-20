@@ -1,0 +1,47 @@
+<HistoryScene>
+    name: "deposit"
+
+    deposit: deposit
+    button_deposit: button_deposit
+    scroll: scroll
+
+    FloatLayout:
+
+        BoxLayout:
+            size_hint: 0.4, 0.2
+            pos_hint: {"center_x": .5, "y": .7}
+
+            MDTextField:
+                id: deposit
+                input_filter: "float"
+                hint_text: "Enter amount"
+                helper_text: "Only accept positive amount."
+                helper_text_mode: "on_error"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDRoundFlatButton:
+                id: button_deposit
+                text: "Deposit"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: root.update_history()
+
+        BoxLayout:
+            size_hint: 0.8, 0.5
+            pos_hint: {"center_x": .5, "y": .1}
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                MDList:
+                    id: scroll
+
+
+<ListItemWithCheckbox>:
+    id: id_widget
+    IconRightWidget:
+        on_release:
+            if checkbox.active:\
+            app.root.screen_manager.screens[1].delete_history_log(id_widget)
+        icon: root.icon
+
+    LeftCheckbox:
+        id: checkbox
