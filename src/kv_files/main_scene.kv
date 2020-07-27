@@ -7,28 +7,35 @@
 
     FloatLayout:
 
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: 0.5, 0.5
-            pos_hint: {"center_x": .5, "center_y": .5}
+        MDLabel:
+            size_hint: 0.3, 0.2
+            pos_hint: {"x": .35, "top": 0.8}
+            id: store
+            text: store.text
+            theme_text_color: 'Primary'
 
-            MDLabel:
-                id: store
-                text: store.text
-                theme_text_color: 'Primary'
+        MDIcon:
+            size_hint: 0.3, 0.2
+            pos_hint: {"x": .35, "top": 0.5}
+            icon: 'piggy-bank'
+            font_size: "64sp"
 
-            MDLabel:
-                id: balance
-                text: balance.text
-                theme_text_color: 'Primary'
+        MDIcon:
+            size_hint: 0.3, 0.2
+            pos_hint: {"x": .35, "top": 0.4}
+            id: total_saving
+            icon: 'scale'
+            font_size: "64sp"
 
-        BoxLayout:
-            size_hint: 0.5, 0.5
-            pos_hint: {"center_x": .75, "center_y": .5}
-
-            MDProgressBar:
-                orientation: 'vertical'
-                id: total_saving
-                max: total_saving.max
-                value: total_saving.value if total_saving.value < total_saving.max else total_saving.max
-                color: app.theme_cls.accent_color
+        MDLabel:
+            size_hint: 0.3, 0.2
+            pos_hint: {"x": .35, "top": 0.2}
+            id: balance
+            text: balance.text
+            theme_text_color: 'Primary'
+#            MDProgressBar:
+#                orientation: 'vertical'
+#                id: total_saving
+#                max: total_saving.max
+#                value: total_saving.value if total_saving.value < total_saving.max else total_saving.max
+#                color: app.theme_cls.accent_color
