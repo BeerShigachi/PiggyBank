@@ -8,28 +8,37 @@
     FloatLayout:
 
         MDLabel:
-            size_hint: 0.3, 0.2
-            pos_hint: {"x": .35, "top": 0.8}
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 1}
+            halign: 'center'
             id: store
             text: store.text
             theme_text_color: 'Primary'
 
-        MDIcon:
-            size_hint: 0.3, 0.2
-            pos_hint: {"x": .35, "top": 0.5}
-            icon: 'piggy-bank'
-            font_size: "64sp"
+
 
         MDIcon:
-            size_hint: 0.3, 0.2
-            pos_hint: {"x": .35, "top": 0.4}
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 0.65}
+            valign: 'bottom'
+            halign: 'center'
+            icon: 'piggy-bank'
+            font_size: "100sp"
+
+        MDIcon:
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 0.5}
+            valign: 'top'
+            halign: 'center'
             id: total_saving
             icon: 'scale'
             font_size: "64sp"
 
         MDLabel:
-            size_hint: 0.3, 0.2
-            pos_hint: {"x": .35, "top": 0.2}
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 0.25}
+            halign: 'center'
+            valign: 'bottom'
             id: balance
             text: balance.text
             theme_text_color: 'Primary'
