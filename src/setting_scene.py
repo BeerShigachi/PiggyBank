@@ -56,8 +56,8 @@ class SettingScene(Screen):
         self.objective.text = ''
         self.manager.screens[0].store.text = msg_objective + '0'
         self.manager.screens[0].balance.text = msg_balance + '0'
-        self.manager.screens[0].total_saving.value = 0
-        self.manager.screens[0].total_saving.max = 0
+        self.manager.screens[0].total_saving.value = 0  # todo delete. total_saving.value is not defined anymore
+        self.manager.screens[0].total_saving.max = 0  # todo delete. total_saving.value is not defined anymore
         self.dismiss_dialog()
 
     def show_alert_dialog(self):
