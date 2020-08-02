@@ -4,14 +4,10 @@ msg_objective = 'your goal $ '
 
 msg_balance = 'your balance $ '
 
-piggy_size_max = 200
-
-piggy_size_min = 64
-
 piggy_size = {
-    'XS': '64sp',
-    'S': '132sp',
-    'M': '196sp',
-    'L': '260sp',
-    'XL': '324sp'
+    0: ('64sp', {"center_x": .5, "top": 0.65}),
+    0.25: ('132sp', {"center_x": .5, "top": 0.65}),
+    0.5: ('196sp', {"center_x": .5, "top": 0.65}),
+    0.75: ('260sp', {"center_x": .5, "top": 0.65}),
+    1: ('324sp', {"center_x": .5, "top": 0.65})
 }
