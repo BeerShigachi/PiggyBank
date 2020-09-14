@@ -1,1 +1,1 @@
-readme -
+pip install requirements.text
