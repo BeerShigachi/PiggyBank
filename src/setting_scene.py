@@ -4,7 +4,7 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 
-from app import db
+from main import db
 from src.common.utilities import valid_user_input
 from src.common.config import msg_objective, msg_balance
 

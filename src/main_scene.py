@@ -2,7 +2,7 @@ from kivy.clock import Clock
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
 
-from app import db
+from main import db
 from src.common.utilities import sum_total_saving
 from src.common.config import msg_objective, msg_balance
 from src.common.config import piggy_size
@@ -49,3 +49,4 @@ class MainScene(Screen):
         print(res)  # todo delete later.
         self.total_saving.font_size = res[0]
         self.total_saving.pos_hint = res[1]
+

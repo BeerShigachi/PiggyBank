@@ -4,7 +4,7 @@ from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.list import OneLineAvatarIconListItem
 
-from app import db
+from main import db
 from src.common.utilities import valid_user_input
 
 
