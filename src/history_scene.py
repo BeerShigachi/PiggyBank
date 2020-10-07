@@ -2,6 +2,7 @@ import datetime
 
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
+from kivymd.uix.card import MDCardSwipe
 from kivymd.uix.list import OneLineAvatarIconListItem
 
 from main import db
@@ -53,8 +54,7 @@ class HistoryScene(Screen):
         self.manager.screens[0].show_total_saving()
 
 
-class ListItemWithCheckbox(OneLineAvatarIconListItem):
+class ListItemWithCheckbox(MDCardSwipe):
     """Custom list item."""
-    disabled = True
-    icon = StringProperty('delete')
+    text = StringProperty()
     id = NumericProperty(None)

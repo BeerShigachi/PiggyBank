@@ -33,15 +33,27 @@
                 do_scroll_y: True
                 MDList:
                     id: scroll
+                    padding: 0
 
 
 <ListItemWithCheckbox>:
     id: id_widget
-    IconRightWidget:
-        on_release:
-            if checkbox.active:\
-            app.root.screen_manager.screens[1].delete_history_log(id_widget)
-        icon: root.icon
+    size_hint_y: None
+    height: content.height
+    MDCardSwipeLayerBox:
+        MDIconButton:
+            icon: "trash-can"
+            pos_hint: {"center_y": .5}
+            on_release: app.root.screen_manager.screens[1].delete_history_log(id_widget)
 
-    LeftCheckbox:
-        id: checkbox
+    MDCardSwipeFrontBox:
+
+        OneLineListItem:
+            id: content
+            text: root.text
+            type_swipe: "hand"
+            _no_ripple_effect: True
+            padding: "8dp"
+
+
+
