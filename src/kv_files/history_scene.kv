@@ -1,7 +1,4 @@
 <HistoryScene>
-    name: "deposit"
-    id: deposit
-
     deposit: deposit
     button_deposit: button_deposit
     scroll: scroll
@@ -45,7 +42,7 @@
         MDIconButton:
             icon: "trash-can"
             pos_hint: {"center_y": .5}
-            on_release: app.root.screen_manager.screens[1].delete_history_log(id_widget)
+            on_release: app.root.ids['deposit'].delete_history_log(id_widget)
 
     MDCardSwipeFrontBox:
 

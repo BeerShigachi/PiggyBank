@@ -6,8 +6,19 @@
 Root:
     orientation: 'vertical'
 
+    ScreenManager
+        id: screen_manager
+        MainScene:
+            name: "main"
+            id: main
+        HistoryScene:
+            name: "deposit"
+            id: deposit
+        SettingScene:
+            name: "setting"
+            id: setting
+
     MDToolbar:
-        title: screen_manager.current
         md_bg_color: [0.2, 0.2, 0.2, 1] if app.theme_cls.theme_style == 'Dark' else [0, 0.7, 1, 1]
 
         MDIconButton:
@@ -31,8 +42,4 @@ Root:
                 app.change_screen('setting', 'left')
             pos_hint: {"center_y": .5}
 
-    ScreenManager
-        id: screen_manager
-        MainScene:
-        HistoryScene:
-        SettingScene:
+
