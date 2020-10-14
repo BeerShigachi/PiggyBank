@@ -58,6 +58,3 @@ class ListItemWithCheckbox(MDCardSwipe):
     """Custom list item."""
     text = StringProperty()
     id = NumericProperty(None)
-    swipe_distance = 1000
-    max_swipe_x = 0.05
-    max_opened_x = 50
