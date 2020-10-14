@@ -37,6 +37,13 @@ class MyApp(MDApp):
         else:
             self.theme_cls.theme_style = "Light"
 
+    def change_screen(self, screen_name, direction='left'):
+        screen_manager = self.root.ids['screen_manager']
+        if screen_name == 'main' and screen_manager.current == 'setting':
+            direction = 'right'
+        screen_manager.transition.direction = direction
+        screen_manager.current = screen_name
+
 
 if __name__ == '__main__':
     MyApp().run()

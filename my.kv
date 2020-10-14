@@ -6,34 +6,29 @@
 Root:
     orientation: 'vertical'
 
-    screen_manager: screen_manager
-
     MDToolbar:
-        title: screen_manager.current # todo adapt color dynamically.
+        title: screen_manager.current
         md_bg_color: [0.2, 0.2, 0.2, 1] if app.theme_cls.theme_style == 'Dark' else [0, 0.7, 1, 1]
 
         MDIconButton:
             icon: 'coins'
             theme_text_color: 'Primary' if screen_manager.current == 'deposit' else 'Hint'
             on_release:
-                screen_manager.transition.direction = 'right'
-                screen_manager.current = 'deposit'
+                app.change_screen('deposit', 'right')
             pos_hint: {"center_y": .5}
 
         MDIconButton:
             icon: 'coin'
             theme_text_color: 'Primary' if screen_manager.current == 'main' else 'Hint'
             on_release:
-                screen_manager.transition.direction = 'right' if screen_manager.current == 'setting' else 'left'
-                screen_manager.current = 'main'
+                app.change_screen('main')
             pos_hint: {"center_y": .5}
 
         MDIconButton:
             icon: 'cogs'
             theme_text_color: 'Primary' if screen_manager.current == 'setting' else 'Hint'
             on_release:
-                screen_manager.transition.direction = 'left'
-                screen_manager.current = 'setting'
+                app.change_screen('setting', 'left')
             pos_hint: {"center_y": .5}
 
     ScreenManager
