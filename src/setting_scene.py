@@ -46,8 +46,6 @@ class SettingScene(Screen):
     def submit_objective(self):
         if valid_user_input(self.objective.text):  # todo test this condition.
             db.insert_objective(self.objective.text)
-            self.manager.screens[0].show_objective()
-            self.manager.screens[0].show_total_saving()
             self.objective.text = ""
         else:
             print("something went wrong.")
@@ -55,8 +53,6 @@ class SettingScene(Screen):
     def reset(self, *args):
         db.erase_all_tables()
         self.objective.text = ''
-        self.manager.screens[0].show_objective()
-        self.manager.screens[0].show_total_saving()
         self.dismiss_dialog()
 
     def show_alert_dialog(self):

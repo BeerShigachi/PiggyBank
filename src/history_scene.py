@@ -3,7 +3,6 @@ import datetime
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCardSwipe
-from kivymd.uix.list import OneLineAvatarIconListItem
 
 from main import db
 from src.common.utilities import valid_user_input
@@ -13,7 +12,7 @@ class HistoryScene(Screen):
     deposit = ObjectProperty(None)
     scroll = ObjectProperty(None)
 
-    def on_pre_enter(self, *args):
+    def enter(self, *args):
         self.binder()
         self.show_history()
 
@@ -33,7 +32,6 @@ class HistoryScene(Screen):
         if valid_user_input(self.deposit.text):
             db.insert_history_log(self.deposit.text, datetime.date.today())
             self.deposit.text = ''
-            self.manager.screens[0].show_total_saving()
             self.show_history()
         else:
             self.deposit.text = ''

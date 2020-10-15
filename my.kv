@@ -4,42 +4,36 @@
 #:include src/kv_files/setting_scene.kv
 
 Root:
-    orientation: 'vertical'
 
-    ScreenManager
-        id: screen_manager
+    panel_color: [0.2, 0.2, 0.2, 1] if app.theme_cls.theme_style == 'Dark' else [0, 0.7, 1, 1]
+    MDBottomNavigationItem:
+        name: "main"
+        id: main
+        icon: 'coin'
+        on_tab_release:
+            root.change_screen('main')
+            main_scene.enter()
         MainScene:
-            name: "main"
-            id: main
+            name: 'main_scene'
+            id: main_scene
+
+    MDBottomNavigationItem:
+        name: "deposit"
+        id: deposit
+        icon: 'coins'
+        on_tab_release:
+            root.change_screen('deposit')
+            history_scene.enter()
         HistoryScene:
-            name: "deposit"
-            id: deposit
+            name: 'history_scene'
+            id: history_scene
+
+    MDBottomNavigationItem:
+        name: "setting"
+        id: setting
+        icon: 'cogs'
+        on_tab_release:
+            root.change_screen('setting')
         SettingScene:
-            name: "setting"
-            id: setting
-
-    MDToolbar:
-        md_bg_color: [0.2, 0.2, 0.2, 1] if app.theme_cls.theme_style == 'Dark' else [0, 0.7, 1, 1]
-
-        MDIconButton:
-            icon: 'coins'
-            theme_text_color: 'Primary' if screen_manager.current == 'deposit' else 'Hint'
-            on_release:
-                app.change_screen('deposit', 'right')
-            pos_hint: {"center_y": .5}
-
-        MDIconButton:
-            icon: 'coin'
-            theme_text_color: 'Primary' if screen_manager.current == 'main' else 'Hint'
-            on_release:
-                app.change_screen('main')
-            pos_hint: {"center_y": .5}
-
-        MDIconButton:
-            icon: 'cogs'
-            theme_text_color: 'Primary' if screen_manager.current == 'setting' else 'Hint'
-            on_release:
-                app.change_screen('setting', 'left')
-            pos_hint: {"center_y": .5}
-
-
+            name: 'setting_scene'
+            id: setting_scene

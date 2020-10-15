@@ -1,6 +1,7 @@
-from kivy.uix.boxlayout import BoxLayout
+
 from kivymd.app import MDApp
 from kivy.factory import Factory
+from kivymd.uix.bottomnavigation import MDBottomNavigation
 from kivymd.uix.list import ILeftBodyTouch
 from kivymd.uix.selectioncontrol import MDCheckbox
 
@@ -19,32 +20,32 @@ class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
     """Do not move the class to another file. IleftBodyTouch has a known issue."""
 
 
-class Root(BoxLayout):
-    """Root Widget(Top Tool Bar)"""
-    pass
+class Root(MDBottomNavigation):
+    """Root Widget(Bottom Tool Bar)"""
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def change_screen(self, screen_name):
+        screen_manager = self.ids['tab_manager']
+        screen_manager.current = screen_name
 
 
 class MyApp(MDApp):
     dialog = None
 
     def __init__(self, **kwargs):
+        # todo read theme_style setting from db.
         self.theme_cls.theme_style = "Light"
         super().__init__(**kwargs)
 
     def toggle_theme(self, switch, value):
+        # todo store theme_style setting into db.
         if value:
             self.theme_cls.theme_style = "Dark"
         else:
             self.theme_cls.theme_style = "Light"
 
-    def change_screen(self, screen_name, direction='left'):
-        screen_manager = self.root.ids['screen_manager']
-        if screen_name == 'main' and screen_manager.current == 'setting':
-            direction = 'right'
-        screen_manager.transition.direction = direction
-        screen_manager.current = screen_name
-
 
 if __name__ == '__main__':
     MyApp().run()
-

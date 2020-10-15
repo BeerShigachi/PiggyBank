@@ -15,10 +15,9 @@ class MainScene(Screen):
 
     def __init__(self, **kw):
         super(MainScene, self).__init__(**kw)
-        Clock.schedule_once(self.display_data, 0)
+        Clock.schedule_once(self.enter, 0)
 
-    def display_data(self, dt):
-        self.manager.current = 'main'
+    def enter(self, dt=0):
         self.show_objective()
         self.show_total_saving()
 
@@ -26,6 +25,7 @@ class MainScene(Screen):
         try:
             store_objective = db.get_objective()[1]
             self.store.text = msg_objective + str(store_objective)
+            print(self.store.text)
 
         except TypeError:
             self.store.text = msg_objective + '0'
@@ -33,6 +33,7 @@ class MainScene(Screen):
 
     def show_total_saving(self):
         self.balance.text = msg_balance + str(sum_total_saving())
+        print(self.balance.text)
         self.set_icon_size_pos()
 
     def set_icon_size_pos(self):
