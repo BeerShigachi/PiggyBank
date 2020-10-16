@@ -4,7 +4,7 @@ from kivy.uix.screenmanager import Screen
 
 from main import db
 from src.common.utilities import sum_total_saving
-from src.common.config import msg_objective, msg_balance
+from src.common.config import msg_objective
 from src.common.config import piggy_size
 
 
@@ -32,7 +32,7 @@ class MainScene(Screen):
             print("no data")
 
     def show_total_saving(self):
-        self.balance.text = msg_balance + str(sum_total_saving())
+        self.balance.text = str(sum_total_saving())
         self.set_icon_size_pos()
 
     def set_icon_size_pos(self):

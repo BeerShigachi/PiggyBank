@@ -1,8 +1,6 @@
 """Config parameters"""
 
-msg_objective = 'your goal $ '
-
-msg_balance = 'your balance $ '
+msg_objective = 'Goal $ '
 
 piggy_size = {
     0: ('64sp', {"center_x": .5, "top": 0.58}),
