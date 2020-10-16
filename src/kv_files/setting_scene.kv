@@ -57,4 +57,5 @@
                 pos_hint: {"center_y": .5}
             MDSwitch:
                 pos_hint: {"center_y": .5}
+                active: True if app.theme_cls.theme_style == 'Dark' else False
                 on_active: app.toggle_theme(*args)

@@ -1,4 +1,3 @@
-
 from kivymd.app import MDApp
 from kivy.factory import Factory
 from kivymd.uix.bottomnavigation import MDBottomNavigation
@@ -36,7 +35,10 @@ class MyApp(MDApp):
 
     def __init__(self, **kwargs):
         # todo read theme_style setting from db.
-        self.theme_cls.theme_style = "Light"
+
+        print(db.get_config(), 'here')
+        self.theme_cls.theme_style = db.get_config()[1]
+        self.currency = db.get_config()[2]
         super().__init__(**kwargs)
 
     def toggle_theme(self, switch, value):
@@ -45,6 +47,12 @@ class MyApp(MDApp):
             self.theme_cls.theme_style = "Dark"
         else:
             self.theme_cls.theme_style = "Light"
+        print(switch.active)
+        db.set_config(self.theme_cls.theme_style, 'usd')  # todo define later
+
+    def select_currency(self, value):
+        self.currency = value
+        pass
 
 
 if __name__ == '__main__':

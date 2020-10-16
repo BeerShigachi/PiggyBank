@@ -49,7 +49,6 @@ class HistoryScene(Screen):
         """Delete each history"""
         db.erase_history_log(widget.id)
         self.show_history()
-        self.manager.screens[0].show_total_saving()
 
 
 class ListItemWithCheckbox(MDCardSwipe):
