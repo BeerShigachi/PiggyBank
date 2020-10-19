@@ -1,28 +1,7 @@
 <HistoryScene>
-    deposit: deposit
-    button_deposit: button_deposit
     scroll: scroll
 
     FloatLayout:
-
-        BoxLayout:
-            size_hint: 0.4, 0.2
-            pos_hint: {"center_x": .5, "y": .7}
-
-            MDTextField:
-                id: deposit
-                input_filter: "float"
-                hint_text: "Enter amount"
-                helper_text: "Only accept positive amount."
-                helper_text_mode: "on_error"
-                pos_hint: {"center_x": .5, "center_y": .5}
-
-            MDRoundFlatButton:
-                id: button_deposit
-                text: "Deposit"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                on_release: root.update_history()
-
         BoxLayout:
             size_hint: 0.8, 0.5
             pos_hint: {"center_x": .5, "y": .1}
@@ -45,7 +24,7 @@
         MDIconButton:
             icon: "trash-can"
             pos_hint: {"center_y": .5}
-            on_release: app.root.ids['deposit'].delete_history_log(id_widget)
+            on_release: app.root.ids['history'].delete_history_log(id_widget)
 
     MDCardSwipeFrontBox:
 

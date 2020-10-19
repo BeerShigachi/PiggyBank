@@ -1,0 +1,27 @@
+<DepositSheet>
+    deposit: deposit
+    orientation: "vertical"
+    size_hint_y: None
+    height: "200dp"
+    MDToolbar:
+        title: 'Deposit'
+    BoxLayout:
+
+        MDTextField:
+            id: deposit
+            input_filter: "float"
+            hint_text: "Enter amount"
+            helper_text: "Only accept positive amount."
+            helper_text_mode: "on_error"
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+        MDRoundFlatButton:
+            id: button_deposit
+            text: "Deposit"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_release:
+                root.update_history()
+                app.root.ids['main'].show_total_saving()
+                app.root.ids['history'].show_history()
+
+
