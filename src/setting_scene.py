@@ -6,6 +6,7 @@ from kivymd.uix.dialog import MDDialog
 
 from main import db
 from src.common.utilities import valid_user_input
+from src.common.config import msg_objective
 
 
 class SettingScene(Screen):
