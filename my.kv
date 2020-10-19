@@ -12,34 +12,39 @@ Root:
             name: "main"
             id: main
         HistoryScene:
-            name: "deposit"
+            name: "history"
             id: deposit
         SettingScene:
             name: "setting"
             id: setting
+    MDBottomAppBar:
+        MDToolbar:
+            title: screen_manager.current
+            icon: "git"
+            specific_text_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
+            md_bg_color: app.theme_cls.primary_color
+            left_action_items: [['home', lambda x: app.change_screen('main')]]
+            right_action_items: [['coins', lambda x: app.change_screen('history', 'right')], ['cogs', lambda x: app.change_screen('setting', 'left')]]
 
-    MDToolbar:
-        md_bg_color: [0.2, 0.2, 0.2, 1] if app.theme_cls.theme_style == 'Dark' else [0, 0.7, 1, 1]
+#            MDIconButton:
+#                icon: 'coins'
+#                theme_text_color: 'Primary' if screen_manager.current == 'deposit' else 'Hint'
+#                on_release:
+#                    app.change_screen('deposit', 'right')
+#                pos_hint: {"center_y": .5}
 
-        MDIconButton:
-            icon: 'coins'
-            theme_text_color: 'Primary' if screen_manager.current == 'deposit' else 'Hint'
-            on_release:
-                app.change_screen('deposit', 'right')
-            pos_hint: {"center_y": .5}
+#            MDIconButton:
+#                icon: 'coin'
+#                theme_text_color: 'Primary' if screen_manager.current == 'main' else 'Hint'
+#                on_release:
+#                    app.change_screen('main')
+#                pos_hint: {"center_y": .5}
 
-        MDIconButton:
-            icon: 'coin'
-            theme_text_color: 'Primary' if screen_manager.current == 'main' else 'Hint'
-            on_release:
-                app.change_screen('main')
-            pos_hint: {"center_y": .5}
-
-        MDIconButton:
-            icon: 'cogs'
-            theme_text_color: 'Primary' if screen_manager.current == 'setting' else 'Hint'
-            on_release:
-                app.change_screen('setting', 'left')
-            pos_hint: {"center_y": .5}
+#            MDIconButton:
+#                icon: 'cogs'
+#                theme_text_color: 'Primary' if screen_manager.current == 'setting' else 'Hint'
+#                on_release:
+#                    app.change_screen('setting', 'left')
+#                pos_hint: {"center_y": .5}
 
 
