@@ -24,7 +24,7 @@ class SettingScene(Screen):
                     on_release=self.dismiss_dialog
                 ),
                 MDFlatButton(
-                    text="OK",
+                    text="RESET",
                     on_release=self.reset
                 ),
             ],
