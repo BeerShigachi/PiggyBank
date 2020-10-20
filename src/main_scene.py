@@ -18,7 +18,7 @@ class MainScene(Screen):
         Clock.schedule_once(self.display_data, 0)
 
     def display_data(self, dt):
-        self.manager.current = 'main'
+        self.manager.current = 'Main'
         self.show_objective()
         self.show_total_saving()
 

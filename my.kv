@@ -11,13 +11,13 @@ Root:
     ScreenManager
         id: screen_manager
         MainScene:
-            name: "main"
+            name: "Main"
             id: main
         HistoryScene:
-            name: "history"
+            name: "History"
             id: history
         SettingScene:
-            name: "setting"
+            name: "Setting"
             id: setting
 
     MDBottomAppBar:
@@ -27,8 +27,8 @@ Root:
             on_action_button: app.show_deposit_sheet()
             specific_text_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
             md_bg_color: app.theme_cls.primary_color
-            left_action_items: [['home', lambda x: app.change_screen('main')]]
-            right_action_items: [['coins', lambda x: app.change_screen('history', 'right')], ['cogs', lambda x: app.change_screen('setting', 'left')]]
+            left_action_items: [['home', lambda x: app.change_screen('Main')]]
+            right_action_items: [['coins', lambda x: app.change_screen('History', 'right')], ['cogs', lambda x: app.change_screen('Setting', 'left')]]
 
 
 

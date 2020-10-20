@@ -32,8 +32,6 @@ class DepositSheet(BoxLayout):
         if valid_user_input(self.deposit.text):
             db.insert_history_log(self.deposit.text, datetime.date.today())
             self.deposit.text = ''
-            # self.manager.screens[0].show_total_saving()
-            # self.show_history()
         else:
             print('invalid data')
             self.deposit.text = ''
