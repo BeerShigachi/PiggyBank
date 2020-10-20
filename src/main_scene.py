@@ -42,11 +42,10 @@ class MainScene(Screen):
         if data is not None:
             b = saving / data[1]
             rate = 1 / (len(piggy_size) - 1)
-            key = ((b+rate/2)//rate)*rate
+            key = ((b + rate / 2) // rate) * rate
             print(key)
             if key in piggy_size:
                 res = piggy_size[key]
         print(res)  # todo delete later.
         self.total_saving.font_size = res[0]
         self.total_saving.pos_hint = res[1]
-
