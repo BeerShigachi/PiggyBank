@@ -1,12 +1,11 @@
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDFlatButton, MDRaisedButton
 from kivymd.uix.dialog import MDDialog
 
 from main import db
 from src.common.utilities import valid_user_input
-from src.common.config import msg_objective, msg_balance
 
 
 class SettingScene(Screen):
@@ -16,16 +15,18 @@ class SettingScene(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.dialog = MDDialog(
-            size_hint=(.5, None),
-            text="Restore all progress?",
+            size_hint=(.8, None),
+            text="Reset all progress?",
             buttons=[
-                MDFlatButton(
+                MDRaisedButton(
                     text="CANCEL",
-                    on_release=self.dismiss_dialog
+                    on_release=self.dismiss_dialog,
+                    # md_bg_color=[1, 1, 1, 1]  # to change color
                 ),
-                MDFlatButton(
+                MDRaisedButton(
                     text="RESET",
-                    on_release=self.reset
+                    on_release=self.reset,
+                    # md_bg_color=[1, 1, 1, 1]
                 ),
             ],
         )

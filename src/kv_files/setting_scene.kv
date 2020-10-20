@@ -11,6 +11,7 @@
             pos_hint: {"center_x": .5, "center_y": .8}
 
             MDLabel:
+                size_hint: .5, 1
                 text: 'Your Goal'
                 halign: "left"
                 theme_text_color: 'Primary'
@@ -21,6 +22,7 @@
                 hint_text: "Enter amount"
                 helper_text: "Only accept positive amount."
                 helper_text_mode: "on_error"
+                size_hint: .6, None
                 pos_hint: {"center_x": .5, "center_y": .5}
 
             MDRoundFlatButton:
@@ -33,11 +35,12 @@
             size_hint: 0.8, 0.2
             pos_hint: {"center_x": .5, "center_y": .5}
             MDLabel:
+                size_hint: .5, 1
                 text: 'Reset'
                 halign: "left"
                 theme_text_color: 'Primary'
             MDLabel:
-                text: 'reset all history and your goal.'
+                text: 'reset progression.'
                 halign: "left"
                 theme_text_color: 'Primary'
             MDRoundFlatButton:
