@@ -46,7 +46,7 @@ class MyApp(MDApp):
 
     def change_screen(self, screen_name, direction='left'):
         screen_manager = self.root.ids['screen_manager']
-        if screen_name == 'Main' and screen_manager.current == 'Setting':
+        if screen_name == 'History' and screen_manager.current == 'Setting':
             direction = 'right'
         screen_manager.transition.direction = direction
         screen_manager.current = screen_name
