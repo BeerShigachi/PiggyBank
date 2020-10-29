@@ -1,5 +1,6 @@
 from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
+from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivy.factory import Factory
 from kivymd.uix.bottomsheet import MDCustomBottomSheet
@@ -8,6 +9,9 @@ from kivymd.uix.selectioncontrol import MDCheckbox
 
 from db.data_base import DataBase
 from src.common.const import DATABASE_FILENAME
+
+Window.keyboard_anim_args = {'d': 0.2, 't': 'in_out_expo'}
+Window.softinput_mode = "below_target"
 
 Factory.register('MainScene', module='src.main_scene')
 Factory.register('HistoryScene', module='src.history_scene')
