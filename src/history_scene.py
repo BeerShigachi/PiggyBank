@@ -2,44 +2,20 @@ import datetime
 
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
+from kivymd.uix.card import MDCardSwipe
 from kivymd.uix.list import OneLineAvatarIconListItem
 
-from app import db
+from main import db
 from src.common.utilities import valid_user_input
 
 
 class HistoryScene(Screen):
-    deposit = ObjectProperty(None)
     scroll = ObjectProperty(None)
 
     def on_pre_enter(self, *args):
-        self.binder()
         self.show_history()
 
-    def binder(self):  # todo rename
-        self.deposit.bind(
-            on_text_validate=self.set_error_message,
-            on_focus=self.set_error_message,
-        )
-
-    def set_error_message(self, instance_textfield):
-        if valid_user_input(self.deposit.text):
-            self.deposit.error = False
-        else:
-            self.deposit.error = True
-
-    def update_history(self):
-        if valid_user_input(self.deposit.text):
-            db.insert_history_log(self.deposit.text, datetime.date.today())
-            self.deposit.text = ''
-            self.manager.screens[0].show_total_saving()
-            self.show_history()
-        else:
-            self.deposit.text = ''
-            self.deposit.error = True
-
     def show_history(self):  # todo rename
-
         self.scroll.clear_widgets(self.scroll.children[:])
         for i in db.get_all_history_logs():
             self.scroll.add_widget(
@@ -53,8 +29,7 @@ class HistoryScene(Screen):
         self.manager.screens[0].show_total_saving()
 
 
-class ListItemWithCheckbox(OneLineAvatarIconListItem):
+class ListItemWithCheckbox(MDCardSwipe):
     """Custom list item."""
-    disabled = True
-    icon = StringProperty('delete')
+    text = StringProperty()
     id = NumericProperty(None)

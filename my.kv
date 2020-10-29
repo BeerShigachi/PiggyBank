@@ -2,41 +2,55 @@
 #:include src/kv_files/main_scene.kv
 #:include src/kv_files/history_scene.kv
 #:include src/kv_files/setting_scene.kv
+#:include src/kv_files/deposit_sheet.kv
+
 
 Root:
     orientation: 'vertical'
 
-    screen_manager: screen_manager
-
-    MDToolbar:
-        title: screen_manager.current # todo adapt color dynamically.
-
-        MDIconButton:
-            icon: 'coins'
-            theme_text_color: 'Primary' if screen_manager.current == 'deposit' else 'Hint'
-            on_release:
-                screen_manager.transition.direction = 'right'
-                screen_manager.current = 'deposit'
-            pos_hint: {"center_y": .5}
-
-        MDIconButton:
-            icon: 'coin'
-            theme_text_color: 'Primary' if screen_manager.current == 'main' else 'Hint'
-            on_release:
-                screen_manager.transition.direction = 'right' if screen_manager.current == 'setting' else 'left'
-                screen_manager.current = 'main'
-            pos_hint: {"center_y": .5}
-
-        MDIconButton:
-            icon: 'cogs'
-            theme_text_color: 'Primary' if screen_manager.current == 'setting' else 'Hint'
-            on_release:
-                screen_manager.transition.direction = 'left'
-                screen_manager.current = 'setting'
-            pos_hint: {"center_y": .5}
-
     ScreenManager
         id: screen_manager
         MainScene:
+            name: "Main"
+            id: main
         HistoryScene:
+            name: "History"
+            id: history
         SettingScene:
+            name: "Setting"
+            id: setting
+
+    MDBottomAppBar:
+        MDToolbar:
+            title: screen_manager.current
+            icon: "database"
+            on_action_button: app.show_deposit_sheet()
+            specific_text_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
+            md_bg_color: app.theme_cls.primary_color
+            left_action_items: [['home', lambda x: app.change_screen('Main', 'right')]]
+            right_action_items: [['book-open-page-variant', lambda x: app.change_screen('History')], ['cogs', lambda x: app.change_screen('Setting')]]
+
+
+
+#            MDIconButton:
+#                icon: 'coins'
+#                theme_text_color: 'Primary' if screen_manager.current == 'deposit' else 'Hint'
+#                on_release:
+#                    app.change_screen('deposit', 'right')
+#                pos_hint: {"center_y": .5}
+
+#            MDIconButton:
+#                icon: 'coin'
+#                theme_text_color: 'Primary' if screen_manager.current == 'main' else 'Hint'
+#                on_release:
+#                    app.change_screen('main')
+#                pos_hint: {"center_y": .5}
+
+#            MDIconButton:
+#                icon: 'cogs'
+#                theme_text_color: 'Primary' if screen_manager.current == 'setting' else 'Hint'
+#                on_release:
+#                    app.change_screen('setting', 'left')
+#                pos_hint: {"center_y": .5}
+
+

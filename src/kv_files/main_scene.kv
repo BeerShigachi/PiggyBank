@@ -1,34 +1,59 @@
 <MainScene>
-    name: "main"
-
     total_saving: total_saving
     store: store
     balance: balance
 
     FloatLayout:
 
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: 0.5, 0.5
-            pos_hint: {"center_x": .5, "center_y": .5}
+        MDLabel:
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 1}
+            halign: 'center'
+            id: store
+            text: store.text
+            theme_text_color: 'Primary'
+            font_size: "25sp"
 
-            MDLabel:
-                id: store
-                text: store.text
-                theme_text_color: 'Primary'
+        MDIcon:
+            id: total_saving
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 0.65}
+            valign: 'bottom'
+            halign: 'center'
+            theme_text_color: 'Primary'
+            icon: 'piggy-bank'
 
-            MDLabel:
-                id: balance
-                text: balance.text
-                theme_text_color: 'Primary'
+        MDIcon:
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 0.4}
+            valign: 'top'
+            halign: 'center'
+            theme_text_color: 'Primary'
 
-        BoxLayout:
-            size_hint: 0.5, 0.5
-            pos_hint: {"center_x": .75, "center_y": .5}
+            icon: 'scale'
+            font_size: "150sp"
 
-            MDProgressBar:
-                orientation: 'vertical'
-                id: total_saving
-                max: total_saving.max
-                value: total_saving.value if total_saving.value < total_saving.max else total_saving.max
-                color: app.theme_cls.accent_color
+        MDIcon:
+            id: dollar
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 0.365}
+            valign: 'bottom'
+            halign: 'center'
+            theme_text_color: 'Primary'
+            icon: 'currency-usd'
+
+        MDLabel:
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 0.25}
+            halign: 'center'
+            valign: 'bottom'
+            id: balance
+            text: balance.text
+            theme_text_color: 'Primary'
+            font_size: "25sp"
+#            MDProgressBar:
+#                orientation: 'vertical'
+#                id: total_saving
+#                max: total_saving.max
+#                value: total_saving.value if total_saving.value < total_saving.max else total_saving.max
+#                color: app.theme_cls.accent_color

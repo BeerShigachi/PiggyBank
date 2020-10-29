@@ -1,12 +1,11 @@
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDFlatButton, MDRaisedButton
 from kivymd.uix.dialog import MDDialog
 
-from app import db
+from main import db
 from src.common.utilities import valid_user_input
-from src.common.config import msg_objective, msg_balance
 
 
 class SettingScene(Screen):
@@ -16,16 +15,19 @@ class SettingScene(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.dialog = MDDialog(
-            size_hint=(.5, None),
-            text="Restore all progress?",
+            auto_dismiss=False,
+            size_hint=(.8, None),
+            text="Reset all progress?",
             buttons=[
-                MDFlatButton(
+                MDRaisedButton(
                     text="CANCEL",
-                    on_release=self.dismiss_dialog
+                    on_release=self.dismiss_dialog,
+                    # md_bg_color=[1, 1, 1, 1]  # to change color
                 ),
-                MDFlatButton(
-                    text="DISCARD",
-                    on_release=self.reset
+                MDRaisedButton(
+                    text="RESET",
+                    on_release=self.reset,
+                    # md_bg_color=[1, 1, 1, 1]
                 ),
             ],
         )
@@ -47,17 +49,18 @@ class SettingScene(Screen):
         if valid_user_input(self.objective.text):  # todo test this condition.
             db.insert_objective(self.objective.text)
             self.manager.screens[0].show_objective()
+            self.manager.screens[0].show_total_saving()
             self.objective.text = ""
         else:
             print("something went wrong.")
 
     def reset(self, *args):
+        print('resetting')
         db.erase_all_tables()
+        print('reset complete.')
         self.objective.text = ''
-        self.manager.screens[0].store.text = msg_objective + '0'
-        self.manager.screens[0].balance.text = msg_balance + '0'
-        self.manager.screens[0].total_saving.value = 0
-        self.manager.screens[0].total_saving.max = 0
+        self.manager.screens[0].show_objective()
+        self.manager.screens[0].show_total_saving()
         self.dismiss_dialog()
 
     def show_alert_dialog(self):

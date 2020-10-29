@@ -1,5 +1,5 @@
-
 import sqlite3 as sql
+from src.common.config import init_style, init_currency
 
 
 class DataBase:
@@ -17,10 +17,19 @@ class DataBase:
                                 """)
 
         with self.conn:
-            self.cur.execute("""CREATE TABLE IF NOT EXISTS objective(
+            self.cur.execute("""CREATE TABLE IF NOT EXISTS objective (
                                 id INTEGER PRIMARY KEY NOT NULL,
                                 objective INTEGER NOT NULL
                                 )""")
+
+        with self.conn:
+            self.cur.execute("""CREATE TABLE IF NOT EXISTS config (
+                                id INTEGER PRIMARY KEY NOT NULL,
+                                theme_style TEXT NOT NULL,
+                                currency TEXT NOT NULL
+                                )""")
+        if self.get_config() is None:
+            self.set_config(init_style, init_currency)
 
     def insert_objective(self, obj):
         with self.conn:
@@ -29,6 +38,15 @@ class DataBase:
     def get_objective(self):
         self.cur.execute("""SELECT * FROM objective WHERE objective""")
         return self.cur.fetchone()
+
+    def get_config(self):
+        self.cur.execute("""SELECT * FROM config WHERE id""")
+        return self.cur.fetchone()
+
+    def set_config(self, style, currency):
+        with self.conn:
+            self.cur.execute(""" INSERT OR REPLACE INTO config(id, theme_style, currency) VALUES (?, ?, ?)""",
+                             (1, style, currency))
 
     def insert_history_log(self, deposit, date):
         with self.conn:
@@ -43,6 +61,8 @@ class DataBase:
             self.cur.execute("""DELETE FROM history WHERE id=?""", (id_num,))
 
     def erase_all_tables(self):
+        print('deleting')
         with self.conn:
             self.cur.execute("""DELETE FROM objective""")
             self.cur.execute("""DELETE FROM history""")
+        print('deleted')

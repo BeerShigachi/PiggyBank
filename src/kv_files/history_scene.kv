@@ -1,30 +1,7 @@
 <HistoryScene>
-    name: "deposit"
-
-    deposit: deposit
-    button_deposit: button_deposit
     scroll: scroll
 
     FloatLayout:
-
-        BoxLayout:
-            size_hint: 0.4, 0.2
-            pos_hint: {"center_x": .5, "y": .7}
-
-            MDTextField:
-                id: deposit
-                input_filter: "float"
-                hint_text: "Enter amount"
-                helper_text: "Only accept positive amount."
-                helper_text_mode: "on_error"
-                pos_hint: {"center_x": .5, "center_y": .5}
-
-            MDRoundFlatButton:
-                id: button_deposit
-                text: "Deposit"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                on_release: root.update_history()
-
         BoxLayout:
             size_hint: 0.8, 0.5
             pos_hint: {"center_x": .5, "y": .1}
@@ -33,15 +10,30 @@
                 do_scroll_y: True
                 MDList:
                     id: scroll
+                    padding: 0
 
 
 <ListItemWithCheckbox>:
     id: id_widget
-    IconRightWidget:
-        on_release:
-            if checkbox.active:\
-            app.root.screen_manager.screens[1].delete_history_log(id_widget)
-        icon: root.icon
+    size_hint_y: None
+    height: content.height
+    swipe_distance : 1000
+    max_swipe_x : 0.05
+    max_opened_x : 130
+    MDCardSwipeLayerBox:
+        MDIconButton:
+            icon: "trash-can"
+            pos_hint: {"center_y": .5}
+            on_release: app.root.ids['history'].delete_history_log(id_widget)
 
-    LeftCheckbox:
-        id: checkbox
+    MDCardSwipeFrontBox:
+
+        OneLineListItem:
+            id: content
+            text: root.text
+            type_swipe: "hand"
+            _no_ripple_effect: True
+            padding: "8dp"
+
+
+
