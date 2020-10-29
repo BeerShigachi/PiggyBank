@@ -15,6 +15,7 @@ class SettingScene(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.dialog = MDDialog(
+            auto_dismiss=False,
             size_hint=(.8, None),
             text="Reset all progress?",
             buttons=[
@@ -54,7 +55,9 @@ class SettingScene(Screen):
             print("something went wrong.")
 
     def reset(self, *args):
+        print('resetting')
         db.erase_all_tables()
+        print('reset complete.')
         self.objective.text = ''
         self.manager.screens[0].show_objective()
         self.manager.screens[0].show_total_saving()

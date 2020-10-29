@@ -61,6 +61,8 @@ class DataBase:
             self.cur.execute("""DELETE FROM history WHERE id=?""", (id_num,))
 
     def erase_all_tables(self):
+        print('deleting')
         with self.conn:
             self.cur.execute("""DELETE FROM objective""")
             self.cur.execute("""DELETE FROM history""")
+        print('deleted')
