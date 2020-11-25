@@ -45,17 +45,3 @@
                 text: "Submit"
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.show_alert_dialog()
-
-
-
-        BoxLayout:
-            size_hint: 0.4, 0.2
-            pos_hint: {"center_x": .5, "center_y": .1}
-            MDIcon:
-                icon: 'theme-light-dark'
-                theme_text_color: 'Primary'
-                pos_hint: {"center_y": .5}
-            MDSwitch:
-                pos_hint: {"center_y": .5}
-                active: True if app.theme_cls.theme_style == 'Dark' else False
-                on_active: app.toggle_theme(*args)

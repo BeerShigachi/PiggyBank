@@ -32,20 +32,14 @@ class MyApp(MDApp):
         self.currency = db.get_config()[2]
         super().__init__(**kwargs)
 
-    def toggle_theme(self, switch, value):
-        if value:
-            self.theme_cls.theme_style = "Dark"
-        else:
-            self.theme_cls.theme_style = "Light"
-
-        db.set_config(self.theme_cls.theme_style, 'usd')  # todo define later
-
     def change_screen(self, screen_name, direction='left'):
         screen_manager = self.root.ids['screen_manager']
         if screen_name == 'main' and screen_manager.current == 'setting':
             direction = 'right'
         screen_manager.transition.direction = direction
         screen_manager.current = screen_name
+
+        db.set_config(self.theme_cls.theme_style, 'usd')  # todo define later
 
 
 if __name__ == '__main__':
