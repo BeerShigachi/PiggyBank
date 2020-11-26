@@ -6,6 +6,7 @@ from kivy.factory import Factory
 from kivymd.uix.bottomsheet import MDCustomBottomSheet
 from kivymd.uix.list import ILeftBodyTouch
 from kivymd.uix.selectioncontrol import MDCheckbox
+from kivymd.uix.picker import MDThemePicker
 
 from db.data_base import DataBase
 from src.common.const import DATABASE_FILENAME
@@ -58,6 +59,10 @@ class MyApp(MDApp):
     def show_deposit_sheet(self):
         self.deposit_sheet = MDCustomBottomSheet(screen=Factory.DepositSheet())
         self.deposit_sheet.open()
+
+    def show_theme_picker(self):
+        theme_dialog = MDThemePicker()
+        theme_dialog.open()
 
 
 if __name__ == '__main__':
