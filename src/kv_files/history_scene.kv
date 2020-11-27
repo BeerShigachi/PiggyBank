@@ -2,6 +2,23 @@
     scroll: scroll
 
     FloatLayout:
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 0.8, 0.5
+            pos_hint: {"center_x": .5, "y": .5}
+            BoxLayout:  # weekly
+            # todo orientation
+                # todo add progress bar
+                MDLabel:
+                    text: "3333/10000 :monthly"
+
+            BoxLayout:  # monthly
+                # todo add progress bar
+                MDLabel:
+                    id: text
+                    text: "11222/weekly"
+
         BoxLayout:
             size_hint: 0.8, 0.5
             pos_hint: {"center_x": .5, "y": .1}
