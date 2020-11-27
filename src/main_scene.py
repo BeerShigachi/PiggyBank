@@ -5,22 +5,29 @@ from kivy.uix.screenmanager import Screen
 from main import db
 from src.common.utilities import sum_total_saving
 from src.common.config import msg_objective, msg_balance
-from src.common.config import piggy_size
+from src.common.config import dict_alpha
 
 
 class MainScene(Screen):
     total_saving = ObjectProperty(None)
     store = ObjectProperty(None)
     balance = ObjectProperty(None)
+    coin1 = ObjectProperty(None)
+    coin2 = ObjectProperty(None)
+    coin3 = ObjectProperty(None)
+    coin4 = ObjectProperty(None)
+    coin5 = ObjectProperty(None)
 
     def __init__(self, **kw):
         super(MainScene, self).__init__(**kw)
         Clock.schedule_once(self.display_data, 0)
 
     def display_data(self, dt):
+        print(self.coin2.color, "display_data")
         self.manager.current = 'Main'
         self.show_objective()
         self.show_total_saving()
+        print(self.coin2.color, "display_data__")
 
     def show_objective(self):
         try:
@@ -32,20 +39,35 @@ class MainScene(Screen):
             print("no data")
 
     def show_total_saving(self):
+        print(self.coin2.color, "show_total_saving")
         self.balance.text = msg_balance + str(sum_total_saving())
         self.set_icon_size_pos()
+        print(self.coin2.color, "show_total_saving__")
 
     def set_icon_size_pos(self):
         data = db.get_objective()
-        res = piggy_size[0]
+        res = dict_alpha[0]
         saving = sum_total_saving()
         if data is not None:
             b = saving / data[1]
-            rate = 1 / (len(piggy_size) - 1)
+            rate = 1 / (len(dict_alpha) - 1)
             key = ((b + rate / 2) // rate) * rate
             print(key)
-            if key in piggy_size:
-                res = piggy_size[key]
-        print(res)  # todo delete later.
-        self.total_saving.font_size = res[0]
-        self.total_saving.pos_hint = res[1]
+            if key in dict_alpha:
+                res = dict_alpha[key]
+            elif float(saving) >= float(data[1]):
+                res = dict_alpha[1]
+        print(res[1], "alpha", res)  # todo delete later.
+        coins2 = [[self.coin1, self.coin2], [self.coin3, self.coin4], [self.coin5]]
+        for i, coin in enumerate(coins2):
+            print(i, coin)
+            print(coin[0])
+            coin[0].color = [1, 1, 1, res[i]]
+            coin[1].color = [1, 1, 1, res[i]]
+
+        self.coin1.color = [1, 1, 1, res[0]]
+        self.coin2.color = [1, 1, 1, res[1]]
+        self.coin3.color = [1, 1, 1, res[2]]
+        self.coin4.color = [1, 1, 1, res[3]]
+        self.coin5.color = [1, 1, 1, res[4]]
+
