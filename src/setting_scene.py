@@ -3,6 +3,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.button import MDFlatButton, MDRaisedButton
 from kivymd.uix.dialog import MDDialog
+from kivymd.uix.picker import MDThemePicker
 
 from main import db
 from src.common.utilities import valid_user_input
@@ -68,3 +69,7 @@ class SettingScene(Screen):
 
     def dismiss_dialog(self, *args):
         self.dialog.dismiss()
+
+    def show_theme_picker(self):
+        theme_dialog = MDThemePicker()
+        theme_dialog.open()
