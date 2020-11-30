@@ -40,14 +40,6 @@ class MyApp(MDApp):
         self.theme_cls.theme_style = db.get_config()[1]
         self.currency = db.get_config()[2]
 
-    def toggle_theme(self, switch, value):
-        if value:
-            self.theme_cls.theme_style = "Dark"
-        else:
-            self.theme_cls.theme_style = "Light"
-
-        db.set_config(self.theme_cls.theme_style, 'usd')  # todo define later
-
     def change_screen(self, screen_name, direction='left'):
         screen_manager = self.root.ids['screen_manager']
         if screen_name == 'History' and screen_manager.current == 'Setting':
