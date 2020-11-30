@@ -1,14 +1,11 @@
-from kivy.properties import ObjectProperty
-from kivy.tests.test_module_inspector import KV
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
-from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.factory import Factory
 from kivymd.uix.bottomsheet import MDCustomBottomSheet
 from kivymd.uix.list import ILeftBodyTouch
 from kivymd.uix.selectioncontrol import MDCheckbox
-from src.common.config import msg_balance
+
 
 from db.data_base import DataBase
 from src.common.const import DATABASE_FILENAME
