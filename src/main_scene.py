@@ -58,16 +58,7 @@ class MainScene(Screen):
             elif float(saving) >= float(data[1]):
                 res = dict_alpha[1]
         print(res[1], "alpha", res)  # todo delete later.
-        coins2 = [[self.coin1, self.coin2], [self.coin3, self.coin4], [self.coin5]]
-        for i, coin in enumerate(coins2):
+        coins = [self.coin1, self.coin2, self.coin3, self.coin4, self.coin5]  # Add more coins when you have more
+        for i, coin in enumerate(coins):
             print(i, coin)
-            print(coin[0])
-            coin[0].color = [1, 1, 1, res[i]]
-            coin[1].color = [1, 1, 1, res[i]]
-
-        self.coin1.color = [1, 1, 1, res[0]]
-        self.coin2.color = [1, 1, 1, res[1]]
-        self.coin3.color = [1, 1, 1, res[2]]
-        self.coin4.color = [1, 1, 1, res[3]]
-        self.coin5.color = [1, 1, 1, res[4]]
-
+            coin.color = [1, 1, 1, res[i]]
