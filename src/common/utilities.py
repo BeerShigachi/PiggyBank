@@ -14,6 +14,7 @@ def valid_user_input(user_input):
     return validation_bool
 
 
+
 def sum_total_saving():
     total_money = 0
     for i in db.get_all_history_logs():

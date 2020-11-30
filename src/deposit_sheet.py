@@ -27,7 +27,7 @@ class DepositSheet(BoxLayout):
         else:
             self.deposit.error = True
 
-    def update_history(self):
+    def update_history(self, false=None):
         print('in update history deposit_sheet.py')
         if valid_user_input(self.deposit.text):
             db.insert_history_log(self.deposit.text, datetime.date.today())
