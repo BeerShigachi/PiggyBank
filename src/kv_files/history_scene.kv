@@ -5,8 +5,8 @@
 
         BoxLayout:
             orientation: "vertical"
-            size_hint: 0.8, 0.36
-            pos_hint: {"center_x": .5, "y": .47}
+            size_hint: 0.8, 0.39
+            pos_hint: {"center_x": .5, "y": .50}
             BoxLayout:  # weekly
                 orientation: "vertical"
                 MDProgressBar:
@@ -14,25 +14,16 @@
                     color: app.theme_cls.accent_color
                 MDLabel:
                     text: "3333/10000 :weekly"
-                    font_size: "20sp"
+                    font_size: "27sp"
+                    theme_text_color: 'Primary'
                     pos_hint: {"center_x": .5}
                     halign: 'center'
 
-            BoxLayout:  # monthly
-                orientation: "vertical"
-                MDProgressBar:
-                    value: 50
-                    color: app.theme_cls.accent_color
-                MDLabel:
-                    id: text
-                    text: "3333/10000 :monthly"
-                    font_size: "20sp"
-                    pos_hint: {"center_x": .5}
-                    halign: 'center'
+
 
 
         BoxLayout:
-            size_hint: 0.8, 0.35
+            size_hint: 0.8, 0.38
             pos_hint: {"center_x": .5, "y": .1}
             ScrollView:
                 do_scroll_x: False

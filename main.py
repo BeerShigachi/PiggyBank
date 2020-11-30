@@ -62,6 +62,12 @@ class MyApp(MDApp):
         self.deposit_sheet = MDCustomBottomSheet(screen=Factory.DepositSheet())
         self.deposit_sheet.open()
 
+    def build(self):
+        self.theme_cls.primary_palette = "Pink"
+        self.theme_cls.primary_hue = "400"
+        self.theme_cls.accent_palette = "Pink"
+        self.theme_cls.accent_hue = "400"
+
 
 if __name__ == '__main__':
     MyApp().run()
