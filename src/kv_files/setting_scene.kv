@@ -50,9 +50,8 @@
                 on_release: root.show_alert_dialog()
 
 
-        BoxLayout:
-            pos_hint: {"center_x": .8,"y": .25}
-            halign: 'center'
-            MDRaisedButton:
-                text: "Change theme color"
-                on_release: root.show_theme_picker()
+
+        MDRaisedButton:
+            pos_hint: {"center_x": .5,"y": .25}
+            text: "Change theme color"
+            on_release: root.show_theme_picker()
