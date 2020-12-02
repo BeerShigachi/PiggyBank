@@ -6,9 +6,18 @@
 
     FloatLayout:
 
+        MDLabel:
+            size_hint: 1, 0.25
+            pos_hint: {"center_x": .5, "top": 1}
+            halign: 'center'
+            id: store
+            text: 'Goal $ 10000'
+            theme_text_color: 'Primary'
+            font_size: "25sp"
+
         BoxLayout:
             size_hint: 0.8, 0.2
-            pos_hint: {"center_x": .5, "center_y": .8}
+            pos_hint: {"center_x": .5, "center_y": .7}
 
             MDLabel:
                 size_hint: .5, 1
@@ -33,7 +42,7 @@
 
         BoxLayout:
             size_hint: 0.8, 0.2
-            pos_hint: {"center_x": .5, "center_y": .5}
+            pos_hint: {"center_x": .5, "center_y": .45}
             MDLabel:
                 size_hint: .5, 1
                 text: 'Reset'
@@ -52,6 +61,6 @@
 
 
         MDRaisedButton:
-            pos_hint: {"center_x": .5,"y": .25}
+            pos_hint: {"center_x": .5,"y": .16}
             text: "Change theme color"
             on_release: root.show_theme_picker()
