@@ -6,14 +6,15 @@
 
     FloatLayout:
 
-        MDLabel:
+        BoxLayout:
             size_hint: 1, 0.25
             pos_hint: {"center_x": .5, "top": 1}
-            halign: 'center'
-            id: store
-            text: 'Goal $ 10000'
-            theme_text_color: 'Primary'
-            font_size: "25sp"
+            MDLabel:
+                halign: 'center'
+                id: store
+                text: 'Goal $ 10000'
+                theme_text_color: 'Primary'
+                font_size: "25sp"
 
         BoxLayout:
             size_hint: 0.8, 0.2
