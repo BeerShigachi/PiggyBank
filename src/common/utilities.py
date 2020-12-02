@@ -1,4 +1,4 @@
-from main import db
+from db.data_base import db
 
 
 def valid_user_input(user_input):

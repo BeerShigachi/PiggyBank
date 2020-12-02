@@ -45,7 +45,9 @@
         MDIconButton:
             icon: "trash-can"
             pos_hint: {"center_y": .5}
-            on_release: app.root.ids['history'].delete_history_log(id_widget)
+            on_release:
+                app.root.ids['history'].delete_history_log(id_widget)
+                app.root.display_balance_bar()
 
     MDCardSwipeFrontBox:
 

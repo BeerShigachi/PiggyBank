@@ -1,5 +1,6 @@
 import sqlite3 as sql
 from src.common.config import init_style, init_currency
+from src.common.const import DATABASE_FILENAME
 
 
 class DataBase:
@@ -66,3 +67,5 @@ class DataBase:
             self.cur.execute("""DELETE FROM objective""")
             self.cur.execute("""DELETE FROM history""")
         print('deleted')
+
+db = DataBase(DATABASE_FILENAME)

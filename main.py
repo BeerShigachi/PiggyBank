@@ -1,3 +1,4 @@
+from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
 from kivymd.app import MDApp
@@ -5,10 +6,12 @@ from kivy.factory import Factory
 from kivymd.uix.bottomsheet import MDCustomBottomSheet
 from kivymd.uix.list import ILeftBodyTouch
 from kivymd.uix.selectioncontrol import MDCheckbox
+from kivy.clock import Clock
 
-
-from db.data_base import DataBase
+from src.common.config import msg_balance
 from src.common.const import DATABASE_FILENAME
+from src.common.utilities import sum_total_saving
+from db.data_base import db
 
 Window.keyboard_anim_args = {'d': 0.2, 't': 'in_out_expo'}
 Window.softinput_mode = "below_target"
@@ -18,7 +21,6 @@ Factory.register('HistoryScene', module='src.history_scene')
 Factory.register('SettingScene', module='src.setting_scene')
 Factory.register('DepositSheet', module='src.deposit_sheet')
 
-db = DataBase(DATABASE_FILENAME)
 db.create_new_tables()
 
 
@@ -27,8 +29,15 @@ class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
 
 
 class Root(BoxLayout):
-    """Root Widget(Top Tool Bar)"""
-    pass
+    """Root Widget"""
+    label = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Clock.schedule_once(self.display_balance_bar, 0)
+
+    def display_balance_bar(self, dt=0):
+        self.label.title = msg_balance + str(sum_total_saving())
 
 
 class MyApp(MDApp):
