@@ -17,6 +17,9 @@ class MainScene(Screen):
     coin3 = ObjectProperty(None)
     coin4 = ObjectProperty(None)
     coin5 = ObjectProperty(None)
+    coin6 = ObjectProperty(None)
+    coin7 = ObjectProperty(None)
+    coin8 = ObjectProperty(None)
 
     def __init__(self, **kw):
         super(MainScene, self).__init__(**kw)
@@ -58,7 +61,7 @@ class MainScene(Screen):
             elif float(saving) >= float(data[1]):
                 res = dict_alpha[1]
         print(res[1], "alpha", res)  # todo delete later.
-        coins = [self.coin1, self.coin2, self.coin3, self.coin4, self.coin5]  # Add more coins when you have more
+        coins = [self.coin1, self.coin2, self.coin3, self.coin4, self.coin5, self.coin6, self.coin7, self.coin8]  # Add more coins when you have more
         for i, coin in enumerate(coins):
             print(i, coin)
-            coin.color = [1, 1, 1, res[i]]
+            coin.color = [.6, .6, .6, res[i]]
