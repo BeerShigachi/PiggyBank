@@ -1,3 +1,4 @@
+from kivy.app import App
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
@@ -5,13 +6,14 @@ from kivymd.uix.button import MDRaisedButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.picker import MDThemePicker
 
-from main import db
+from db.data_base import db
 from src.common.utilities import valid_user_input
 
 
 class SettingScene(Screen):
     objective = ObjectProperty(None)
     dialog = None
+    app = App.get_running_app()
 
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -50,7 +52,7 @@ class SettingScene(Screen):
         if valid_user_input(self.objective.text):  # todo test this condition.
             db.insert_objective(self.objective.text)
             self.manager.screens[0].show_objective()
-            self.manager.screens[0].show_total_saving()
+            self.manager.screens[0].show_total_saving()  # todo delete here
             self.objective.text = ""
         else:
             print("something went wrong.")
@@ -58,10 +60,10 @@ class SettingScene(Screen):
     def reset(self, *args):
         print('resetting')
         db.erase_all_tables()
-        print('reset complete.')
-        self.objective.text = ''
-        self.manager.screens[0].show_objective()
-        self.manager.screens[0].show_total_saving()
+        self.objective.text = ''  # todo delete here
+        self.manager.screens[0].show_objective()  # todo delete here
+        self.manager.screens[0].show_total_saving()  # todo delete here
+        self.app.root.display_balance_bar()
         self.dismiss_dialog()
 
     def show_alert_dialog(self):
