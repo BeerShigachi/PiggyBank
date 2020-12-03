@@ -64,4 +64,4 @@ class MainScene(Screen):
         coins = [self.coin1, self.coin2, self.coin3, self.coin4, self.coin5, self.coin6, self.coin7, self.coin8]  # Add more coins when you have more
         for i, coin in enumerate(coins):
             print(i, coin)
-            coin.color = [.6, .6, .6, res[i]]
+            coin.color = [.55, .55, .55, res[i]]
