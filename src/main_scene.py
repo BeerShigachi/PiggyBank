@@ -43,7 +43,7 @@ class MainScene(Screen):
 
     def show_total_saving(self):
         print(self.coin2.color, "show_total_saving")
-        self.balance.text = msg_balance + str(sum_total_saving())
+
         self.set_icon_size_pos()
         print(self.coin2.color, "show_total_saving__")
 
