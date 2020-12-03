@@ -38,6 +38,7 @@
             MDRoundFlatButton:
                 id: button_objective
                 text: "Submit"
+                text_color: app.theme_cls.primary_color
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.submit_objective()
 
@@ -56,6 +57,7 @@
             MDRoundFlatButton:
                 id: button_reset
                 text: "Submit"
+                text_color: app.theme_cls.primary_color
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.show_alert_dialog()
 
@@ -64,4 +66,5 @@
         MDRaisedButton:
             pos_hint: {"center_x": .5,"y": .16}
             text: "Change theme color"
+            specific_text_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
             on_release: root.show_theme_picker()
