@@ -5,7 +5,7 @@
 
         BoxLayout:
             orientation: "vertical"
-            size_hint: 0.8, 0.2
+            size_hint: 0.8, 0.25
             pos_hint: {"center_x": .5, "y": .6}
             BoxLayout:  # weekly
                 orientation: "vertical"
@@ -13,11 +13,17 @@
                     value: 50
                     color: app.theme_cls.accent_color
                 MDLabel:
-                    text: "3333/10000 :weekly"
+                    text: "3333/10000"
                     font_size: "27sp"
                     theme_text_color: 'Primary'
                     pos_hint: {"center_x": .5}
                     halign: 'center'
+
+                MDDropDownItem:
+
+                    pos_hint: {'center_x': .5}
+                    text: '1 week'    #Select 2,3,4…… weeks
+                    font_size: '25sp'
 
 
 
