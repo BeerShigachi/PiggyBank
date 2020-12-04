@@ -8,7 +8,7 @@
     coin7: coin7
     coin8: coin8
     store: store
-    balance: balance
+
 
     FloatLayout:
 
@@ -28,7 +28,7 @@
             halign: 'center'
             icon: 'piggy-bank'
             font_size: "400sp"
-            color: [.85, .85, .85, 1]
+            color: [.88, .88, .88, 1]
 
         MDIcon:
             id: coin1
@@ -117,15 +117,7 @@
 
 
 
-        MDLabel:
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .5, "top": 0.25}
-            halign: 'center'
-            valign: 'bottom'
-            id: balance
-            text: balance.text
-            theme_text_color: 'Primary'
-            font_size: "25sp"
+
 #            MDProgressBar:
 #                orientation: 'vertical'
 #                id: total_saving

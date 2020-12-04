@@ -43,7 +43,7 @@ class MainScene(Screen):
 
     def show_total_saving(self):
         print(self.coin2.color, "show_total_saving")
-        self.balance.text = msg_balance + str(sum_total_saving())
+
         self.set_icon_size_pos()
         print(self.coin2.color, "show_total_saving__")
 
@@ -64,4 +64,4 @@ class MainScene(Screen):
         coins = [self.coin1, self.coin2, self.coin3, self.coin4, self.coin5, self.coin6, self.coin7, self.coin8]  # Add more coins when you have more
         for i, coin in enumerate(coins):
             print(i, coin)
-            coin.color = [.6, .6, .6, res[i]]
+            coin.color = [.55, .55, .55, res[i]]
