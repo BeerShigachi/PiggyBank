@@ -1,5 +1,7 @@
 <HistoryScene>
     scroll: scroll
+    estimation_bar: estimation_bar
+    estimation_text: estimation_text
 
     FloatLayout:
 
@@ -10,10 +12,13 @@
             BoxLayout:  # weekly
                 orientation: "vertical"
                 MDProgressBar:
-                    value: 50
+                    id: estimation_bar
+                    max: estimation_bar.max
+                    value: estimation_bar.value if estimation_bar.value < estimation_bar.max else estimation_bar.max
                     color: app.theme_cls.accent_color
                 MDLabel:
-                    text: "3333/10000"
+                    id: estimation_text
+                    text: estimation_text.text
                     font_size: "27sp"
                     theme_text_color: 'Primary'
                     pos_hint: {"center_x": .5}

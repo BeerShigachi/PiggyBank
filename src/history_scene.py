@@ -6,14 +6,17 @@ from kivymd.uix.card import MDCardSwipe
 from kivymd.uix.list import OneLineAvatarIconListItem
 
 from main import db
-from src.common.utilities import valid_user_input
+from src.common.utilities import sum_total_saving
 
 
 class HistoryScene(Screen):
     scroll = ObjectProperty(None)
+    estimation_bar = ObjectProperty(None)
+    estimation_text = ObjectProperty(None)
 
     def on_pre_enter(self, *args):
         self.show_history()
+        self.process_estimation()
 
     def show_history(self):  # todo rename
         self.scroll.clear_widgets(self.scroll.children[:])
@@ -27,6 +30,18 @@ class HistoryScene(Screen):
         db.erase_history_log(widget.id)
         self.show_history()
         self.manager.screens[0].show_total_saving()
+
+    def process_estimation(self, term=1):
+        all_histories = db.get_all_history_logs()[::-1]
+        print(all_histories, type(datetime.date.fromisoformat(all_histories[-1][-1])))
+        # d1 = datetime.date(year=2012, month=10, day=12)
+        goal = db.get_objective()[1]
+        ideal_schedule = goal / term
+        for i in all_histories:
+            history = datetime.date.fromisoformat(i[-1])
+            day_error = abs(datetime.date.today() - history)
+            print(type(day_error.days), day_error.days)
+
 
 
 class ListItemWithCheckbox(MDCardSwipe):
