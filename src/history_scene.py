@@ -16,7 +16,8 @@ class HistoryScene(Screen):
 
     def on_pre_enter(self, *args):
         self.show_history()
-        self.process_estimation()
+        # todo give self.estimate_deposit_pace the term(int).
+        self.estimate_deposit_pace()
 
     def show_history(self):  # todo rename
         self.scroll.clear_widgets(self.scroll.children[:])
@@ -31,17 +32,19 @@ class HistoryScene(Screen):
         self.show_history()
         self.manager.screens[0].show_total_saving()
 
-    def process_estimation(self, term=1):
-        all_histories = db.get_all_history_logs()[::-1]
-        print(all_histories, type(datetime.date.fromisoformat(all_histories[-1][-1])))
-        # d1 = datetime.date(year=2012, month=10, day=12)
-        goal = db.get_objective()[1]
-        ideal_schedule = goal / term
-        for i in all_histories:
-            history = datetime.date.fromisoformat(i[-1])
-            day_error = abs(datetime.date.today() - history)
-            print(type(day_error.days), day_error.days)
+    def estimate_deposit_pace(self, term=1):
+        """
 
+        :param term: int term of months(or weeks)
+        :return: void
+        """
+        goal = db.get_objective()[1]
+        ideal_welfare = goal / term
+        real_welfare = sum_total_saving() / term
+        self.estimation_bar.max = ideal_welfare
+        self.estimation_bar.value = real_welfare
+        self.estimation_text.text = str(real_welfare) + '/' + str(ideal_welfare)
+        print(ideal_welfare, real_welfare)
 
 
 class ListItemWithCheckbox(MDCardSwipe):
