@@ -5,7 +5,8 @@
 
     FloatLayout:
 
-        BoxLayout:
+        MDBoxLayout:
+            md_bg_color: [0.2, 0.2, 0.2, 1] if app.theme_cls.theme_style == 'Dark' else [.99,.99,.99,1]
             orientation: "vertical"
             size_hint: 0.8, 0.25
             pos_hint: {"center_x": .5, "y": .6}
