@@ -9,7 +9,6 @@ from kivymd.uix.selectioncontrol import MDCheckbox
 from kivy.clock import Clock
 
 from src.common.config import msg_balance
-from src.common.const import DATABASE_FILENAME
 from src.common.utilities import sum_total_saving
 from db.data_base import db
 

@@ -5,7 +5,7 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCardSwipe
 from kivymd.uix.list import OneLineAvatarIconListItem
 
-from main import db
+from db.data_base import db
 from src.common.utilities import sum_total_saving
 
 
@@ -38,13 +38,15 @@ class HistoryScene(Screen):
         :param term: int term of months(or weeks)
         :return: void
         """
-        goal = db.get_objective()[1]
+        if db.get_objective() is not None:
+            goal = db.get_objective()[1]
+        else:
+            goal = 0
         ideal_welfare = goal / term
         real_welfare = sum_total_saving() / term
         self.estimation_bar.max = ideal_welfare
         self.estimation_bar.value = real_welfare
         self.estimation_text.text = str(real_welfare) + '/' + str(ideal_welfare)
-        print(ideal_welfare, real_welfare)
 
 
 class ListItemWithCheckbox(MDCardSwipe):

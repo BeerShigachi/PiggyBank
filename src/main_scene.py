@@ -2,7 +2,7 @@ from kivy.clock import Clock
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
 
-from main import db
+from db.data_base import db
 from src.common.utilities import sum_total_saving
 from src.common.config import msg_objective, msg_balance
 from src.common.config import dict_alpha

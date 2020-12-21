@@ -3,7 +3,7 @@ import datetime
 from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 
-from main import db
+from db.data_base import db
 from src.common.utilities import valid_user_input
 
 
