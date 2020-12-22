@@ -2,6 +2,7 @@
     scroll: scroll
     estimation_bar: estimation_bar
     estimation_text: estimation_text
+    drop_item: drop_item
 
     FloatLayout:
 
@@ -31,9 +32,11 @@
                     pos_hint: {'y': .8}
                 MDDropDownItem:
 
+                    id: drop_item
                     pos_hint: {'center_x': .5}
                     text: '1 week'    #Select 2,3,4…… weeks
                     font_size: '25sp'
+                    on_release: app.menu.open()
 
 
 

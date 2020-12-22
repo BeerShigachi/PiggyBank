@@ -4,6 +4,8 @@ from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCardSwipe
 from kivymd.uix.list import OneLineAvatarIconListItem
+from kivymd.uix.menu import MDDropdownMenu
+from kivy.lang import Builder
 
 from db.data_base import db
 from src.common.utilities import sum_total_saving
@@ -13,6 +15,7 @@ class HistoryScene(Screen):
     scroll = ObjectProperty(None)
     estimation_bar = ObjectProperty(None)
     estimation_text = ObjectProperty(None)
+    drop_item = ObjectProperty(None)
 
     def on_pre_enter(self, *args):
         self.show_history()
@@ -33,6 +36,21 @@ class HistoryScene(Screen):
         self.manager.screens[0].show_total_saving()
 
     def estimate_deposit_pace(self, term=1):
+        self.screen = Builder.load_string
+        menu_items = [{"text": f"Item {i}"} for i in range(5)]
+        self.menu = MDDropdownMenu(
+            caller=self.screen.ids.drop_item,
+            items=menu_items,
+            position="center",
+            width_mult=4,
+        )
+        self.menu.bind(on_release=self.menu_callback)
+
+    def menu_callback(self, instance_menu, instance_menu_item):
+        print(instance_menu, instance_menu_item)
+
+    def build(self):
+        return self.screen
         """
 
         :param term: int term of months(or weeks)
