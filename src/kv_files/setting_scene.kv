@@ -4,7 +4,8 @@
     button_objective: button_objective
     button_reset: button_reset
     store: store
-
+    term: term
+    button_term: button_term
     FloatLayout:
 
         BoxLayout:
@@ -42,6 +43,32 @@
                 text_color: app.theme_cls.primary_color
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.submit_objective()
+
+        BoxLayout:
+            size_hint: 0.8, 0.2
+            pos_hint: {"center_x": .5, "center_y": .6}
+
+            MDLabel:
+                size_hint: .5, 1
+                text: 'set term'
+                halign: "left"
+                theme_text_color: 'Primary'
+
+            MDTextField:
+                id: term
+                input_filter: "int"
+                hint_text: "Enter amount"
+                helper_text: "Only accept positive amount."
+                helper_text_mode: "on_error"
+                size_hint: .6, None
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDRoundFlatButton:
+                id: button_term
+                text: "Submit"
+                text_color: app.theme_cls.primary_color
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: root.submit_term()
 
         BoxLayout:
             size_hint: 0.8, 0.2

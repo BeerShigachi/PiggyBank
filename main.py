@@ -1,4 +1,4 @@
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
 from kivymd.app import MDApp

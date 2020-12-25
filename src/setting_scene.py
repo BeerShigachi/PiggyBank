@@ -1,3 +1,5 @@
+import datetime
+
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
@@ -16,6 +18,8 @@ class SettingScene(Screen):
     dialog = None
     app = App.get_running_app()
     store = ObjectProperty(None)
+    term = ObjectProperty(None)
+    button_term = ObjectProperty(None)
 
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -39,7 +43,6 @@ class SettingScene(Screen):
         Clock.schedule_once(self.binder, 0)
         Clock.schedule_once(self.display_data, 0)
 
-
     def display_data(self, dt):
         self.show_objective()
 
@@ -51,7 +54,6 @@ class SettingScene(Screen):
         except TypeError:
             self.store.text = msg_objective + '0'
             print("no data")
-
 
     def binder(self, dt):  # todo rename
         self.objective.bind(
@@ -74,6 +76,12 @@ class SettingScene(Screen):
             self.show_objective()
         else:
             print("something went wrong.")
+
+    def submit_term(self):
+        if valid_user_input(self.term.text):
+            db.insert_term(self.term.text, datetime.date.today())
+            self.term.text = ''
+            # todo pass the term to term_text in history scene
 
     def reset(self, *args):
         print('resetting')

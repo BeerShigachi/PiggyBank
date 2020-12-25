@@ -24,6 +24,13 @@ class DataBase:
                                 )""")
 
         with self.conn:
+            self.cur.execute("""CREATE TABLE IF NOT EXISTS term (
+                                id INTEGER PRIMARY KEY NOT NULL,
+                                term INTEGER NOT NULL,
+                                date timestamp
+                                )""")
+
+        with self.conn:
             self.cur.execute("""CREATE TABLE IF NOT EXISTS config (
                                 id INTEGER PRIMARY KEY NOT NULL,
                                 theme_style TEXT NOT NULL,
@@ -39,6 +46,14 @@ class DataBase:
     def get_objective(self):
         self.cur.execute("""SELECT * FROM objective WHERE objective""")
         return self.cur.fetchone()
+
+    def insert_term(self, term, date):
+        with self.conn:
+            self.cur.execute(""" INSERT OR REPLACE INTO term(id, term, date) VALUES (?, ?, ?)""", (1, int(term), date))
+
+    def get_term(self):
+        self.cur.execute("""SELECT * FROM term""")
+        return self.cur.fetchall()
 
     def get_config(self):
         self.cur.execute("""SELECT * FROM config WHERE id""")
