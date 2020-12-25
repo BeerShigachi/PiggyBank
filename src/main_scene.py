@@ -35,10 +35,8 @@ class MainScene(Screen):
     def show_objective(self):
         try:
             store_objective = db.get_objective()[1]
-            self.store.text = msg_objective + str(store_objective)
 
         except TypeError:
-            self.store.text = msg_objective + '0'
             print("no data")
 
     def show_total_saving(self):

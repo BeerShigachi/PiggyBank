@@ -23,7 +23,7 @@
 
             MDLabel:
                 size_hint: .5, 1
-                text: 'Your Goal'
+                text: 'Goal'
                 halign: "left"
                 theme_text_color: 'Primary'
 
@@ -66,6 +66,6 @@
 
         MDRaisedButton:
             pos_hint: {"center_x": .5,"y": .16}
-            text: "Change theme color"
+            text: "Select color"
             specific_text_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
             on_release: root.show_theme_picker()
