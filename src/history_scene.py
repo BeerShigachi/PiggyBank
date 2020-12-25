@@ -3,6 +3,7 @@ from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCardSwipe
 from db.data_base import db
+from src.common.const import TODAY
 
 
 class HistoryScene(Screen):
@@ -26,19 +27,24 @@ class HistoryScene(Screen):
         """Delete each history"""
         db.erase_history_log(widget.id)
         self.show_history()
-        self.manager.screens[0].show_total_saving()
+        self.show_term()
+        self.manager.screens[0].set_icon_size_pos()
 
     def show_term(self):
+        # todo if today is over deadline do nothing
         term_info = db.get_term()[0]
-        if self._error(term_info[-1]) == 0:
-            self.term_text.text = 'Last month!'  # todo make this constant
-        else:
-            self.term_text.text = str(self._error(term_info[-1])) + "months left!"  # todo make this constant
-        self.estimate_deposit_pace(term_info[1])
+        print(term_info)
+        deadline = datetime.date.fromisoformat(term_info[-1])
+        if TODAY <= deadline:
+            error = (deadline.year - TODAY.year) * 12 + (deadline.month - TODAY.month)
+            if error == 1:
+                self.term_text.text = "LAST MONTH!!"  # todo make this constant
+            else:
+                self.term_text.text = str(error) + "months left!"  # todo make this constant
+            self.estimate_deposit_pace(term_info[1])
 
     def _error(self, date_iso):
-        _today = datetime.date.today()  # todo put this in const.py
-        return int(_today.isoformat()[5:7]) - int(date_iso[5:7])
+        return int(TODAY.isoformat()[5:7]) - int(date_iso[5:7])
 
     def estimate_deposit_pace(self, term=1):
         """
@@ -54,7 +60,7 @@ class HistoryScene(Screen):
         sum_saving_this_month = 0
         _max_days_in_month = 31
         for i, j, k in history:
-            delta = datetime.date.today() - datetime.date.fromisoformat(k)
+            delta = TODAY - datetime.date.fromisoformat(k)
             if delta.days <= _max_days_in_month and self._error(k) == 0:
                 sum_saving_this_month += j
                 print(sum_saving_this_month)

@@ -4,7 +4,6 @@ from kivy.uix.screenmanager import Screen
 
 from db.data_base import db
 from src.common.utilities import sum_total_saving
-from src.common.config import msg_objective, msg_balance
 from src.common.config import dict_alpha
 
 
@@ -28,24 +27,11 @@ class MainScene(Screen):
     def display_data(self, dt):
         print(self.coin2.color, "display_data")
         self.manager.current = 'Main'
-        self.show_objective()
-        self.show_total_saving()
+        self.set_icon_size_pos()
         print(self.coin2.color, "display_data__")
 
     def show_objective(self):
-        try:
-            store_objective = db.get_objective()[1]
-            self.store.text = msg_objective + str(store_objective)
-
-        except TypeError:
-            self.store.text = msg_objective + '0'
-            print("no data")
-
-    def show_total_saving(self):
-        print(self.coin2.color, "show_total_saving")
-
-        self.set_icon_size_pos()
-        print(self.coin2.color, "show_total_saving__")
+        pass
 
     def set_icon_size_pos(self):
         data = db.get_objective()

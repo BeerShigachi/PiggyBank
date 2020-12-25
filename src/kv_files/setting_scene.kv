@@ -24,14 +24,14 @@
 
             MDLabel:
                 size_hint: .5, 1
-                text: 'Your Goal'
+                text: 'Goal'
                 halign: "left"
                 theme_text_color: 'Primary'
 
             MDTextField:
                 id: objective
                 input_filter: "float"
-                hint_text: "Enter amount"
+                hint_text: "1000 ($)"
                 helper_text: "Only accept positive amount."
                 helper_text_mode: "on_error"
                 size_hint: .6, None
@@ -50,14 +50,14 @@
 
             MDLabel:
                 size_hint: .5, 1
-                text: 'set term'
+                text: 'Deadline'
                 halign: "left"
                 theme_text_color: 'Primary'
 
             MDTextField:
                 id: term
                 input_filter: "int"
-                hint_text: "Enter amount"
+                hint_text: "6 (months)"
                 helper_text: "Only accept positive amount."
                 helper_text_mode: "on_error"
                 size_hint: .6, None
@@ -93,6 +93,6 @@
 
         MDRaisedButton:
             pos_hint: {"center_x": .5,"y": .16}
-            text: "Change theme color"
+            text: "Change color"
             specific_text_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
             on_release: root.show_theme_picker()

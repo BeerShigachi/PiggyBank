@@ -70,8 +70,7 @@ class SettingScene(Screen):
     def submit_objective(self):
         if valid_user_input(self.objective.text):  # todo test this condition.
             db.insert_objective(self.objective.text)
-            self.manager.screens[0].show_objective()
-            self.manager.screens[0].show_total_saving()  # todo delete here
+            self.manager.screens[0].set_icon_size_pos()
             self.objective.text = ""
             self.show_objective()
         else:
@@ -79,7 +78,19 @@ class SettingScene(Screen):
 
     def submit_term(self):
         if valid_user_input(self.term.text):
-            db.insert_term(self.term.text, datetime.date.today())
+            deadline_months = datetime.date.today().month + int(self.term.text) - 1
+            print(deadline_months//12, deadline_months%12)
+            num_month = deadline_months%12 + 1
+            deadline = datetime.date(datetime.date.today().year + deadline_months // 12, num_month,
+                                     datetime.date.today().day)
+
+            # if num_month == 0:
+            #     deadline = datetime.date(datetime.date.today().year + deadline_months//12, datetime.date.today().month, datetime.date.today().day)
+            # else:
+            #
+
+            print(deadline)
+            db.insert_term(self.term.text, deadline)
             self.term.text = ''
             # todo pass the term to term_text in history scene
 
@@ -87,8 +98,7 @@ class SettingScene(Screen):
         print('resetting')
         db.erase_all_tables()
         self.objective.text = ''  # todo delete here
-        self.manager.screens[0].show_objective()  # todo delete here
-        self.manager.screens[0].show_total_saving()  # todo delete here
+        self.manager.screens[0].set_icon_size_pos()
         self.app.root.display_balance_bar()
         self.dismiss_dialog()
         self.show_objective()
