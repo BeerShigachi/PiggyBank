@@ -32,7 +32,10 @@ class HistoryScene(Screen):
 
     def show_term(self):
         # todo if today is over deadline do nothing
-        term_info = db.get_term()[0]
+        info = db.get_term()
+        if not info:
+            return
+        term_info = info[0]
         print(term_info)
         deadline = datetime.date.fromisoformat(term_info[-1])
         if TODAY <= deadline:
@@ -43,7 +46,7 @@ class HistoryScene(Screen):
                 self.term_text.text = str(error) + "months left!"  # todo make this constant
             self.estimate_deposit_pace(term_info[1])
 
-    def _error(self, date_iso):
+    def _error(self, date_iso):  # todo refactor here
         return int(TODAY.isoformat()[5:7]) - int(date_iso[5:7])
 
     def estimate_deposit_pace(self, term=1):
