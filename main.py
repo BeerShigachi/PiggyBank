@@ -8,7 +8,7 @@ from kivymd.uix.list import ILeftBodyTouch
 from kivymd.uix.selectioncontrol import MDCheckbox
 from kivy.clock import Clock
 
-from src.common.config import msg_balance
+from src.common.config import msg_balance, INIT_CONFIG
 from src.common.utilities import sum_total_saving
 from db.data_base import db
 
@@ -49,8 +49,7 @@ class MyApp(MDApp):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.theme_cls.theme_style = db.get_config()[1]
-        self.currency = db.get_config()[2]
+        self.currency = INIT_CONFIG['currency']
 
     def change_screen(self, screen_name, direction='left'):
         screen_manager = self.root.ids['screen_manager']
@@ -60,14 +59,34 @@ class MyApp(MDApp):
         screen_manager.current = screen_name
 
     def show_deposit_sheet(self):
+        print(self.theme_cls.primary_palette, self.theme_cls.primary_hue, self.theme_cls.accent_palette,
+              self.theme_cls.accent_hue)
         self.deposit_sheet = MDCustomBottomSheet(screen=Factory.DepositSheet())
         self.deposit_sheet.open()
 
     def build(self):
-        self.theme_cls.primary_palette = "Pink"
-        self.theme_cls.primary_hue = "400"
-        self.theme_cls.accent_palette = "Pink"
-        self.theme_cls.accent_hue = "400"
+        pass
+
+    def on_start(self):
+        # todo set currency
+        # todo refactor
+        config = db.get_config()
+        if config is None:
+            self.theme_cls.theme_style = INIT_CONFIG['style']
+            self.theme_cls.primary_palette = INIT_CONFIG['primary_palette']
+            self.theme_cls.accent_palette = INIT_CONFIG['accent_palette']
+        else:
+            self.theme_cls.theme_style = config[1]
+            self.theme_cls.primary_palette = config[2]
+            self.theme_cls.accent_palette = config[3]
+            self.currency = config[4]
+        self.theme_cls.primary_hue = INIT_CONFIG['primary_hue']
+
+    def on_stop(self):
+        # todo refactor
+        print(self.currency)
+        db.set_config(self.theme_cls.theme_style, self.theme_cls.primary_palette, self.theme_cls.accent_palette,
+                      self.currency)
 
 
 if __name__ == '__main__':
