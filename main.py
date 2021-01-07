@@ -72,10 +72,12 @@ class MyApp(MDApp):
         # todo refactor
         config = db.get_config()
         if config is None:
+            print("config is none")
             self.theme_cls.theme_style = INIT_CONFIG['style']
             self.theme_cls.primary_palette = INIT_CONFIG['primary_palette']
             self.theme_cls.accent_palette = INIT_CONFIG['accent_palette']
         else:
+            print('read from config')
             self.theme_cls.theme_style = config[1]
             self.theme_cls.primary_palette = config[2]
             self.theme_cls.accent_palette = config[3]
@@ -85,6 +87,7 @@ class MyApp(MDApp):
     def on_stop(self):
         # todo refactor
         print(self.currency)
+        print('closig app')
         db.set_config(self.theme_cls.theme_style, self.theme_cls.primary_palette, self.theme_cls.accent_palette,
                       self.currency)
 
