@@ -84,10 +84,10 @@ class MyApp(MDApp):
             self.currency = config[4]
         self.theme_cls.primary_hue = INIT_CONFIG['primary_hue']
 
-    def on_stop(self):
+    def on_pause(self):
         # todo refactor
         print(self.currency)
-        print('closig app')
+        print('pausing app')
         db.set_config(self.theme_cls.theme_style, self.theme_cls.primary_palette, self.theme_cls.accent_palette,
                       self.currency)
 
