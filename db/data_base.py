@@ -29,15 +29,6 @@ class DataBase:
                                 date timestamp
                                 )""")
 
-        with self.conn:
-            self.cur.execute("""CREATE TABLE IF NOT EXISTS config (
-                                id INTEGER PRIMARY KEY NOT NULL,
-                                theme_style TEXT NOT NULL,
-                                primary_palette TEXT NOT NULL,
-                                accent_palette TEXT NOT NULL,
-                                currency TEXT NOT NULL
-                                )""")
-
     def insert_objective(self, obj):
         with self.conn:
             self.cur.execute(""" INSERT OR REPLACE INTO objective(id, objective) VALUES (?, ?)""", (1, float(obj)))
@@ -53,16 +44,6 @@ class DataBase:
     def get_term(self):
         self.cur.execute("""SELECT * FROM term""")
         return self.cur.fetchall()
-
-    def get_config(self):
-        self.cur.execute("""SELECT * FROM config WHERE id""")
-        return self.cur.fetchone()
-
-    def set_config(self, style, primary, accent, currency):
-        with self.conn:
-            self.cur.execute("""INSERT OR REPLACE INTO config(id, theme_style, primary_palette, accent_palette, 
-                             currency) VALUES (?, ?, ?, ?, ?)""",
-                             (1, style, primary, accent, currency))
 
     def insert_history_log(self, deposit, date):
         with self.conn:

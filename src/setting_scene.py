@@ -26,7 +26,7 @@ class SettingScene(Screen):
         self.dialog = MDDialog(
             auto_dismiss=False,
             size_hint=(.8, None),
-            text="Reset all progress?",
+            title="Reset all progress?",
             buttons=[
                 MDRaisedButton(
                     text="CANCEL",
@@ -104,7 +104,13 @@ class SettingScene(Screen):
         self.show_objective()
 
     def show_alert_dialog(self):
+        print(self.app.theme_cls.theme_style)
+        if self.app.theme_cls.theme_style == 'Light':
+            self.dialog.md_bg_color = [.9,.9,.9,1]
+        else:
+            self.dialog.md_bg_color = [0.3,0.3,0.3,1]
         self.dialog.open()
+
 
     def dismiss_dialog(self, *args):
         self.dialog.dismiss()

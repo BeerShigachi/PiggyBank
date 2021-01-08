@@ -3,12 +3,14 @@
 msg_objective = 'Goal $ '
 msg_balance = '$ '
 
-INIT_CONFIG = {'style': 'Light',
-               'primary_palette': 'Pink',
-               'accent_palette': 'Pink',
-               'primary_hue': '400',
-               'accent_hue': '400',
-               'currency': 'usd'}
+INIT_CONFIG = {'theme': {
+    'style': 'Light',
+    'primary_palette': 'Pink',
+    'accent_palette': 'Pink',
+    'primary_hue': '400',
+    'accent_hue': '400'
+}
+}
 
 dict_alpha = {
     0: [0, 0, 0, 0, 0, 0, 0, 0],

@@ -11,6 +11,7 @@ from kivy.clock import Clock
 from src.common.config import msg_balance, INIT_CONFIG
 from src.common.utilities import sum_total_saving
 from db.data_base import db
+import json
 
 Window.keyboard_anim_args = {'d': 0.2, 't': 'in_out_expo'}
 Window.softinput_mode = "below_target"
@@ -49,7 +50,14 @@ class MyApp(MDApp):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.currency = INIT_CONFIG['currency']
+        try:
+            with open('theme_config.json', 'r') as f:
+                self._store = json.load(f)
+        except FileNotFoundError:
+            with open('theme_config.json', 'w') as f:
+                json.dump(INIT_CONFIG, f)
+                self._store = INIT_CONFIG
+        self._theme_config = self._store['theme']
 
     def change_screen(self, screen_name, direction='left'):
         screen_manager = self.root.ids['screen_manager']
@@ -70,26 +78,20 @@ class MyApp(MDApp):
     def on_start(self):
         # todo set currency
         # todo refactor
-        config = db.get_config()
-        if config is None:
-            print("config is none")
-            self.theme_cls.theme_style = INIT_CONFIG['style']
-            self.theme_cls.primary_palette = INIT_CONFIG['primary_palette']
-            self.theme_cls.accent_palette = INIT_CONFIG['accent_palette']
-        else:
-            print('read from config')
-            self.theme_cls.theme_style = config[1]
-            self.theme_cls.primary_palette = config[2]
-            self.theme_cls.accent_palette = config[3]
-            self.currency = config[4]
-        self.theme_cls.primary_hue = INIT_CONFIG['primary_hue']
+        print('read from _theme_config')
+        self.theme_cls.theme_style = self._theme_config['style']
+        self.theme_cls.primary_palette = self._theme_config['primary_palette']
+        self.theme_cls.accent_palette = self._theme_config['accent_palette']
 
     def on_pause(self):
         # todo refactor
-        print(self.currency)
+        for key, value in zip(['style', 'primary_palette', 'accent_palette'],
+                              [self.theme_cls.theme_style, self.theme_cls.primary_palette,
+                               self.theme_cls.accent_palette]):
+            self._theme_config[key] = value
+        with open('theme_config.json', 'w') as f:
+            json.dump(self._store, f)
         print('pausing app')
-        db.set_config(self.theme_cls.theme_style, self.theme_cls.primary_palette, self.theme_cls.accent_palette,
-                      self.currency)
 
 
 if __name__ == '__main__':
