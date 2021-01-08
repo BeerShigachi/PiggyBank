@@ -19,8 +19,11 @@ class HistoryScene(Screen):
     def show_history(self):  # todo rename
         self.scroll.clear_widgets(self.scroll.children[:])
         for i in db.get_all_history_logs():
+            row_date = i[2]
+            date = datetime.date.fromisoformat(row_date)
+
             self.scroll.add_widget(
-                ListItemWithCheckbox(text=f"${i[1]}, date {i[2]}", id=i[0])
+                ListItemWithCheckbox(text=f"${i[1]}, " + date.strftime("%A %d. %B %Y"), id=i[0])
             )
 
     def delete_history_log(self, widget):
