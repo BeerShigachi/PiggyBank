@@ -43,6 +43,7 @@
             size_hint: 0.8, 0.38
             pos_hint: {"center_x": .5, "y": .1}
             ScrollView:
+                scroll_timeout: 100
                 do_scroll_x: False
                 do_scroll_y: True
                 MDList:
@@ -54,11 +55,11 @@
     id: id_widget
     size_hint_y: None
     height: content.height
-    swipe_distance : 1000
-    max_swipe_x : 0.05
-    max_opened_x : 130
-    anchor: "right"
+    anchor: 'right'
+    type_swipe: "hand"
+
     MDCardSwipeLayerBox:
+        BoxLayout:
         MDIconButton:
             icon: "trash-can"
             pos_hint: {"center_y": .5}
@@ -67,11 +68,9 @@
                 app.root.display_balance_bar()
 
     MDCardSwipeFrontBox:
-
         OneLineListItem:
             id: content
             text: root.text
-            type_swipe: "hand"
             _no_ripple_effect: True
             padding: "8dp"
 
