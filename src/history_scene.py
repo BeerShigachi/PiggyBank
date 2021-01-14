@@ -34,7 +34,6 @@ class HistoryScene(Screen):
         self.manager.screens[0].set_icon_size_pos()
 
     def show_term(self):
-        # todo if today is over deadline do nothing
         info = db.get_term()
         if not info:
             return

@@ -25,13 +25,8 @@ class MainScene(Screen):
         Clock.schedule_once(self.display_data, 0)
 
     def display_data(self, dt):
-        print(self.coin2.color, "display_data")
         self.manager.current = 'Main'
         self.set_icon_size_pos()
-        print(self.coin2.color, "display_data__")
-
-    def show_objective(self):
-        pass
 
     def set_icon_size_pos(self):
         data = db.get_objective()
@@ -41,13 +36,10 @@ class MainScene(Screen):
             b = saving / data[1]
             rate = 1 / (len(dict_alpha) - 1)
             key = ((b + rate / 2) // rate) * rate
-            print(key)
             if key in dict_alpha:
                 res = dict_alpha[key]
             elif float(saving) >= float(data[1]):
                 res = dict_alpha[1]
-        print(res[1], "alpha", res)  # todo delete later.
         coins = [self.coin1, self.coin2, self.coin3, self.coin4, self.coin5, self.coin6, self.coin7, self.coin8]  # Add more coins when you have more
         for i, coin in enumerate(coins):
-            print(i, coin)
             coin.color = [.55, .55, .55, res[i]]

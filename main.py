@@ -67,31 +67,30 @@ class MyApp(MDApp):
         screen_manager.current = screen_name
 
     def show_deposit_sheet(self):
-        print(self.theme_cls.primary_palette, self.theme_cls.primary_hue, self.theme_cls.accent_palette,
-              self.theme_cls.accent_hue)
         self.deposit_sheet = MDCustomBottomSheet(screen=Factory.DepositSheet())
         self.deposit_sheet.open()
 
-    def build(self):
-        pass
-
     def on_start(self):
         # todo set currency
-        # todo refactor
-        print('read from _theme_config')
         self.theme_cls.theme_style = self._theme_config['style']
         self.theme_cls.primary_palette = self._theme_config['primary_palette']
         self.theme_cls.accent_palette = self._theme_config['accent_palette']
 
     def on_pause(self):
-        # todo refactor
+        """For Android."""
+        self._store_theme_config()
+
+    def on_stop(self):
+        """For Win10, OSX, linux"""
+        self._store_theme_config()
+
+    def _store_theme_config(self):
         for key, value in zip(['style', 'primary_palette', 'accent_palette'],
                               [self.theme_cls.theme_style, self.theme_cls.primary_palette,
                                self.theme_cls.accent_palette]):
             self._theme_config[key] = value
         with open('theme_config.json', 'w') as f:
             json.dump(self._store, f)
-        print('pausing app')
 
 
 if __name__ == '__main__':
