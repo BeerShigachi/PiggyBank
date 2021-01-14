@@ -25,7 +25,7 @@ class MainScene(Screen):
         Clock.schedule_once(self.display_data, 0)
 
     def display_data(self, dt):
-        self.manager.current = 'Main'
+        self.manager.current = 'Home'
         self.set_icon_size_pos()
 
     def set_icon_size_pos(self):
