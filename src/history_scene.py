@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCardSwipe
 from db.data_base import db
 from src.common.const import TODAY
+from src.common.circular_bar import CircularProgressBar
 
 
 class HistoryScene(Screen):
