@@ -26,7 +26,7 @@ _DEFAULT_BACKGROUND_COLOUR = (0.26, 0.26, 0.26, 1)
 _DEFAULT_MAX_PROGRESS = 100
 _DEFAULT_MIN_PROGRESS = 0
 _DEFAULT_WIDGET_SIZE = 200
-_DEFAULT_TEXT_LABEL = Label(text="{}%", font_size=40)
+_DEFAULT_TEXT_LABEL = Label(text="{}%", font_size=40, color=(0,0,0,1))
 
 # Declare the defaults for the normalisation function, these are used in the textual representation (multiplied by 100)
 _NORMALISED_MAX = 1
@@ -187,6 +187,9 @@ class CircularProgressBar(Widget):
             raise ValueError("Progress must be between minimum ({}) and maximum ({}), not {}!"
                              .format(self._min_progress, self._max_progress, value))
         elif value != self._value:
+            self._value = value
+            self._draw()
+        elif value == 0:
             self._value = value
             self._draw()
 

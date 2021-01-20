@@ -1,10 +1,13 @@
 import datetime
+
+from kivy.core.text import Label
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCardSwipe
 from db.data_base import db
 from src.common.const import TODAY
-from src.common.circular_bar import CircularProgressBar
+from src.common.circular_bar import CircularProgressBar  # do not delete this line. using it in .kv
+from src.common.const import DEFAULT_LABEL
 
 
 class HistoryScene(Screen):
@@ -12,6 +15,7 @@ class HistoryScene(Screen):
     estimation_bar = ObjectProperty(None)
     estimation_text = ObjectProperty(None)
     term_text = ObjectProperty(None)
+    _label = Label(text=DEFAULT_LABEL, font_size=40, color=(0, 0, 0, 1))
 
     def on_pre_enter(self, *args):
         self.show_history()
@@ -77,7 +81,7 @@ class HistoryScene(Screen):
             self.estimation_bar.value = self.estimation_bar.max
         else:
             self.estimation_bar.value = int((real_welfare / ideal_welfare) * 100)
-        self.estimation_text.text = str(real_welfare) + '/' + str(ideal_welfare)
+        self.estimation_text.text = "${}/${}".format(real_welfare, ideal_welfare)
 
 
 class ListItemWithCheckbox(MDCardSwipe):
