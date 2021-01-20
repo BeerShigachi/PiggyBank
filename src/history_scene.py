@@ -36,7 +36,6 @@ class HistoryScene(Screen):
         db.erase_history_log(widget.id)
         self.show_history()
         self.show_term()
-        self.manager.screens[0].set_icon_size_pos()
 
     def show_term(self):
         info = db.get_term()

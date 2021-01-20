@@ -1,116 +1,13 @@
 <MainScene>
-    coin1: coin1
-    coin2: coin2
-    coin3: coin3
-    coin4: coin4
-    coin5: coin5
-    coin6: coin6
-    coin7: coin7
-    coin8: coin8
-    store: store
-
+    gif: gif
 
     FloatLayout:
-
-        MDLabel:
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .5, "top": 1}
-            halign: 'center'
-            id: store
-            text: store.text
-            theme_text_color: 'Primary'
-            font_size: "25sp"
-
-        MDIcon:
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .5, "top": 0.65}
-            valign: 'bottom'
-            halign: 'center'
-            icon: 'piggy-bank'
-            font_size: "400sp"
-            color: [0.3, 0.3, 0.3, 1] if app.theme_cls.theme_style == 'Dark' else [.88, .88, .88, 1]
-
-        MDIcon:
-            id: coin1
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .42, "top": 0.51}
-            valign: 'bottom'
-            halign: 'center'
-
-            icon: 'coin'
-            font_size: "70sp"
-            color: [0, 0, 0, 1]
-
-
-        MDIcon:
-            id: coin2
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .58, "top": 0.51}
-            valign: 'bottom'
-            halign: 'center'
-
-            icon: 'coin'
-            font_size: "70sp"
-            color: [0, 0, 0, 1]
-
-        MDIcon:
-            id: coin3
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .28, "top": .55}
-            valign: 'bottom'
-            halign: 'center'
-
-            icon: 'coin'
-            font_size: "70sp"
-
-        MDIcon:
-            id: coin4
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .72, "top": .55}
-            valign: 'bottom'
-            halign: 'center'
-
-            icon: 'coin'
-            font_size: "70sp"
-
-        MDIcon:
-            id: coin5
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .415, "top": .598}
-            valign: 'bottom'
-            halign: 'center'
-
-            icon: 'coin'
-            font_size: "70sp"
-
-
-        MDIcon:
-            id: coin6
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .585, "top": .598}
-            valign: 'bottom'
-            halign: 'center'
-
-            icon: 'coin'
-            font_size: "70sp"
-
-        MDIcon:
-            id: coin7
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .42, "top": .685}
-            valign: 'bottom'
-            halign: 'center'
-
-            icon: 'coin'
-            font_size: "70sp"
-
-
-        MDIcon:
-            id: coin8
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .58, "top": .685}
-            valign: 'bottom'
-            halign: 'center'
-
-            icon: 'coin'
-            font_size: "70sp"
+        Image:
+            id: gif
+            pos_hint: {'center_x': .5}
+            source: 'img.gif'
+            center: self.parent.center
+            size: 500, 500
+            allow_stretch: True
+            anim_delay: -1
+            anim_loop: 1

@@ -70,7 +70,6 @@ class SettingScene(Screen):
     def submit_objective(self):
         if valid_user_input(self.objective.text):  # todo test this condition.
             db.insert_objective(self.objective.text)
-            self.manager.screens[0].set_icon_size_pos()
             self.objective.text = ""
             self.show_objective()
         else:
@@ -98,7 +97,6 @@ class SettingScene(Screen):
         print('resetting')
         db.erase_all_tables()
         self.objective.text = ''  # todo delete here
-        self.manager.screens[0].set_icon_size_pos()
         self.app.root.display_balance_bar()
         self.dismiss_dialog()
         self.show_objective()
