@@ -7,15 +7,15 @@ from kivymd.uix.card import MDCardSwipe
 from db.data_base import db
 from src.common.const import TODAY
 from src.common.circular_bar import CircularProgressBar  # do not delete this line. using it in .kv
-from src.common.const import DEFAULT_LABEL
 
+_DEFAULT_LABEL = '{}%'
 
 class HistoryScene(Screen):
     scroll = ObjectProperty(None)
     estimation_bar = ObjectProperty(None)
     estimation_text = ObjectProperty(None)
     term_text = ObjectProperty(None)
-    _label = Label(text=DEFAULT_LABEL, font_size=40, color=(0, 0, 0, 1))
+    _label = Label(text=_DEFAULT_LABEL, font_size=40, color=(0, 0, 0, 1))
 
     def on_pre_enter(self, *args):
         self.show_history()
@@ -43,7 +43,6 @@ class HistoryScene(Screen):
         if not info:
             return
         term_info = info[0]
-        print(term_info)
         deadline = datetime.date.fromisoformat(term_info[-1])
         if TODAY <= deadline:
             error = (deadline.year - TODAY.year) * 12 + (deadline.month - TODAY.month)
