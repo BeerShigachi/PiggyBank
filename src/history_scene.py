@@ -73,8 +73,10 @@ class HistoryScene(Screen):
 
         ideal_welfare = round(goal / term, 2)
         real_welfare = round(sum_saving_this_month, 2)
-        self.estimation_bar.max = ideal_welfare
-        self.estimation_bar.value = real_welfare
+        if real_welfare >= ideal_welfare:
+            self.estimation_bar.value = self.estimation_bar.max
+        else:
+            self.estimation_bar.value = int((real_welfare / ideal_welfare) * 100)
         self.estimation_text.text = str(real_welfare) + '/' + str(ideal_welfare)
 
 
