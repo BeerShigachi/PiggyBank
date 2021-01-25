@@ -283,6 +283,7 @@ class CircularProgressBar(Widget):
 
             # Draw the background progress line
             Color(*self.background_colour)
+            print('herehere', self.pos)
             Line(circle=(self.pos[0] + self._widget_size / 2, self.pos[1] + self._widget_size / 2,
                          self._widget_size / 2 - self._thickness), width=self._thickness)
 
