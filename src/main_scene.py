@@ -9,5 +9,5 @@ class MainScene(Screen):
     gif = ObjectProperty(None)
 
     def set_icon_size_pos(self):
-        self.gif.anim_delay = 0.05
+        self.gif.anim_delay = 0.01
         self.gif._coreimage.anim_reset(True)
