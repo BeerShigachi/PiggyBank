@@ -16,9 +16,10 @@ class HistoryScene(Screen):
     estimation_bar = ObjectProperty(None)
     estimation_text = ObjectProperty(None)
     term_text = ObjectProperty(None)
+    term_bar = ObjectProperty(None)
     _label = Label(text=_DEFAULT_LABEL, font_size=40, color=(0, 0, 0, 1))
 
-    def on_enter(self, *args):
+    def on_pre_enter(self, *args):
         self.show_history()
         self.show_term()
 
@@ -47,15 +48,22 @@ class HistoryScene(Screen):
         if TODAY <= deadline:
             error = (deadline.year - TODAY.year) * 12 + (deadline.month - TODAY.month)
             if error == 1:
-                self.term_text.text = "LAST MONTH!!"  # todo make this constant
+                self.term_text.text = "LAST MONTH"  # todo make this constant
             else:
-                self.term_text.text = str(error) + "months left!"  # todo make this constant
-            self.estimate_deposit_pace(term_info[1])
+                self.term_text.text = str(error) + " months left"  # todo make this constant
 
-    def _error(self, date_iso):  # todo refactor here
-        return int(TODAY.isoformat()[5:7]) - int(date_iso[5:7])
+            self.term_bar.max = term_info[1]
+            self.term_bar.value = term_info[1] - error
 
-    def estimate_deposit_pace(self, term=1):
+            self._estimate_deposit_pace(term_info[1])
+
+    def _format_data_iso(self, date_iso):
+        return int(date_iso[5:7])
+
+    def _error(self, date_iso):
+        return self._format_data_iso(TODAY.isoformat()) - self._format_data_iso(date_iso)
+
+    def _estimate_deposit_pace(self, term=1):
         """
         :param term: int term of months(or weeks)
         :return: void
@@ -80,7 +88,7 @@ class HistoryScene(Screen):
         else:
             self.estimation_bar.value = int((real_welfare / ideal_welfare) * 100)
 
-        self.estimation_bar.draw()
+        # self.estimation_bar.draw()
         self.estimation_text.text = "${}/${}".format(real_welfare, ideal_welfare)
 
 
