@@ -10,6 +10,7 @@ from src.common.circular_bar import CircularProgressBar  # do not delete this li
 
 _DEFAULT_LABEL = '{}%'
 
+
 class HistoryScene(Screen):
     scroll = ObjectProperty(None)
     estimation_bar = ObjectProperty(None)
@@ -17,7 +18,7 @@ class HistoryScene(Screen):
     term_text = ObjectProperty(None)
     _label = Label(text=_DEFAULT_LABEL, font_size=40, color=(0, 0, 0, 1))
 
-    def on_pre_enter(self, *args):
+    def on_enter(self, *args):
         self.show_history()
         self.show_term()
 
@@ -71,7 +72,6 @@ class HistoryScene(Screen):
             delta = TODAY - datetime.date.fromisoformat(k)
             if delta.days <= _max_days_in_month and self._error(k) == 0:
                 sum_saving_this_month += j
-                print(sum_saving_this_month)
 
         ideal_welfare = round(goal / term, 2)
         real_welfare = round(sum_saving_this_month, 2)
@@ -79,6 +79,8 @@ class HistoryScene(Screen):
             self.estimation_bar.value = self.estimation_bar.max
         else:
             self.estimation_bar.value = int((real_welfare / ideal_welfare) * 100)
+
+        self.estimation_bar.draw()
         self.estimation_text.text = "${}/${}".format(real_welfare, ideal_welfare)
 
 

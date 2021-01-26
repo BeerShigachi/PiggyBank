@@ -19,6 +19,8 @@
                 font_size: "30sp"
                 halign: 'center'
 
+
+
             BoxLayout:
                 orientation: "horizontal"
                 MDLabel:
@@ -35,16 +37,17 @@
                     theme_text_color: 'Primary'
                     halign: 'center'
 
-            CircularProgressBar:
-                id:estimation_bar
-                widget_size: 100
-    #            thickness: 5
-                cap_precisions:100
-                value: estimation_bar.value
-                # todo create color converter then implement color here.
-                # progress_colour: 0.8, 0.8, 0.5, 1
-                background_colour: 1,.3,.3,1
-                label: root._label
+        CircularProgressBar:
+            id:estimation_bar
+            widget_size: int(root.height/2)
+            pos: root.width/2-(self.widget_size/2), root.height/2-(self.widget_size/2)
+#            thickness: 5
+            cap_precisions:100
+            value: estimation_bar.value
+            # todo create color converter then implement color here.
+            # progress_colour: 0.8, 0.8, 0.5, 1
+            background_colour: 1,.3,.3,1
+            label: root._label
         BoxLayout:
             size_hint: 0.9, 0.4
             pos_hint: {"center_x": .5, "y": 0}

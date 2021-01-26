@@ -188,10 +188,10 @@ class CircularProgressBar(Widget):
                              .format(self._min_progress, self._max_progress, value))
         elif value != self._value:
             self._value = value
-            self._draw()
+            # self._draw()
         elif value == 0:
             self._value = value
-            self._draw()
+            # self._draw()
 
     @property
     def widget_size(self):
@@ -267,7 +267,7 @@ class CircularProgressBar(Widget):
             self.value = ceil(self._min_progress + (norm_progress - _NORMALISED_MIN) *
                               (self._max_progress - self._min_progress) / (_NORMALISED_MAX - _NORMALISED_MIN))
 
-    def _draw(self):
+    def draw(self):
         """
         Function used to draw the progress bar onto the screen.
         The drawing process is as follows:
@@ -276,8 +276,9 @@ class CircularProgressBar(Widget):
             3. Draw the actual progress line (N degrees where n is between 0 and 360)
             4. Draw the textual representation of progress in the middle of the circle
         """
-
+        print(self.pos, self.size, '____________________debug android emulator______________________')
         with self.canvas:
+
             self.canvas.clear()
             self._refresh_text()
 
