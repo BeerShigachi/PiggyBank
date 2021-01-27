@@ -30,18 +30,8 @@ class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
 
 class Root(BoxLayout):
     """Root Widget"""
-    label = ObjectProperty(None)
+    pass
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        Clock.schedule_once(self.display_balance_bar, 0)
-        Clock.schedule_once(self.set_label_font_size)
-
-    def display_balance_bar(self, dt=0):
-        self.label.title = msg_balance + str(sum_total_saving())
-
-    def set_label_font_size(self, *args):
-        self.ids.label.ids.label_title.font_size = '30sp'
 
 
 class MyApp(MDApp):

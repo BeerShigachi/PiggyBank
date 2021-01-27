@@ -5,10 +5,10 @@ from kivy.properties import ObjectProperty
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from src.common.circular_bar import CircularProgressBar  # do not delete this line. using it in .kv
+from src.common.utilities import sum_total_saving, get_goal
 
 import os
 
-from src.common.utilities import sum_total_saving, get_goal
 
 _DEFAULT_LABEL = '{}%'
 
@@ -20,12 +20,18 @@ class MainScene(Screen):
     circular_bar = CircularProgressBar()
     _label = Label(text=_DEFAULT_LABEL, font_size=40, color=(0.2, 0.2, 0.2, 1))
     app = App.get_running_app()
+    label = ObjectProperty(None)
 
     def on_enter(self, *args):
         Clock.schedule_once(self._draw_circular_bar, 0)
+        Clock.schedule_once(self._set_saving_label, 0)
+
+    def _set_saving_label(self, dt=0):
+        self.label.text = "$ " + str(sum_total_saving())
 
     def refresh_screen(self):
         self._draw_circular_bar()
+        self._set_saving_label()
         self._play_gif()
 
     def _draw_circular_bar(self, dt=0):

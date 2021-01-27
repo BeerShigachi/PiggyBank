@@ -84,7 +84,6 @@ class SettingScene(Screen):
         print('resetting')
         db.erase_all_tables()
         self.objective.text = ''  # todo delete here
-        self.app.root.display_balance_bar()
         self.dismiss_dialog()
         self.show_objective()
 
