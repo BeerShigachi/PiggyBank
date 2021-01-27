@@ -7,6 +7,7 @@ from db.data_base import db
 from src.common.utilities import valid_user_input
 
 
+
 class DepositSheet(BoxLayout):
     deposit = ObjectProperty(None)
 

@@ -6,9 +6,7 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCardSwipe
 from db.data_base import db
 from src.common.const import TODAY
-from src.common.circular_bar import CircularProgressBar  # do not delete this line. using it in .kv
-
-_DEFAULT_LABEL = '{}%'
+from src.common.utilities import get_goal
 
 
 class HistoryScene(Screen):
@@ -17,7 +15,6 @@ class HistoryScene(Screen):
     estimation_text = ObjectProperty(None)
     term_text = ObjectProperty(None)
     term_bar = ObjectProperty(None)
-    _label = Label(text=_DEFAULT_LABEL, font_size=40, color=(0, 0, 0, 1))
 
     def on_pre_enter(self, *args):
         self.show_history()
@@ -25,7 +22,7 @@ class HistoryScene(Screen):
 
     def show_history(self):  # todo rename
         self.scroll.clear_widgets(self.scroll.children[:])
-        for i in db.get_all_history_logs():
+        for i in db.fetch_all_history_logs():
             row_date = i[2]
             date = datetime.date.fromisoformat(row_date)
 
@@ -40,7 +37,7 @@ class HistoryScene(Screen):
         self.show_term()
 
     def show_term(self):
-        info = db.get_term()
+        info = db.fetch_term()
         if not info:
             return
         term_info = info[0]
@@ -68,12 +65,10 @@ class HistoryScene(Screen):
         :param term: int term of months(or weeks)
         :return: void
         """
-        if db.get_objective() is not None:
-            goal = db.get_objective()[1]
-        else:
-            goal = 0
 
-        history = db.get_all_history_logs()
+        goal = get_goal()
+
+        history = db.fetch_all_history_logs()
         sum_saving_this_month = 0
         _max_days_in_month = 31
         for i, j, k in history:

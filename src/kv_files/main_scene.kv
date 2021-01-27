@@ -1,5 +1,6 @@
 <MainScene>
     gif: gif
+    circular_bar: circular_bar
 
     FloatLayout:
         Image:
@@ -7,7 +8,15 @@
             pos_hint: {'center_x': .5, 'center_y': .5}
             source: 'img.gif'
             center: self.parent.center
-            size: 500, 500
+            size_hint: 0.5, 0.5
             allow_stretch: True
             anim_delay: -1
             anim_loop: 1
+
+        CircularProgressBar:
+            id: circular_bar
+            widget_size: int(root.height*0.7)
+            pos: root.width/2-(self.widget_size/2), root.height/2-(self.widget_size/2)
+            thickness: 10
+            cap_precisions: 10
+            label: root._label

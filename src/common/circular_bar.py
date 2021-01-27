@@ -4,10 +4,10 @@ Module storing the implementation of a circular progress bar in kivy.
     Refer to the in-code documentation of the class and its methods to learn about the tool. Includes a usage example.
 Authorship: Kacper Florianski
 """
-
+from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 from kivy.app import App
-from kivy.core.text import Label
+
 from kivy.lang.builder import Builder
 from kivy.graphics import Line, Rectangle, Color
 from kivy.clock import Clock
@@ -242,7 +242,7 @@ class CircularProgressBar(Widget):
         Additionally updates the variable tracking the label's texture size
         """
         self._text_label.text = self._default_label_text.format(str(int(self.get_normalised_progress() * 100)))
-        self._text_label.refresh()
+        self._text_label.texture_update()
         self._label_size = self._text_label.texture.size
 
     def get_normalised_progress(self) -> float:

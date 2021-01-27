@@ -33,7 +33,7 @@ class DataBase:
         with self.conn:
             self.cur.execute(""" INSERT OR REPLACE INTO objective(id, objective) VALUES (?, ?)""", (1, float(obj)))
 
-    def get_objective(self):
+    def fetch_objective(self):
         self.cur.execute("""SELECT * FROM objective WHERE objective""")
         return self.cur.fetchone()
 
@@ -41,7 +41,7 @@ class DataBase:
         with self.conn:
             self.cur.execute(""" INSERT OR REPLACE INTO term(id, term, date) VALUES (?, ?, ?)""", (1, int(term), date))
 
-    def get_term(self):
+    def fetch_term(self):
         self.cur.execute("""SELECT * FROM term""")
         return self.cur.fetchall()
 
@@ -49,7 +49,7 @@ class DataBase:
         with self.conn:
             self.cur.execute(""" INSERT OR REPLACE INTO history(deposit, date) VALUES (?, ?)""", (float(deposit), date))
 
-    def get_all_history_logs(self):
+    def fetch_all_history_logs(self):
         self.cur.execute("""SELECT * FROM history""")
         return self.cur.fetchall()
 

@@ -1,5 +1,7 @@
 from db.data_base import db
 
+_DEFAULT_GOAL = 1
+
 
 def valid_user_input(user_input):
     validation_bool = True
@@ -18,6 +20,14 @@ def valid_user_input(user_input):
 
 def sum_total_saving():
     total_money = 0
-    for i in db.get_all_history_logs():
+    for i in db.fetch_all_history_logs():
         total_money += i[1]
     return total_money
+
+
+def get_goal():
+    value = _DEFAULT_GOAL
+    data = db.fetch_objective()
+    if data is not None:
+        value = data[1]
+    return value

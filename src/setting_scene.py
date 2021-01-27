@@ -9,7 +9,7 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.picker import MDThemePicker
 
 from db.data_base import db
-from src.common.utilities import valid_user_input
+from src.common.utilities import valid_user_input, get_goal
 from src.common.config import msg_objective
 
 
@@ -47,13 +47,7 @@ class SettingScene(Screen):
         self.show_objective()
 
     def show_objective(self):
-        try:
-            store_objective = db.get_objective()[1]
-            self.store.text = msg_objective + str(store_objective)
-
-        except TypeError:
-            self.store.text = msg_objective + '0'
-            print("no data")
+        self.store.text = msg_objective + str(get_goal())
 
     def binder(self, dt):  # todo rename
         self.objective.bind(
@@ -83,15 +77,8 @@ class SettingScene(Screen):
             deadline = datetime.date(datetime.date.today().year + deadline_months // 12, num_month,
                                      datetime.date.today().day)
 
-            # if num_month == 0:
-            #     deadline = datetime.date(datetime.date.today().year + deadline_months//12, datetime.date.today().month, datetime.date.today().day)
-            # else:
-            #
-
-            print(deadline)
             db.insert_term(self.term.text, deadline)
             self.term.text = ''
-            # todo pass the term to term_text in history scene
 
     def reset(self, *args):
         print('resetting')
