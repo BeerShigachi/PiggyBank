@@ -21,7 +21,6 @@
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint: 0.7, None
             pos_hint: {'center_x': 0.5}
             MDTextField:
                 id: objective
@@ -57,7 +56,6 @@
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint: 0.7, None
             pos_hint: {'center_x': 0.5}
             MDTextField:
                 id: term
@@ -89,7 +87,6 @@
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint: 0.7, None
             pos_hint: {'center_x': 0.5}
             MDLabel:
                 text: 'reset progression.'
@@ -114,7 +111,6 @@
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint: 0.7, None
             pos_hint: {'center_x': 0.5}
             MDLabel:
                 text: 'Change theme'
@@ -122,4 +118,5 @@
                 theme_text_color: 'Hint'
             MDIconButton:
                 icon: 'palette'
+                pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.show_theme_picker()
