@@ -9,7 +9,7 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.picker import MDThemePicker
 
 from db.data_base import db
-from src.common.utilities import valid_user_input, get_goal
+from src.common.utilities import valid_user_input, get_goal, last_day_of_month
 from src.common.config import msg_objective
 
 
@@ -72,11 +72,13 @@ class SettingScene(Screen):
     def submit_term(self):
         if valid_user_input(self.term.text):
             deadline_months = datetime.date.today().month + int(self.term.text) - 1
-            print(deadline_months//12, deadline_months%12)
-            num_month = deadline_months%12 + 1
-            deadline = datetime.date(datetime.date.today().year + deadline_months // 12, num_month,
-                                     datetime.date.today().day)  #todo fix bug  ValueError: day is out of range for month
-
+            num_month = deadline_months % 12 + 1
+            try:
+                deadline = datetime.date(datetime.date.today().year + deadline_months // 12, num_month,
+                                         datetime.date.today().day)
+            except ValueError:
+                deadline = last_day_of_month(
+                    datetime.date(datetime.date.today().year + deadline_months // 12, num_month, 1))
 
             db.insert_term(self.term.text, deadline)
             self.term.text = ''
@@ -91,11 +93,10 @@ class SettingScene(Screen):
     def show_alert_dialog(self):
         print(self.app.theme_cls.theme_style)
         if self.app.theme_cls.theme_style == 'Light':
-            self.dialog.md_bg_color = [.9,.9,.9,1]
+            self.dialog.md_bg_color = [.9, .9, .9, 1]
         else:
-            self.dialog.md_bg_color = [0.3,0.3,0.3,1]
+            self.dialog.md_bg_color = [0.3, 0.3, 0.3, 1]
         self.dialog.open()
-
 
     def dismiss_dialog(self, *args):
         self.dialog.dismiss()

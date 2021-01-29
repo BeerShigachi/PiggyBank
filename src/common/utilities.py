@@ -1,6 +1,6 @@
+import datetime
 from db.data_base import db
-
-_DEFAULT_GOAL = 1
+from src.common.const import DEFAULT_GOAL
 
 
 def valid_user_input(user_input):
@@ -26,7 +26,7 @@ def sum_total_saving():
 
 
 def get_goal():
-    value = _DEFAULT_GOAL
+    value = DEFAULT_GOAL
     data = db.fetch_objective()
     if data is not None:
         value = data[1]
@@ -38,3 +38,12 @@ def regularize_num(value):
         return int(value)
     else:
         return value
+
+
+def last_day_of_month(any_day):
+    # this will never fail
+    # get close to the end of the month for any day, and add 4 days 'over'
+    next_month = any_day.replace(day=28) + datetime.timedelta(days=4)
+    # subtract the number of remaining 'overage' days to get last day of current month, or said programattically said, the previous day of the first of next month
+    return next_month - datetime.timedelta(days=next_month.day)
+

@@ -39,7 +39,13 @@ class HistoryScene(Screen):
     def show_term(self):
         info = db.fetch_term()
         if not info:
+            self.term_text.text = ''
+            self.term_bar.value = 0
+
+            self.estimation_text.text = ''
+            self.estimation_bar.value = 0
             return
+
         term_info = info[0]
         deadline = datetime.date.fromisoformat(term_info[-1])  # todo fix bug
         if TODAY <= deadline:
@@ -53,6 +59,8 @@ class HistoryScene(Screen):
             self.term_bar.value = term_info[1] - error
 
             self._estimate_deposit_pace(term_info[1])
+
+
 
     def _format_data_iso(self, date_iso):
         return int(date_iso[5:7])

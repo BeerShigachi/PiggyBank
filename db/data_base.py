@@ -62,6 +62,7 @@ class DataBase:
         with self.conn:
             self.cur.execute("""DELETE FROM objective""")
             self.cur.execute("""DELETE FROM history""")
+            self.cur.execute("""DELETE FROM term""")
         print('deleted')
 
 db = DataBase(DATABASE_FILENAME)
