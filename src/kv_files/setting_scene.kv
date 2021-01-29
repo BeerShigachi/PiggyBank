@@ -10,116 +10,122 @@
         orientation: 'vertical'
         size_hint: 1,1
         padding: '10dp'
-
-        MDLabel:
-            id: store
-            text: store.text
-            size_hint_y: None
-            theme_text_color: 'Primary'
-            font_style: 'H6'
-            height: self.texture_size[1]
-
         BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 0.7, None
-            pos_hint: {'center_x': 0.5}
-            MDTextField:
-                id: objective
-                input_filter: "float"
-                hint_text: "1000 ($)"
-                helper_text: "Only accept positive amount."
-                helper_text_mode: "on_error"
-                size_hint: .6, None
-                pos_hint: {"center_x": .5, "center_y": .5}
-
-            MDRoundFlatButton:
-                id: button_objective
-                text: "Submit"
-                text_color: app.theme_cls.primary_color
-                pos_hint: {"center_x": .5, "center_y": .5}
-                on_release: root.submit_objective()
-
-
-        MDSeparator:
-            height: "2dp"
-#            size_hint: 0.8, None
-
-
-        MDLabel:
-            text: 'Deadline'
-            size_hint_y: None
-            halign: "left"
-            theme_text_color: 'Primary'
-            font_style: 'H6'
-            height: self.texture_size[1]
-
-
-
-        BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 0.7, None
-            pos_hint: {'center_x': 0.5}
-            MDTextField:
-                id: term
-                input_filter: "int"
-                hint_text: "6 (months)"
-                helper_text: "Only accept positive amount."
-                helper_text_mode: "on_error"
-                size_hint: .6, None
-                pos_hint: {"center_x": .5, "center_y": .5}
-
-            MDRoundFlatButton:
-                id: button_term
-                text: "Submit"
-                text_color: app.theme_cls.primary_color
-                pos_hint: {"center_x": .5, "center_y": .5}
-                on_release: root.submit_term()
-
-        MDSeparator:
-            height: "2dp"
-
-        MDLabel:
-            text: 'Reset'
-            size_hint_y: None
-            halign: "left"
-            theme_text_color: 'Primary'
-            font_style: 'H6'
-            height: self.texture_size[1]
-
-
-        BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 0.7, None
-            pos_hint: {'center_x': 0.5}
+            orientation: 'vertical'
             MDLabel:
-                text: 'reset progression.'
-                halign: "left"
-                theme_text_color: 'Hint'
-            MDRoundFlatButton:
-                id: button_reset
-                text: "Submit"
-                text_color: app.theme_cls.primary_color
-                pos_hint: {"center_x": .5, "center_y": .5}
-                on_release: root.show_alert_dialog()
+                id: store
+                text: store.text
+                size_hint_y: None
+                theme_text_color: 'Primary'
+                font_style: 'H6'
+                height: self.texture_size[1]
 
-        MDSeparator:
-            height: "2dp"
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 0.7, None
+                pos_hint: {'center_x': 0.5}
+                MDTextField:
+                    id: objective
+                    input_filter: "float"
+                    hint_text: "1000 ($)"
+                    helper_text: "Only accept positive amount."
+                    helper_text_mode: "on_error"
+                    size_hint: .6, None
+                    pos_hint: {"center_x": .5, "center_y": .5}
 
-        MDLabel:
-            text: 'Current Theme: {}, {}'.format(app.theme_cls.primary_palette, app.theme_cls.theme_style)
-            halign: "left"
-            theme_text_color: 'Primary'
-            font_style: 'H6'
-            height: self.texture_size[1]
+                MDRoundFlatButton:
+                    id: button_objective
+                    text: "Submit"
+                    text_color: app.theme_cls.primary_color
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.submit_objective()
+
+
+            MDSeparator:
+                height: "2dp"
+    #            size_hint: 0.8, None
 
         BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 0.7, None
-            pos_hint: {'center_x': 0.5}
+            orientation: 'vertical'
             MDLabel:
-                text: 'Change theme'
+                text: 'Deadline'
+                size_hint_y: None
                 halign: "left"
-                theme_text_color: 'Hint'
-            MDIconButton:
-                icon: 'palette'
-                on_release: root.show_theme_picker()
+                theme_text_color: 'Primary'
+                font_style: 'H6'
+                height: self.texture_size[1]
+
+
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 0.7, None
+                pos_hint: {'center_x': 0.5}
+                MDTextField:
+                    id: term
+                    input_filter: "int"
+                    hint_text: "6 (months)"
+                    helper_text: "Only accept positive amount."
+                    helper_text_mode: "on_error"
+                    size_hint: .6, None
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+                MDRoundFlatButton:
+                    id: button_term
+                    text: "Submit"
+                    text_color: app.theme_cls.primary_color
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.submit_term()
+
+            MDSeparator:
+                height: "2dp"
+
+        BoxLayout:
+            orientation: 'vertical'
+            MDLabel:
+                text: 'Reset'
+                size_hint_y: None
+                halign: "left"
+                theme_text_color: 'Primary'
+                font_style: 'H6'
+                height: self.texture_size[1]
+
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 0.7, None
+                pos_hint: {'center_x': 0.5}
+                MDLabel:
+                    text: 'reset progression.'
+                    halign: "left"
+                    theme_text_color: 'Hint'
+                MDRoundFlatButton:
+                    id: button_reset
+                    text: "Submit"
+                    text_color: app.theme_cls.primary_color
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.show_alert_dialog()
+
+            MDSeparator:
+                height: "2dp"
+
+        BoxLayout:
+            orientation: 'vertical'
+            MDLabel:
+                text: 'Current Theme: {}, {}'.format(app.theme_cls.primary_palette, app.theme_cls.theme_style)
+                halign: "left"
+                theme_text_color: 'Primary'
+                font_style: 'H6'
+                height: self.texture_size[1]
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 0.7, None
+                pos_hint: {'center_x': 0.5}
+                MDLabel:
+                    text: 'Change theme'
+                    halign: "left"
+                    theme_text_color: 'Hint'
+                MDIconButton:
+                    icon: 'palette'
+                    on_release: root.show_theme_picker()
