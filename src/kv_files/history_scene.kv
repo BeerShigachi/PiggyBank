@@ -13,17 +13,20 @@
             size_hint: 1, 0.4
             pos_hint: {"center_x": .5, "top": 1}
             padding: '20dp'
-            BoxLayout:
-                orientation: "vertical"
+            FloatLayout:
                 size_hint_y: 0.5
                 BoxLayout:
                     orientation: 'horizontal'
+                    size_hint: 1, 0.4
+                    pos_hint: {"center_x": .5, "y": 0.5}
                     MDLabel:
                         text: 'Monthly Achievement'
+                        size_hint_x: 0.65
                         font_style: 'H6'
                         theme_text_color: 'Primary'
                     MDLabel:
                         id: estimation_text
+                        size_hint_x: 0.35
                         text: estimation_text.text
                         theme_text_color: 'Primary'
                         font_style: 'H6'
@@ -31,13 +34,16 @@
 
                 MDProgressBar:
                     id: estimation_bar
+                    size_hint: 1, 0.3
+                    pos_hint: {"center_x": .5, "top": 0.5}
                     color: app.theme_cls.accent_color
 
-            BoxLayout:
-                orientation: "vertical"
+            FloatLayout:
                 size_hint_y: 0.5
                 BoxLayout:
                     orientation: 'horizontal'
+                    size_hint: 1, 0.4
+                    pos_hint: {"center_x": .5, "y": 0.5}
                     MDLabel:
                         text: 'Time Left'
                         theme_text_color: 'Primary'
@@ -50,6 +56,8 @@
                         halign: 'right'
                 MDProgressBar:
                     id: term_bar
+                    size_hint: 1, 0.3
+                    pos_hint: {"center_x": .5, "top": 0.5}
                     color: app.theme_cls.accent_color
 
         MDSeparator:
