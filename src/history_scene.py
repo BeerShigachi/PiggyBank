@@ -6,7 +6,7 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCardSwipe
 from db.data_base import db
 from src.common.const import TODAY
-from src.common.utilities import get_goal
+from src.common.utilities import get_goal, regularize_num
 
 
 class HistoryScene(Screen):
@@ -41,13 +41,13 @@ class HistoryScene(Screen):
         if not info:
             return
         term_info = info[0]
-        deadline = datetime.date.fromisoformat(term_info[-1])
+        deadline = datetime.date.fromisoformat(term_info[-1])  # todo fix bug
         if TODAY <= deadline:
             error = (deadline.year - TODAY.year) * 12 + (deadline.month - TODAY.month)
             if error == 1:
-                self.term_text.text = "LAST MONTH"  # todo make this constant
+                self.term_text.text = "Last Month"
             else:
-                self.term_text.text = str(error) + " months left"  # todo make this constant
+                self.term_text.text = "{} Months".format(error)
 
             self.term_bar.max = term_info[1]
             self.term_bar.value = term_info[1] - error
@@ -84,7 +84,7 @@ class HistoryScene(Screen):
             self.estimation_bar.value = int((real_welfare / ideal_welfare) * 100)
 
         # self.estimation_bar.draw()
-        self.estimation_text.text = "${}/${}".format(real_welfare, ideal_welfare)
+        self.estimation_text.text = "${} of ${}".format(real_welfare, regularize_num(ideal_welfare))
 
 
 class ListItemWithCheckbox(MDCardSwipe):

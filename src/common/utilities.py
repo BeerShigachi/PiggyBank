@@ -31,3 +31,10 @@ def get_goal():
     if data is not None:
         value = data[1]
     return value
+
+
+def regularize_num(value):
+    if value == int(value):
+        return int(value)
+    else:
+        return value

@@ -75,7 +75,8 @@ class SettingScene(Screen):
             print(deadline_months//12, deadline_months%12)
             num_month = deadline_months%12 + 1
             deadline = datetime.date(datetime.date.today().year + deadline_months // 12, num_month,
-                                     datetime.date.today().day)
+                                     datetime.date.today().day)  #todo fix bug  ValueError: day is out of range for month
+
 
             db.insert_term(self.term.text, deadline)
             self.term.text = ''

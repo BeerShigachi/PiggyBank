@@ -10,16 +10,24 @@
         size_hint: 1, 1
         BoxLayout:
             orientation: 'vertical'
-            size_hint: 0.9, 0.4
+            size_hint: 1, 0.4
             pos_hint: {"center_x": .5, "top": 1}
+            padding: '20dp'
             BoxLayout:
                 orientation: "vertical"
                 size_hint_y: 0.5
-                MDLabel:
-                    id: estimation_text
-                    text: estimation_text.text
-                    theme_text_color: 'Primary'
-                    font_style: 'H6'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    MDLabel:
+                        text: 'Monthly Achievement'
+                        font_style: 'H6'
+                        theme_text_color: 'Primary'
+                    MDLabel:
+                        id: estimation_text
+                        text: estimation_text.text
+                        theme_text_color: 'Primary'
+                        font_style: 'H6'
+                        halign: 'right'
 
                 MDProgressBar:
                     id: estimation_bar
@@ -28,17 +36,29 @@
             BoxLayout:
                 orientation: "vertical"
                 size_hint_y: 0.5
-                MDLabel:
-                    id: term_text
-                    text: term_text.text
-                    theme_text_color: 'Primary'
-                    font_style: 'H6'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    MDLabel:
+                        text: 'Time Left'
+                        theme_text_color: 'Primary'
+                        font_style: 'H6'
+                    MDLabel:
+                        id: term_text
+                        text: term_text.text
+                        theme_text_color: 'Primary'
+                        font_style: 'H6'
+                        halign: 'right'
                 MDProgressBar:
                     id: term_bar
                     color: app.theme_cls.accent_color
 
+        MDSeparator:
+            height: '2dp'
+            size_hint: 0.5, None
+            pos_hint: {"center_x": .5, "center_y": .51}
+
         BoxLayout:
-            size_hint: 0.9, 0.5
+            size_hint: 1, 0.5
             pos_hint: {"center_x": .5, "y": 0}
             ScrollView:
                 scroll_timeout: 100
@@ -46,7 +66,7 @@
                 do_scroll_y: True
                 MDList:
                     id: scroll
-                    padding: 0
+                    padding: '10dp'
 
 
 <ListItemWithCheckbox>:
