@@ -9,43 +9,33 @@
     FloatLayout:
         size_hint: 1, 1
         BoxLayout:
-#            md_bg_color: [0.2, 0.2, 0.2, 1] if app.theme_cls.theme_style == 'Dark' else [.99,.99,.99,1]
-            orientation: "vertical"
-            size_hint: 0.8, 0.4
+            orientation: 'vertical'
+            size_hint: 0.9, 0.4
             pos_hint: {"center_x": .5, "top": 1}
-            MDLabel:
-                text: 'Monthly Achievement'
-                theme_text_color: 'Primary'
-                font_size: "30sp"
-                halign: 'center'
-
             BoxLayout:
-                orientation: "horizontal"
-                size_hint_y: 0.3
+                orientation: "vertical"
+                size_hint_y: 0.5
                 MDLabel:
                     id: estimation_text
                     text: estimation_text.text
-                    font_size: "14sp"
                     theme_text_color: 'Primary'
-                    halign: 'center'
+                    font_style: 'H6'
+
                 MDProgressBar:
                     id: estimation_bar
-#                    value: estimation_bar.value
+                    color: app.theme_cls.accent_color
 
             BoxLayout:
-                orientation: "horizontal"
-                size_hint_y: 0.3
+                orientation: "vertical"
+                size_hint_y: 0.5
                 MDLabel:
                     id: term_text
                     text: term_text.text
                     theme_text_color: 'Primary'
-                    font_size: "14sp"
-                    halign: 'center'
-
+                    font_style: 'H6'
                 MDProgressBar:
                     id: term_bar
-#                    value: term_bar.value
-
+                    color: app.theme_cls.accent_color
 
         BoxLayout:
             size_hint: 0.9, 0.5

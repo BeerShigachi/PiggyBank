@@ -50,8 +50,8 @@ class MainScene(Screen):
             self._label.color = (0.9, 0.9, 0.9, 1)
 
     def _set_param_circular_bar(self):
-        goal = get_goal()
-        saving = sum_total_saving()
+        goal = int(get_goal())
+        saving = int(sum_total_saving())
         self.circular_bar.max = goal
         if goal >= saving:
             self.circular_bar.value = saving
