@@ -23,13 +23,13 @@
         BoxLayout:
             orientation: 'horizontal'
             pos_hint: {'center_x': 0.5}
+            size_hint: 0.8, 1
             MDTextField:
                 id: objective
                 input_filter: "float"
                 hint_text: "1000 ($)"
                 helper_text: "Only accept positive amount."
                 helper_text_mode: "on_error"
-                size_hint: .6, None
                 pos_hint: {"center_x": .5, "center_y": .5}
 
             MDRoundFlatButton:
@@ -58,13 +58,14 @@
         BoxLayout:
             orientation: 'horizontal'
             pos_hint: {'center_x': 0.5}
+            size_hint: 0.8, 1
+
             MDTextField:
                 id: term
                 input_filter: "int"
                 hint_text: "6 (months)"
                 helper_text: "Only accept positive amount."
                 helper_text_mode: "on_error"
-                size_hint: .6, None
                 pos_hint: {"center_x": .5, "center_y": .5}
 
             MDRoundFlatButton:
@@ -89,6 +90,7 @@
         BoxLayout:
             orientation: 'horizontal'
             pos_hint: {'center_x': 0.5}
+            size_hint: 0.8, 1
             MDLabel:
                 text: 'reset progression.'
                 halign: "left"
@@ -114,6 +116,7 @@
         BoxLayout:
             orientation: 'horizontal'
             pos_hint: {'center_x': 0.5}
+            size_hint: 0.8, 1
             MDLabel:
                 text: 'Change theme'
                 halign: "left"
