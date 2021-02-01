@@ -18,7 +18,7 @@ os.environ["KIVY_IMAGE"] = "pil"
 class MainScene(Screen):
     gif = ObjectProperty(None)
     circular_bar = CircularProgressBar()
-    _label = Label(text=_DEFAULT_LABEL, font_size=40, color=(0.2, 0.2, 0.2, 1))
+    _label = Label(text=_DEFAULT_LABEL, font_size=100, color=(0.2, 0.2, 0.2, 1))
     app = App.get_running_app()
     label = ObjectProperty(None)
 
