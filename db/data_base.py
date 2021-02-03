@@ -46,6 +46,7 @@ class DataBase:
         return self.cur.fetchall()
 
     def insert_history_log(self, deposit, date):
+        print(deposit)
         with self.conn:
             self.cur.execute(""" INSERT OR REPLACE INTO history(deposit, date) VALUES (?, ?)""", (float(deposit), date))
 

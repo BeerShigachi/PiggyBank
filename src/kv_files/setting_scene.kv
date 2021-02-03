@@ -1,11 +1,8 @@
 
 <SettingScene>
-    objective: objective
-    button_objective: button_objective
+
     button_reset: button_reset
     store: store
-    term: term
-    button_term: button_term
     BoxLayout:
         orientation: 'vertical'
         size_hint: 1,0.9
@@ -24,20 +21,13 @@
             orientation: 'horizontal'
             pos_hint: {'center_x': 0.5}
             size_hint: 0.8, 1
-            MDTextField:
-                id: objective
-                input_filter: "float"
-                hint_text: "1000 ($)"
-                helper_text: "Only accept positive amount."
-                helper_text_mode: "on_error"
-                pos_hint: {"center_x": .5, "center_y": .5}
 
             MDRoundFlatButton:
-                id: button_objective
                 text: "Submit"
                 text_color: app.theme_cls.primary_color
                 pos_hint: {"center_x": .5, "center_y": .5}
-                on_release: root.submit_objective()
+                on_release:
+                    root._show_goal_field()
 
 
         MDSeparator:
@@ -60,20 +50,13 @@
             pos_hint: {'center_x': 0.5}
             size_hint: 0.8, 1
 
-            MDTextField:
-                id: term
-                input_filter: "int"
-                hint_text: "6 (months)"
-                helper_text: "Only accept positive amount."
-                helper_text_mode: "on_error"
-                pos_hint: {"center_x": .5, "center_y": .5}
 
             MDRoundFlatButton:
-                id: button_term
                 text: "Submit"
                 text_color: app.theme_cls.primary_color
                 pos_hint: {"center_x": .5, "center_y": .5}
-                on_release: root.submit_term()
+                on_release:
+                    root._show_deadline_field()
 
         MDSeparator:
             height: "2dp"

@@ -33,7 +33,6 @@ class Root(BoxLayout):
     pass
 
 
-
 class MyApp(MDApp):
     dialog = None
     deposit_sheet = None
@@ -57,7 +56,7 @@ class MyApp(MDApp):
         screen_manager.current = screen_name
 
     def show_deposit_sheet(self):
-        self.deposit_sheet = MDCustomBottomSheet(screen=Factory.DepositSheet())
+        self.deposit_sheet = MDCustomBottomSheet(screen=Factory.DepositSheet(caller='deposit'))
         self.deposit_sheet.open()
 
     def on_start(self):

@@ -12,7 +12,7 @@ Root:
         id: screen_manager
         MainScene:
             name: "Home"
-            id: main
+            id: home
         HistoryScene:
             name: "History"
             id: history
@@ -30,8 +30,4 @@ Root:
             md_bg_color: app.theme_cls.primary_color
             left_action_items: [['home', lambda x: app.change_screen('Home', 'right')]]
             right_action_items: [['book-open-page-variant', lambda x: app.change_screen('History')], ['cogs', lambda x: app.change_screen('Setting')]]
-
-
-
-
 

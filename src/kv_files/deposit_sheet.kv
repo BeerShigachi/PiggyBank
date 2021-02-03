@@ -1,30 +1,30 @@
 <DepositSheet>
-    deposit: deposit
+    text_field: text_field
+    button: button
+    title: title
     orientation: "vertical"
     size_hint_y: None
     height: "200dp"
     MDToolbar:
+        id: title
         title: 'Deposit'
         specific_title_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
     BoxLayout:
         size_hint: 0.8, 0.2
         pos_hint: {"center_x": .5, "center_y": .8}
         MDTextField:
-            id: deposit
-            input_filter: "float"
-            hint_text: "Enter amount"
+            id: text_field
+#            input_filter: "float"
+#            hint_text: "Enter amount"
             helper_text: "Only accept positive amount."
             helper_text_mode: "on_error"
             pos_hint: {"center_x": .5, "center_y": .5}
 
         MDRoundFlatButton:
-            id: button_deposit
-            text: "Deposit"
+            id: button
+            text: 'submit'
             pos_hint: {"center_x": .5, "center_y": .5}
             on_release:
-                root.update_history()
-                app.root.ids['main'].refresh_screen()
-                app.root.ids['history'].show_history()
-                app.root.ids['history'].show_term()
+                root.store_input_data()
 
 
