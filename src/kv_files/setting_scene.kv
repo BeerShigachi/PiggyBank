@@ -27,12 +27,10 @@
                 halign: "left"
                 theme_text_color: 'Hint'
 
-            MDRoundFlatButton:
-                text: "Submit"
-                text_color: app.theme_cls.primary_color
+            MDIconButton:
+                icon: 'trophy'
                 pos_hint: {"center_x": .5, "center_y": .5}
-                on_release:
-                    root._show_goal_field()
+                on_release: root._show_goal_field()
 
 
         MDSeparator:
@@ -60,9 +58,8 @@
                 halign: "left"
                 theme_text_color: 'Hint'
 
-            MDRoundFlatButton:
-                text: "Submit"
-                text_color: app.theme_cls.primary_color
+            MDIconButton:
+                icon: 'timer-sand'
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release:
                     root._show_deadline_field()
@@ -87,10 +84,9 @@
                 text: 'Reset progression.'
                 halign: "left"
                 theme_text_color: 'Hint'
-            MDRoundFlatButton:
+            MDIconButton:
                 id: button_reset
-                text: "Submit"
-                text_color: app.theme_cls.primary_color
+                icon: 'restart'
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: root.show_alert_dialog()
 
