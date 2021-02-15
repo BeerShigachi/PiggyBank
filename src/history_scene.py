@@ -1,6 +1,5 @@
 import datetime
 
-from kivy.core.text import Label
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCardSwipe
@@ -99,3 +98,4 @@ class ListItemWithCheckbox(MDCardSwipe):
     """Custom list item."""
     text = StringProperty()
     id = NumericProperty(None)
+    elevation = 12

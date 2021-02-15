@@ -9,11 +9,11 @@ from db.data_base import db
 from src.common.utilities import valid_user_input, last_day_of_month
 
 _CALLERS = {'deposit': {'title': 'DEPOSIT', 'input_filter': 'float', 'hint_text': 'Enter amount'},
-            'goal': {'title': 'GOAL', 'input_filter': 'float', 'hint_text': 'some some'},
-            'deadline': {'title': 'TIME LIMIT', 'input_filter': 'int', 'hint_text': 'some some'}}
+            'goal': {'title': 'GOAL', 'input_filter': 'float', 'hint_text': 'Enter amount'},
+            'deadline': {'title': 'TIME LIMIT', 'input_filter': 'int', 'hint_text': 'months'}}
 
 
-class DepositSheet(BoxLayout):
+class PopUpInputField(BoxLayout):
     text_field = ObjectProperty(None)
     button = ObjectProperty(None)
     title = ObjectProperty(None)

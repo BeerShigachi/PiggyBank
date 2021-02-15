@@ -74,9 +74,9 @@ class SettingScene(Screen):
         theme_dialog.open()
 
     def _show_deadline_field(self):
-        self.popup = MDCustomBottomSheet(screen=Factory.DepositSheet(caller='deadline'))
+        self.popup = MDCustomBottomSheet(screen=Factory.PopUpInputField(caller='deadline'))
         self.popup.open()
 
     def _show_goal_field(self):
-        self.popup = MDCustomBottomSheet(screen=Factory.DepositSheet(caller='goal'))
+        self.popup = MDCustomBottomSheet(screen=Factory.PopUpInputField(caller='goal'))
         self.popup.open()
