@@ -1,6 +1,6 @@
 """Config parameters"""
 
-msg_objective = 'Goal $ '
+msg_objective = 'Goal: $'
 msg_balance = '$ '
 
 

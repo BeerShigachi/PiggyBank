@@ -2,7 +2,7 @@
 #:include src/kv_files/main_scene.kv
 #:include src/kv_files/history_scene.kv
 #:include src/kv_files/setting_scene.kv
-#:include src/kv_files/deposit_sheet.kv
+#:include src/kv_files/pop_up_field.kv
 
 
 Root:
@@ -24,9 +24,8 @@ Root:
         MDToolbar:
             title: screen_manager.current
             icon: "piggy-bank"
-            on_action_button:
-                app.show_deposit_sheet()
-                print(self.icon_color)
+            icon_color: app.theme_cls.primary_color
+            on_action_button: app.show_pop_up_field()
             specific_text_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
 
             left_action_items: [['home', lambda x: app.change_screen('Home', 'right')]]

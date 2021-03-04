@@ -19,8 +19,8 @@ Window.softinput_mode = "below_target"
 Factory.register('MainScene', module='src.main_scene')
 Factory.register('HistoryScene', module='src.history_scene')
 Factory.register('SettingScene', module='src.setting_scene')
-Factory.register('DepositSheet', module='src.deposit_sheet')
 Factory.register('ThemeColorPicker', module='src.deposit_sheet')
+Factory.register('PopUpInputField', module='src.pop_up_field')
 
 db.create_new_tables()
 
@@ -36,7 +36,7 @@ class Root(BoxLayout):
 
 class MyApp(MDApp):
     dialog = None
-    deposit_sheet = None
+    pop_up_field = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -56,9 +56,9 @@ class MyApp(MDApp):
         screen_manager.transition.direction = direction
         screen_manager.current = screen_name
 
-    def show_deposit_sheet(self):
-        self.deposit_sheet = MDCustomBottomSheet(screen=Factory.DepositSheet(caller='deposit'))
-        self.deposit_sheet.open()
+    def show_pop_up_field(self):
+        self.pop_up_field = MDCustomBottomSheet(screen=Factory.PopUpInputField(caller='deposit'))
+        self.pop_up_field.open()
 
     def on_start(self):
         # todo set currency

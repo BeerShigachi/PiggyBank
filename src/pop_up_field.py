@@ -9,8 +9,8 @@ from db.data_base import db
 from src.common.utilities import valid_user_input, last_day_of_month
 
 _CALLERS = {'deposit': {'title': 'DEPOSIT', 'input_filter': 'float', 'hint_text': 'Enter amount'},
-            'goal': {'title': 'GOAL', 'input_filter': 'float', 'hint_text': 'some some'},
-            'deadline': {'title': 'TIME LIMIT', 'input_filter': 'int', 'hint_text': 'some some'}}
+            'goal': {'title': 'GOAL', 'input_filter': 'float', 'hint_text': 'Enter amount'},
+            'deadline': {'title': 'TIME LIMIT', 'input_filter': 'int', 'hint_text': 'months'}}
 
 
 class PopUpScreen(BoxLayout):
@@ -25,7 +25,7 @@ class ThemeColorPicker(PopUpScreen):
     pass
 
 
-class DepositSheet(PopUpScreen):
+class PopUpInputField(PopUpScreen):
     text_field = ObjectProperty(None)
     button = ObjectProperty(None)
     app = App.get_running_app()
@@ -86,4 +86,3 @@ class DepositSheet(PopUpScreen):
             self.app.root.ids['setting'].show_objective()
 
         self.text_field.text = ''
-
