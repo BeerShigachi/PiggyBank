@@ -23,11 +23,12 @@ Root:
     MDBottomAppBar:
         MDToolbar:
             title: screen_manager.current
-            icon: "currency-usd"
-            icon_color: app.theme_cls.primary_color
-            on_action_button: app.show_deposit_sheet()
+            icon: "piggy-bank"
+            on_action_button:
+                app.show_deposit_sheet()
+                print(self.icon_color)
             specific_text_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
-            md_bg_color: app.theme_cls.primary_color
+
             left_action_items: [['home', lambda x: app.change_screen('Home', 'right')]]
             right_action_items: [['book-open-page-variant', lambda x: app.change_screen('History')], ['cogs', lambda x: app.change_screen('Setting')]]
 

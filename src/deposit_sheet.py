@@ -13,10 +13,21 @@ _CALLERS = {'deposit': {'title': 'DEPOSIT', 'input_filter': 'float', 'hint_text'
             'deadline': {'title': 'TIME LIMIT', 'input_filter': 'int', 'hint_text': 'some some'}}
 
 
-class DepositSheet(BoxLayout):
+class PopUpScreen(BoxLayout):
+    title = ObjectProperty(None)
+
+
+class ThemeColorPicker(PopUpScreen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.title.title = 'Theme Color'
+
+    pass
+
+
+class DepositSheet(PopUpScreen):
     text_field = ObjectProperty(None)
     button = ObjectProperty(None)
-    title = ObjectProperty(None)
     app = App.get_running_app()
 
     def __init__(self, caller, **kwargs):

@@ -1,14 +1,35 @@
-<DepositSheet>
-    text_field: text_field
-    button: button
-    title: title
+<PopUpScreen>
     orientation: "vertical"
     size_hint_y: None
     height: "200dp"
+    title: title
     MDToolbar:
         id: title
         title: 'Deposit'
         specific_title_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
+
+<ThemeColorPicker>
+    BoxLayout:
+        MDFloatingActionButton:
+            icon: "palette-outline"
+            md_bg_color: [0.5647058823529412, 0.792156862745098, 0.9764705882352941, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'Blue'
+                app.theme_cls.primary_hue = '200'
+                print(app.theme_cls.primary_color)
+
+        MDFloatingActionButton:
+            icon: "palette-outline"
+            md_bg_color: [0.9568627450980393, 0.5607843137254902, 0.6941176470588235, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'Pink'
+                app.theme_cls.primary_hue = '200'
+                print(app.theme_cls.primary_color)
+
+<DepositSheet>
+    text_field: text_field
+    button: button
+
     BoxLayout:
         size_hint: 0.8, 0.2
         pos_hint: {"center_x": .5, "center_y": .8}

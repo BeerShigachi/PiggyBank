@@ -44,13 +44,9 @@ class SettingScene(Screen):
         # Clock.schedule_once(self.binder, 0)
         Clock.schedule_once(self.show_objective, 0)
 
-
     def show_objective(self, dt=0):
         self.store.text = msg_objective + str(get_goal())
         print('done')
-
-
-
 
     def reset(self, *args):
         print('resetting')
@@ -70,7 +66,7 @@ class SettingScene(Screen):
         self.dialog.dismiss()
 
     def show_theme_picker(self):
-        theme_dialog = MDThemePicker()
+        theme_dialog = MDCustomBottomSheet(screen=Factory.ThemeColorPicker())
         theme_dialog.open()
 
     def _show_deadline_field(self):
