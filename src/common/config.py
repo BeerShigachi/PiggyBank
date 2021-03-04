@@ -7,7 +7,7 @@ msg_balance = '$ '
 INIT_CONFIG = {'theme': {
     'style': 'Light',
     'primary_palette': 'Pink',
-    'primary_hue': '400',
+    'primary_hue': '200',
     }
 }
 

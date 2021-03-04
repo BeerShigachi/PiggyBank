@@ -19,7 +19,7 @@ Window.softinput_mode = "below_target"
 Factory.register('MainScene', module='src.main_scene')
 Factory.register('HistoryScene', module='src.history_scene')
 Factory.register('SettingScene', module='src.setting_scene')
-Factory.register('ThemeColorPicker', module='src.deposit_sheet')
+Factory.register('ThemeColorPicker', module='src.pop_up_field')
 Factory.register('PopUpInputField', module='src.pop_up_field')
 
 db.create_new_tables()
