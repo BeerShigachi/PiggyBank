@@ -75,3 +75,4 @@ class DepositSheet(BoxLayout):
             self.app.root.ids['setting'].show_objective()
 
         self.text_field.text = ''
+

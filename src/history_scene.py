@@ -61,7 +61,6 @@ class HistoryScene(Screen):
             self._estimate_deposit_pace(term_info[1])
 
 
-
     def _format_data_iso(self, date_iso):
         return int(date_iso[5:7])
 
