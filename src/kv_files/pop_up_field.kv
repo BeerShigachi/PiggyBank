@@ -12,6 +12,30 @@
     BoxLayout:
         MDFloatingActionButton:
             icon: "palette-outline"
+            md_bg_color: [0.9568627450980393, 0.5607843137254902, 0.6941176470588235, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'Pink'
+                app.theme_cls.primary_hue = '200'
+                print(app.theme_cls.primary_color)
+
+        MDFloatingActionButton:
+            icon: "palette-outline"
+            md_bg_color: [1.0, 0.9607843137254902, 0.615686274509804, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'Yellow'
+                app.theme_cls.primary_hue = '200'
+                print(app.theme_cls.primary_color)
+
+        MDFloatingActionButton:
+            icon: "palette-outline"
+            md_bg_color: [0.6470588235294118, 0.8392156862745098, 0.6549019607843137, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'Green'
+                app.theme_cls.primary_hue = '200'
+                print(app.theme_cls.primary_color)
+
+        MDFloatingActionButton:
+            icon: "palette-outline"
             md_bg_color: [0.5647058823529412, 0.792156862745098, 0.9764705882352941, 1]
             on_release:
                 app.theme_cls.primary_palette = 'Blue'
@@ -20,9 +44,17 @@
 
         MDFloatingActionButton:
             icon: "palette-outline"
-            md_bg_color: [0.9568627450980393, 0.5607843137254902, 0.6941176470588235, 1]
+            md_bg_color: [0.7019607843137254, 0.615686274509804, 0.8588235294117647, 1]
             on_release:
-                app.theme_cls.primary_palette = 'Pink'
+                app.theme_cls.primary_palette = 'DeepPurple'
+                app.theme_cls.primary_hue = '200'
+                print(app.theme_cls.primary_color)
+
+        MDFloatingActionButton:
+            icon: "palette-outline"
+            md_bg_color: [0.6901960784313725, 0.7450980392156863, 0.7725490196078432, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'BlueGray'
                 app.theme_cls.primary_hue = '200'
                 print(app.theme_cls.primary_color)
 
