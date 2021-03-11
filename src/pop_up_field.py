@@ -27,10 +27,10 @@ class ThemeColorPicker(PopUpScreen):
     def _dismiss_sheet(self):
         self.app.root.ids['setting'].popup.dismiss()
 
+
 class PopUpInputField(PopUpScreen):
     text_field = ObjectProperty(None)
     button = ObjectProperty(None)
-
 
     def __init__(self, caller, **kwargs):
         super().__init__(**kwargs)
