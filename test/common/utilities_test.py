@@ -19,3 +19,4 @@ class TestValidUserInput(unittest.TestCase):
         self.assertFalse(valid_user_input('00.124'))
         self.assertFalse(valid_user_input('-324.123'))
         self.assertFalse(valid_user_input('-1'))
+        self.assertFalse(valid_user_input(''))
