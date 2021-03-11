@@ -19,18 +19,33 @@ class PopUpScreen(BoxLayout):
 
 
 class ThemeColorPicker(PopUpScreen):
+    toggle_darkmode = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title.title = 'Theme Color'
+        self._init_theme_toggle()
+
+    def _init_theme_toggle(self):
+        if self.app.theme_cls.theme_style == 'Dark':
+            self.toggle_darkmode.active = True
+        else:
+            self.toggle_darkmode.active = False
 
     def _dismiss_sheet(self):
         self.app.root.ids['setting'].popup.dismiss()
+
+    def _toggle_mode(self, selector, value):
+        if value:
+            self.app.theme_cls.theme_style = 'Dark'
+        else:
+            self.app.theme_cls.theme_style = 'Light'
 
 
 class PopUpInputField(PopUpScreen):
     text_field = ObjectProperty(None)
     button = ObjectProperty(None)
+
 
     def __init__(self, caller, **kwargs):
         super().__init__(**kwargs)
