@@ -66,8 +66,8 @@ class SettingScene(Screen):
         self.dialog.dismiss()
 
     def show_theme_picker(self):
-        theme_dialog = MDCustomBottomSheet(screen=Factory.ThemeColorPicker())
-        theme_dialog.open()
+        self.popup = MDCustomBottomSheet(screen=Factory.ThemeColorPicker())
+        self.popup.open()
 
     def _show_deadline_field(self):
         self.popup = MDCustomBottomSheet(screen=Factory.PopUpInputField(caller='deadline'))

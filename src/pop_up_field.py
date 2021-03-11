@@ -15,20 +15,22 @@ _CALLERS = {'deposit': {'title': 'DEPOSIT', 'input_filter': 'float', 'hint_text'
 
 class PopUpScreen(BoxLayout):
     title = ObjectProperty(None)
+    app = App.get_running_app()
 
 
 class ThemeColorPicker(PopUpScreen):
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title.title = 'Theme Color'
 
-    pass
-
+    def _dismiss_sheet(self):
+        self.app.root.ids['setting'].popup.dismiss()
 
 class PopUpInputField(PopUpScreen):
     text_field = ObjectProperty(None)
     button = ObjectProperty(None)
-    app = App.get_running_app()
+
 
     def __init__(self, caller, **kwargs):
         super().__init__(**kwargs)

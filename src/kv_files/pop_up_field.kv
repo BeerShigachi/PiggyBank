@@ -17,6 +17,7 @@
                 app.theme_cls.primary_palette = 'Pink'
                 app.theme_cls.primary_hue = '200'
                 print(app.theme_cls.primary_color)
+                root._dismiss_sheet()
 
         MDFloatingActionButton:
             icon: "palette-outline"
@@ -24,7 +25,7 @@
             on_release:
                 app.theme_cls.primary_palette = 'Yellow'
                 app.theme_cls.primary_hue = '200'
-                print(app.theme_cls.primary_color)
+                root._dismiss_sheet()
 
         MDFloatingActionButton:
             icon: "palette-outline"
@@ -32,7 +33,7 @@
             on_release:
                 app.theme_cls.primary_palette = 'Green'
                 app.theme_cls.primary_hue = '200'
-                print(app.theme_cls.primary_color)
+                root._dismiss_sheet()
 
         MDFloatingActionButton:
             icon: "palette-outline"
@@ -40,7 +41,7 @@
             on_release:
                 app.theme_cls.primary_palette = 'Blue'
                 app.theme_cls.primary_hue = '200'
-                print(app.theme_cls.primary_color)
+                root._dismiss_sheet()
 
         MDFloatingActionButton:
             icon: "palette-outline"
@@ -48,7 +49,7 @@
             on_release:
                 app.theme_cls.primary_palette = 'DeepPurple'
                 app.theme_cls.primary_hue = '200'
-                print(app.theme_cls.primary_color)
+                root._dismiss_sheet()
 
         MDFloatingActionButton:
             icon: "palette-outline"
@@ -56,7 +57,7 @@
             on_release:
                 app.theme_cls.primary_palette = 'BlueGray'
                 app.theme_cls.primary_hue = '200'
-                print(app.theme_cls.primary_color)
+                root._dismiss_sheet()
 
 <PopUpInputField>
     text_field: text_field
