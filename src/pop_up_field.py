@@ -4,7 +4,6 @@ import functools
 from kivy.app import App
 from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
-from kivymd.uix.relativelayout import MDRelativeLayout
 
 from db.data_base import db
 from src.common.utilities import valid_user_input, last_day_of_month
