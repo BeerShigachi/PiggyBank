@@ -59,5 +59,5 @@ class MainScene(Screen):
             self.circular_bar.value = goal
 
     def _play_gif(self):
-        self.gif.anim_delay = 0.01
+        self.gif.anim_delay = 0
         self.gif._coreimage.anim_reset(True)
