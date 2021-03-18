@@ -19,7 +19,8 @@ class HistoryScene(Screen):
         self.show_history()
         self.show_term()
 
-    def show_history(self):  # todo rename
+    def show_history(self):
+        # todo improve performance. this procedure is currently O(2n)
         self.scroll.clear_widgets(self.scroll.children[:])
         for i in db.fetch_all_history_logs():
             row_date = i[2]
