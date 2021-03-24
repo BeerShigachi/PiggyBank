@@ -294,10 +294,10 @@ class CircularProgressBar(Widget):
                  width=self._thickness, cap=self._cap_style, cap_precision=self._cap_precision)
 
             # Center and draw the progress text
-            Color(1, 1, 1, 1)
-            Rectangle(texture=self._text_label.texture, size=self._label_size,
-                      pos=(self._widget_size / 2 - self._label_size[0] / 2 + self.pos[0],
-                           self._widget_size / 2 - self._label_size[1] / 2 + self.pos[1]))
+            # Color(1, 1, 1, 1)
+            # Rectangle(texture=self._text_label.texture, size=self._label_size,
+            #           pos=(self._widget_size / 2 - self._label_size[0] / 2 + self.pos[0],
+            #                self._widget_size / 2 - self._label_size[1] / 2 + self.pos[1]))
 
 
 class _Example(App):
