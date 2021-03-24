@@ -23,13 +23,6 @@ class ThemeColorPicker(PopUpScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title.title = 'Theme Color'
-        self._init_theme_toggle()
-
-    def _init_theme_toggle(self):
-        if self.app.theme_cls.theme_style == 'Dark':
-            self.toggle_darkmode.active = True
-        else:
-            self.toggle_darkmode.active = False
 
     def _dismiss_sheet(self):
         self.app.root.ids['setting'].popup.dismiss()
