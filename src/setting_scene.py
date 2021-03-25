@@ -1,23 +1,33 @@
+import datetime
+
+from kivy.app import App
 from kivy.clock import Clock
+from kivy.factory import Factory
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
-from kivymd.uix.button import MDFlatButton, MDRaisedButton
+from kivymd.uix.bottomsheet import MDCustomBottomSheet
+from kivymd.uix.button import MDRaisedButton
 from kivymd.uix.dialog import MDDialog
+from kivymd.uix.picker import MDThemePicker
 
-from main import db
-from src.common.utilities import valid_user_input
+from db.data_base import db
+from src.common.utilities import get_goal
+from src.common.config import msg_objective
 
 
 class SettingScene(Screen):
-    objective = ObjectProperty(None)
     dialog = None
+    app = App.get_running_app()
+    store = ObjectProperty(None)
+
+    popup = ObjectProperty(None)
 
     def __init__(self, **kw):
         super().__init__(**kw)
         self.dialog = MDDialog(
             auto_dismiss=False,
             size_hint=(.8, None),
-            text="Reset all progress?",
+            title="Reset all progress?",
             buttons=[
                 MDRaisedButton(
                     text="CANCEL",
@@ -31,40 +41,38 @@ class SettingScene(Screen):
                 ),
             ],
         )
-        Clock.schedule_once(self.binder, 0)
+        # Clock.schedule_once(self.binder, 0)
+        Clock.schedule_once(self.show_objective, 0)
 
-    def binder(self, dt):  # todo rename
-        self.objective.bind(
-            on_text_validate=self.set_error_message,
-            on_focus=self.set_error_message,
-        )
-
-    def set_error_message(self, instance_textfield):  # todo refactor
-        if valid_user_input(self.objective.text):
-            self.objective.error = False
-        else:
-            self.objective.error = True
-
-    def submit_objective(self):
-        if valid_user_input(self.objective.text):  # todo test this condition.
-            db.insert_objective(self.objective.text)
-            self.manager.screens[0].show_objective()
-            self.manager.screens[0].show_total_saving()
-            self.objective.text = ""
-        else:
-            print("something went wrong.")
+    def show_objective(self, dt=0):
+        self.store.text = msg_objective + str(get_goal())
+        print('done')
 
     def reset(self, *args):
         print('resetting')
         db.erase_all_tables()
-        print('reset complete.')
-        self.objective.text = ''
-        self.manager.screens[0].show_objective()
-        self.manager.screens[0].show_total_saving()
         self.dismiss_dialog()
+        self.show_objective()
 
     def show_alert_dialog(self):
+        print(self.app.theme_cls.theme_style)
+        if self.app.theme_cls.theme_style == 'Light':
+            self.dialog.md_bg_color = [.9, .9, .9, 1]
+        else:
+            self.dialog.md_bg_color = [0.3, 0.3, 0.3, 1]
         self.dialog.open()
 
     def dismiss_dialog(self, *args):
         self.dialog.dismiss()
+
+    def show_theme_picker(self):
+        self.popup = MDCustomBottomSheet(screen=Factory.ThemeColorPicker())
+        self.popup.open()
+
+    def _show_deadline_field(self):
+        self.popup = MDCustomBottomSheet(screen=Factory.PopUpInputField(caller='deadline'))
+        self.popup.open()
+
+    def _show_goal_field(self):
+        self.popup = MDCustomBottomSheet(screen=Factory.PopUpInputField(caller='goal'))
+        self.popup.open()

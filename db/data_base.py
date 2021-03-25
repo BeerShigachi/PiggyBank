@@ -1,5 +1,5 @@
 import sqlite3 as sql
-from src.common.config import init_style, init_currency
+from src.common.const import DATABASE_FILENAME
 
 
 class DataBase:
@@ -23,36 +23,34 @@ class DataBase:
                                 )""")
 
         with self.conn:
-            self.cur.execute("""CREATE TABLE IF NOT EXISTS config (
+            self.cur.execute("""CREATE TABLE IF NOT EXISTS term (
                                 id INTEGER PRIMARY KEY NOT NULL,
-                                theme_style TEXT NOT NULL,
-                                currency TEXT NOT NULL
+                                term INTEGER NOT NULL,
+                                date timestamp
                                 )""")
-        if self.get_config() is None:
-            self.set_config(init_style, init_currency)
 
     def insert_objective(self, obj):
         with self.conn:
             self.cur.execute(""" INSERT OR REPLACE INTO objective(id, objective) VALUES (?, ?)""", (1, float(obj)))
 
-    def get_objective(self):
+    def fetch_objective(self):
         self.cur.execute("""SELECT * FROM objective WHERE objective""")
         return self.cur.fetchone()
 
-    def get_config(self):
-        self.cur.execute("""SELECT * FROM config WHERE id""")
-        return self.cur.fetchone()
-
-    def set_config(self, style, currency):
+    def insert_term(self, term, date):
         with self.conn:
-            self.cur.execute(""" INSERT OR REPLACE INTO config(id, theme_style, currency) VALUES (?, ?, ?)""",
-                             (1, style, currency))
+            self.cur.execute(""" INSERT OR REPLACE INTO term(id, term, date) VALUES (?, ?, ?)""", (1, int(term), date))
+
+    def fetch_term(self):
+        self.cur.execute("""SELECT * FROM term""")
+        return self.cur.fetchall()
 
     def insert_history_log(self, deposit, date):
+        print(deposit)
         with self.conn:
             self.cur.execute(""" INSERT OR REPLACE INTO history(deposit, date) VALUES (?, ?)""", (float(deposit), date))
 
-    def get_all_history_logs(self):
+    def fetch_all_history_logs(self):
         self.cur.execute("""SELECT * FROM history""")
         return self.cur.fetchall()
 
@@ -65,4 +63,7 @@ class DataBase:
         with self.conn:
             self.cur.execute("""DELETE FROM objective""")
             self.cur.execute("""DELETE FROM history""")
+            self.cur.execute("""DELETE FROM term""")
         print('deleted')
+
+db = DataBase(DATABASE_FILENAME)

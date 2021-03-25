@@ -1,39 +1,102 @@
+
 <HistoryScene>
     scroll: scroll
+    estimation_bar: estimation_bar
+    estimation_text: estimation_text
+    term_text: term_text
+    term_bar: term_bar
 
     FloatLayout:
+        size_hint: 1, 1
         BoxLayout:
-            size_hint: 0.8, 0.5
-            pos_hint: {"center_x": .5, "y": .1}
+            orientation: 'vertical'
+            size_hint: 1, 0.4
+            pos_hint: {"center_x": .5, "top": 1}
+            padding: '20dp'
+            FloatLayout:
+                size_hint_y: 0.5
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 1, 0.4
+                    pos_hint: {"center_x": .5, "y": 0.5}
+                    MDLabel:
+                        text: 'Monthly Achievement'
+                        size_hint_x: 0.6
+                        font_style: 'H6'
+                        theme_text_color: 'Primary'
+                    MDLabel:
+                        id: estimation_text
+                        size_hint_x: 0.4
+                        text: estimation_text.text
+                        theme_text_color: 'Primary'
+                        font_style: 'H6'
+                        halign: 'right'
+
+                MDProgressBar:
+                    id: estimation_bar
+                    size_hint: 1, 0.3
+                    pos_hint: {"center_x": .5, "top": 0.5}
+                    color: app.theme_cls.accent_color
+
+            FloatLayout:
+                size_hint_y: 0.5
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 1, 0.4
+                    pos_hint: {"center_x": .5, "y": 0.5}
+                    MDLabel:
+                        text: 'Time Remaining'
+                        theme_text_color: 'Primary'
+                        font_style: 'H6'
+                    MDLabel:
+                        id: term_text
+                        text: term_text.text
+                        theme_text_color: 'Primary'
+                        font_style: 'H6'
+                        halign: 'right'
+                MDProgressBar:
+                    id: term_bar
+                    size_hint: 1, 0.3
+                    pos_hint: {"center_x": .5, "top": 0.5}
+                    color: app.theme_cls.accent_color
+
+        MDSeparator:
+            height: '2dp'
+            size_hint: 0.5, None
+            pos_hint: {"center_x": .5, "center_y": .51}
+
+        BoxLayout:
+            size_hint: 1, 0.5
+            pos_hint: {"center_x": .5, "y": 0}
             ScrollView:
+                scroll_timeout: 100
                 do_scroll_x: False
                 do_scroll_y: True
                 MDList:
                     id: scroll
-                    padding: 0
+                    padding: '10dp'
 
 
 <ListItemWithCheckbox>:
     id: id_widget
     size_hint_y: None
     height: content.height
-    swipe_distance : 1000
-    max_swipe_x : 0.05
-    max_opened_x : 130
+    anchor: 'right'
+    type_swipe: "hand"
+
     MDCardSwipeLayerBox:
+        BoxLayout:
         MDIconButton:
             icon: "trash-can"
             pos_hint: {"center_y": .5}
-            on_release: app.root.ids['history'].delete_history_log(id_widget)
+            on_release:
+                app.root.ids['history'].delete_history_log(id_widget)
 
     MDCardSwipeFrontBox:
-
         OneLineListItem:
             id: content
             text: root.text
-            type_swipe: "hand"
             _no_ripple_effect: True
             padding: "8dp"
-
 
 

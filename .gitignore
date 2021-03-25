@@ -4,6 +4,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.DS_Store
 
 # C extensions
 *.so
@@ -158,3 +159,6 @@ gen
 
 # exclude db
 db/user_data.db
+
+# json
+*.json

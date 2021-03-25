@@ -1,51 +1,63 @@
+from kivy.app import App
 from kivy.clock import Clock
-from kivy.properties import ObjectProperty
-from kivy.uix.screenmanager import Screen
 
-from main import db
-from src.common.utilities import sum_total_saving
-from src.common.config import msg_objective, msg_balance
-from src.common.config import piggy_size
+from kivy.properties import ObjectProperty
+from kivy.uix.label import Label
+from kivy.uix.screenmanager import Screen
+from src.common.circular_bar import CircularProgressBar  # do not delete this line. using it in .kv
+from src.common.utilities import sum_total_saving, get_goal
+
+import os
+
+
+_DEFAULT_LABEL = '{}%'
+
+os.environ["KIVY_IMAGE"] = "pil"
 
 
 class MainScene(Screen):
-    total_saving = ObjectProperty(None)
-    store = ObjectProperty(None)
-    balance = ObjectProperty(None)
+    gif = ObjectProperty(None)
+    circular_bar = CircularProgressBar()
+    _label = Label(text=_DEFAULT_LABEL, font_size=100, color=(0.2, 0.2, 0.2, 1))
+    app = App.get_running_app()
+    label = ObjectProperty(None)
 
-    def __init__(self, **kw):
-        super(MainScene, self).__init__(**kw)
-        Clock.schedule_once(self.display_data, 0)
+    def on_enter(self, *args):
+        Clock.schedule_once(self._draw_circular_bar, 0)
+        Clock.schedule_once(self._set_saving_label, 0)
 
-    def display_data(self, dt):
-        self.manager.current = 'Main'
-        self.show_objective()
-        self.show_total_saving()
+    def _set_saving_label(self, dt=0):
+        self.label.text = "$ " + str(sum_total_saving())
 
-    def show_objective(self):
-        try:
-            store_objective = db.get_objective()[1]
-            self.store.text = msg_objective + str(store_objective)
+    def refresh_screen(self):
+        self._draw_circular_bar()
+        self._set_saving_label()
+        self._play_gif()
 
-        except TypeError:
-            self.store.text = msg_objective + '0'
-            print("no data")
+    def _draw_circular_bar(self, dt=0):
 
-    def show_total_saving(self):
-        self.balance.text = msg_balance + str(sum_total_saving())
-        self.set_icon_size_pos()
+        self._set_color_circular_bar()
+        self._set_param_circular_bar()
+        self.circular_bar.draw()
 
-    def set_icon_size_pos(self):
-        data = db.get_objective()
-        res = piggy_size[0]
-        saving = sum_total_saving()
-        if data is not None:
-            b = saving / data[1]
-            rate = 1 / (len(piggy_size) - 1)
-            key = ((b + rate / 2) // rate) * rate
-            print(key)
-            if key in piggy_size:
-                res = piggy_size[key]
-        print(res)  # todo delete later.
-        self.total_saving.font_size = res[0]
-        self.total_saving.pos_hint = res[1]
+    def _set_color_circular_bar(self):
+        # todo adapt self.circular_bar.color from self.app.theme_cls.accent_color
+        if self.app.theme_cls.theme_style == 'Light':
+            self.circular_bar.background_colour = (0.26, 0.26, 0.26, 1)
+            self._label.color = (0.1, 0.1, 0.1, 1)
+        else:
+            self.circular_bar.background_colour = (0.26, 0.26, 0.26, 1)  # todo change color
+            self._label.color = (0.9, 0.9, 0.9, 1)
+
+    def _set_param_circular_bar(self):
+        goal = int(get_goal())
+        saving = int(sum_total_saving())
+        self.circular_bar.max = goal
+        if goal >= saving:
+            self.circular_bar.value = saving
+        else:
+            self.circular_bar.value = goal
+
+    def _play_gif(self):
+        self.gif.anim_delay = 0
+        self.gif._coreimage.anim_reset(True)

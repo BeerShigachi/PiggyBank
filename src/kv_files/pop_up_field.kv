@@ -1,0 +1,99 @@
+<PopUpScreen>
+    orientation: "vertical"
+    size_hint_y: None
+    height: "200dp"
+    title: title
+    MDToolbar:
+        id: title
+        title: 'Deposit'
+        specific_title_color: [1,1,1,1] if app.theme_cls.theme_style == 'Dark' else [0.2, 0.2, 0.2, 1]
+
+<ThemeColorPicker>
+    toggle_darkmode: toggle_darkmode
+    RelativeLayout:
+        MDFloatingActionButton:
+            pos_hint: {'center_x': 0.142, 'center_y': 0.7}
+            icon: "palette-outline"
+            md_bg_color: [0.9568627450980393, 0.5607843137254902, 0.6941176470588235, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'Pink'
+                app.theme_cls.primary_hue = '200'
+                print(app.theme_cls.primary_color)
+                root._dismiss_sheet()
+
+        MDFloatingActionButton:
+            pos_hint: {'center_x': 0.284, 'center_y': 0.7}
+            icon: "palette-outline"
+            md_bg_color: [1.0, 0.9607843137254902, 0.615686274509804, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'Yellow'
+                app.theme_cls.primary_hue = '200'
+                root._dismiss_sheet()
+
+        MDFloatingActionButton:
+            pos_hint: {'center_x': 0.426, 'center_y': 0.7}
+            icon: "palette-outline"
+            md_bg_color: [0.6470588235294118, 0.8392156862745098, 0.6549019607843137, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'Green'
+                app.theme_cls.primary_hue = '200'
+                root._dismiss_sheet()
+
+        MDFloatingActionButton:
+            pos_hint: {'center_x': 0.568, 'center_y': 0.7}
+            icon: "palette-outline"
+            md_bg_color: [0.5647058823529412, 0.792156862745098, 0.9764705882352941, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'Blue'
+                app.theme_cls.primary_hue = '200'
+                root._dismiss_sheet()
+
+        MDFloatingActionButton:
+            pos_hint: {'center_x': 0.71, 'center_y': 0.7}
+            icon: "palette-outline"
+            md_bg_color: [0.7019607843137254, 0.615686274509804, 0.8588235294117647, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'DeepPurple'
+                app.theme_cls.primary_hue = '200'
+                root._dismiss_sheet()
+
+        MDFloatingActionButton:
+            pos_hint: {'center_x': 0.852, 'center_y': 0.7}
+            icon: "palette-outline"
+            md_bg_color: [0.6901960784313725, 0.7450980392156863, 0.7725490196078432, 1]
+            on_release:
+                app.theme_cls.primary_palette = 'BlueGray'
+                app.theme_cls.primary_hue = '200'
+                root._dismiss_sheet()
+
+        MDSwitch:
+            id: toggle_darkmode
+            pos_hint: {'center_x': .5, 'center_y': .2}
+            active: True if app.theme_cls.theme_style == "Dark" else False
+            on_active:
+                root._toggle_mode(*args)
+
+
+<PopUpInputField>
+    text_field: text_field
+    button: button
+
+    BoxLayout:
+        size_hint: 0.8, 0.2
+        pos_hint: {"center_x": .5, "center_y": .8}
+        MDTextField:
+            id: text_field
+#            input_filter: "float"
+#            hint_text: "Enter amount"
+            helper_text: "Only accept positive amount."
+            helper_text_mode: "on_error"
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+        MDRoundFlatButton:
+            id: button
+            text: 'submit'
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_release:
+                root.store_input_data()
+
+

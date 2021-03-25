@@ -1,59 +1,40 @@
 <MainScene>
-    total_saving: total_saving
-    store: store
-    balance: balance
+    gif: gif
+    circular_bar: circular_bar
+    label: label
 
     FloatLayout:
-
         MDLabel:
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .5, "top": 1}
-            halign: 'center'
-            id: store
-            text: store.text
-            theme_text_color: 'Primary'
-            font_size: "25sp"
-
-        MDIcon:
-            id: total_saving
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .5, "top": 0.65}
-            valign: 'bottom'
+            id: label
+            pos_hint: {'center_x': .5, 'center_y': 0.8}
+            size_hint_y: 0.2
             halign: 'center'
             theme_text_color: 'Primary'
-            icon: 'piggy-bank'
+           # font_size: "40dp"
+            font_style: 'H2'
 
-        MDIcon:
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .5, "top": 0.4}
-            valign: 'top'
-            halign: 'center'
-            theme_text_color: 'Primary'
+        MDSeparator:
+            pos_hint: {'center_x': .5, 'center_y': 0.7}
+            size_hint: 0.5, None
+            height: "2dp"
 
-            icon: 'scale'
-            font_size: "150sp"
+        Image:
+            id: gif
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            source: 'img.gif'
+            center: self.parent.center
+            size_hint: 0.4, 0.4
+            allow_stretch: True
+            mipmap: True
+            keep_data: True
+            anim_delay: -1
+            anim_loop: 1
 
-        MDIcon:
-            id: dollar
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .5, "top": 0.365}
-            valign: 'bottom'
-            halign: 'center'
-            theme_text_color: 'Primary'
-            icon: 'currency-usd'
 
-        MDLabel:
-            size_hint: 1, 0.25
-            pos_hint: {"center_x": .5, "top": 0.25}
-            halign: 'center'
-            valign: 'bottom'
-            id: balance
-            text: balance.text
-            theme_text_color: 'Primary'
-            font_size: "25sp"
-#            MDProgressBar:
-#                orientation: 'vertical'
-#                id: total_saving
-#                max: total_saving.max
-#                value: total_saving.value if total_saving.value < total_saving.max else total_saving.max
-#                color: app.theme_cls.accent_color
+        CircularProgressBar:
+            id: circular_bar
+            widget_size: int(root.height*0.4)
+            pos: root.width/2-(self.widget_size/2), root.height/2-(self.widget_size/2)
+            thickness: 30
+            cap_precisions: 20
+            label: root._label
